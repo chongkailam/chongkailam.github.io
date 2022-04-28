@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/SnowMeteors/Resources@master/img/win32/20220320210500.jpg">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/SnowMeteors/Resources@master/img/win32/20220320215932.jpg">
 <meta property="article:published_time" content="2022-04-27T11:12:07.000Z">
-<meta property="article:modified_time" content="2022-04-27T11:32:22.777Z">
+<meta property="article:modified_time" content="2022-04-28T07:13:31.426Z">
 <meta property="article:author" content="lam">
 <meta property="article:tag" content="免杀">
 <meta name="twitter:card" content="summary">
@@ -197,6 +197,8 @@
 <p> 一般注意的是CreateProcess()的前两个参数和后两个参数。</p>
 <p>第一个<code>lpApplicationName</code>启动进程的**<code>绝对路径</code>**，比如计算器路径为：<code>C:\Windows\System32\calc.exe</code>。</p>
 <p>第二个<code>lpCommandLine</code>对命令行进行传参。 </p>
+<span id="more"></span>
+
 <h5 id="lpStartupInfo（第九个参数）"><a href="#lpStartupInfo（第九个参数）" class="headerlink" title="lpStartupInfo（第九个参数）"></a>lpStartupInfo（第九个参数）</h5><pre><code class="c">typedef struct _STARTUPINFOW &#123;
     DWORD   cb;  //我们关注cb这个成员就行
     LPWSTR  lpReserved;
