@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>不过是块石头而已</title>
+  <title>汇编相关 | 不过是块石头而已</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="不过是块石头而已">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="汇编|-寻址 |-寄存器* |-调用约定**  寻址模式 立即数寻址	     eg.: mov eax,1000h    操作数在指令中  寄存器寻址         eg. :mov ebp,esp        操作数在指定寄存器中  直接内存寻址     eg.: mov ax,[2000h]    操作数在内存中  寄存器间接寻址 eg.: mov eax,[ebx]       操作数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="汇编相关">
+<meta property="og:url" content="http://example.com/2020/04/29/%E6%B1%87%E7%BC%96%E7%9B%B8%E5%85%B3/index.html">
 <meta property="og:site_name" content="不过是块石头而已">
+<meta property="og:description" content="汇编|-寻址 |-寄存器* |-调用约定**  寻址模式 立即数寻址	     eg.: mov eax,1000h    操作数在指令中  寄存器寻址         eg. :mov ebp,esp        操作数在指定寄存器中  直接内存寻址     eg.: mov ax,[2000h]    操作数在内存中  寄存器间接寻址 eg.: mov eax,[ebx]       操作数">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-04-29T06:41:47.000Z">
+<meta property="article:modified_time" content="2022-04-29T06:43:18.122Z">
 <meta property="article:author" content="lam">
+<meta property="article:tag" content="逆向">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="不过是块石头而已" type="application/atom+xml">
@@ -150,704 +155,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-MySQL渗透相关" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-汇编相关" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/29/MySQL%E6%B8%97%E9%80%8F%E7%9B%B8%E5%85%B3/">MySQL渗透相关</a>
-    </h1>
-  
-
-        
-        <a href="/2022/04/29/MySQL%E6%B8%97%E9%80%8F%E7%9B%B8%E5%85%B3/" class="archive-article-date">
-  	<time datetime="2022-04-29T06:20:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Mysql渗透相关"><a href="#Mysql渗透相关" class="headerlink" title="Mysql渗透相关"></a>Mysql渗透相关</h3><p>Mysql相关</p>
-        
-          <a class="article-more-a" href="/2022/04/29/MySQL%E6%B8%97%E9%80%8F%E7%9B%B8%E5%85%B3/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">渗透</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/29/MySQL%E6%B8%97%E9%80%8F%E7%9B%B8%E5%85%B3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Dont-hit-without-hesitation" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/27/Dont-hit-without-hesitation/">Dont hit without hesitation</a>
-    </h1>
-  
-
-        
-        <a href="/2022/04/27/Dont-hit-without-hesitation/" class="archive-article-date">
-  	<time datetime="2022-04-27T07:22:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>许多年没碰github，心血来潮，重新部署，打算将这几年编写和收藏的markdown发上去~</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/27/Dont-hit-without-hesitation/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/27/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2022/04/27/hello-world/" class="archive-article-date">
-  	<time datetime="2022-04-27T07:10:28.422Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/27/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Windows核心编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/20/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/">Windows核心编程</a>
-    </h1>
-  
-
-        
-        <a href="/2022/04/20/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/" class="archive-article-date">
-  	<time datetime="2022-04-20T11:12:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="windows核心编程"><a href="#windows核心编程" class="headerlink" title="windows核心编程"></a>windows核心编程</h1><h3 id="CreateProcess"><a href="#CreateProcess" class="headerlink" title="CreateProcess"></a>CreateProcess</h3><pre><code class="C">BOOL CreateProcess(
-    LPCWSTR lpApplicationName, 					//文件名 完整文件路径，如记事本c://XX//XX//notepad.exe
-    LPWSTR lpCommandLine, 						//命令行参数
-    LPSECURITY_ATTRIBUTES lpProcessAttributes, 	//SD 进程句柄
-    LPSECURITY_ATTRIBUTES lpThreadAttributes, 	//SD 线程句柄
-    BOOL bInheritHandles, 						//句柄是否可继承
-    DWORD dwCreationFlags, 						//创建进程方式
-    LPVOID lpEnvironment, 						//父进程环境变量
-    LPCWSTR lpCurrentDirectory, 				//子进程工作路径
-    LPSTARTUPINFOW lpStartupInfo, 				//启动进程相关信息
-    LPPROCESS_INFORMATION lpProcessInformation	//子进程的相关信息 (进程ID,线程ID,进程句柄,线程句柄)
-);											
-</code></pre>
-<p> 一般注意的是CreateProcess()的前两个参数和后两个参数。</p>
-<p>第一个<code>lpApplicationName</code>启动进程的**<code>绝对路径</code>**，比如计算器路径为：<code>C:\Windows\System32\calc.exe</code>。</p>
-<p>第二个<code>lpCommandLine</code>对命令行进行传参。 </p>
-        
-          <a class="article-more-a" href="/2022/04/20/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">免杀</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/20/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-fastjson相关" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/03/15/fastjson%E7%9B%B8%E5%85%B3/">fastjson相关</a>
-    </h1>
-  
-
-        
-        <a href="/2022/03/15/fastjson%E7%9B%B8%E5%85%B3/" class="archive-article-date">
-  	<time datetime="2022-03-15T05:47:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Fastjson-漏洞相关"><a href="#Fastjson-漏洞相关" class="headerlink" title="Fastjson 漏洞相关"></a>Fastjson 漏洞相关</h1><p>FastJSON 漏洞分析</p>
-        
-          <a class="article-more-a" href="/2022/03/15/fastjson%E7%9B%B8%E5%85%B3/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/03/15/fastjson%E7%9B%B8%E5%85%B3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-linux应急响应" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/03/01/linux%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">linux应急响应</a>
-    </h1>
-  
-
-        
-        <a href="/2022/03/01/linux%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/" class="archive-article-date">
-  	<time datetime="2022-03-01T06:04:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>记录一下Linux应急响应的大致思路和流程。</p>
-        
-          <a class="article-more-a" href="/2022/03/01/linux%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">应急响应</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/03/01/linux%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Mimikatz原理和使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/25/Mimikatz%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/">Mimikatz原理和使用</a>
-    </h1>
-  
-
-        
-        <a href="/2022/01/25/Mimikatz%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2022-01-25T06:33:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Mimikatz使用手册"><a href="#Mimikatz使用手册" class="headerlink" title="Mimikatz使用手册"></a>Mimikatz使用手册</h3><pre><code>原理：
-
-    当用户登陆后,会把账号密码保存在 Isass中，Isass是微软 Windows系统的安全机制它主要用于本地安全和登陆策略，通常我们在登陆系统时输入密码之后，密码便会储存在lsass内存中，经过其 Wdigest和 tspg两个模块调用后，对其使用可逆的算法进行加密并存储在内存之中，而mimikatz正是通过对lsass的逆算获取到明文密码
-</code></pre>
-        
-          <a class="article-more-a" href="/2022/01/25/Mimikatz%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">工具</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/25/Mimikatz%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-内网渗透" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/10/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>
-    </h1>
-  
-
-        
-        <a href="/2022/01/10/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" class="archive-article-date">
-  	<time datetime="2022-01-10T05:41:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h1><p>《内网安全攻防——渗透测试实战指南》笔记</p>
-        
-          <a class="article-more-a" href="/2022/01/10/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">内网</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/10/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-nmap相关" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/14/nmap%E7%9B%B8%E5%85%B3/">nmap相关</a>
-    </h1>
-  
-
-        
-        <a href="/2021/07/14/nmap%E7%9B%B8%E5%85%B3/" class="archive-article-date">
-  	<time datetime="2021-07-14T05:49:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Nmap"><a href="#Nmap" class="headerlink" title="Nmap"></a>Nmap</h1><p>Nmap 使用方法、小技巧</p>
-        
-          <a class="article-more-a" href="/2021/07/14/nmap%E7%9B%B8%E5%85%B3/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">工具</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/14/nmap%E7%9B%B8%E5%85%B3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-汇编相关" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/29/%E6%B1%87%E7%BC%96%E7%9B%B8%E5%85%B3/">汇编相关</a>
+    <h1 class="article-title" itemprop="name">
+      汇编相关
     </h1>
   
 
@@ -878,11 +193,286 @@
 <li><p>相对基址索引寻址eg.: mov dh,[bx+si+10h]  基址寄存器+变址寄存器内容+偏移量</p>
 </li>
 <li><p>比例寻址变址      eg.: mov eax,[ebx+4*ecx]</p>
-        
-          <a class="article-more-a" href="/2020/04/29/%E6%B1%87%E7%BC%96%E7%9B%B8%E5%85%B3/#more">more >></a>
-        
+<span id="more"></span></li>
+</ol>
+<h2 id="CPU寄存器的种类"><a href="#CPU寄存器的种类" class="headerlink" title="CPU寄存器的种类"></a>CPU寄存器的种类</h2><p><strong>1.数据寄存器:EAX、EBX、ECX、EDX</strong></p>
+<p><strong>EAX</strong>  累加器(Accumulator):<br>用累加器进行的操作可能需要更少时间。可用于乘、 除、输入&#x2F;输出等操作，使用频率很高；<br>**EBX ** 基地址寄存器(Base Register):<br>它可作为存储器指针来使用<br><strong>ECX</strong>  计数寄存器(Count Register):<br>在循环和字符串操作时，要用它来控制循环次数；在位操作中，当移多位时，要用CL来指明移位的位数；<br>**EDX  数据寄存器(Data Register):<br>在进行乘、除运算时，它可作为默认的操作数参与运算，也可用于存放I&#x2F;O的端口地址。 </p>
+<p><strong>2.索引寄存器:ESI、EDI</strong></p>
+<p>ESI:來源索引寄存器，EDI:目的索引寄存器</p>
+<p><strong>3.堆栈、基址寄存器:ESP、EBP</strong></p>
+<p>SP:堆栈指標寄存器，BP:基底指標寄存器</p>
+<p><strong>4.指位&#x2F;指標寄存器(指位器):EIP</strong></p>
+<p>存放下次将要执行的指令在代码段的偏移量(<strong>PWN中常用</strong>)</p>
+<p><strong>5.段寄存器:ECS、EDS、EES、ESSEFS、EGS</strong></p>
+<p> ECS——代码段寄存器(Code Segment Register)，其值为代码段的段值；<br> EDS——数据段寄存器(Data Segment Register)，其值为数据段的段值；<br> EES——附加段寄存器(Extra Segment Register)，其值为附加数据段的段值；<br> ESS——堆栈段寄存器(Stack Segment Register)，其值为堆栈段的段值；<br> EFS——附加段寄存器(Extra Segment Register)，其值为附加数据段的段值；<br> EGS——附加段寄存器(Extra Segment Register)，其值为附加数据段的段值。</p>
+<p><strong>6.标志寄存器:FLAG</strong><br><strong>一、运算结果标志位</strong><br>1、进位标志&#x3D;&#x3D;CF&#x3D;&#x3D;(Carry Flag)<br>进位标志CF主要用来反映运算是否产生进位或借位。如果运算结果的最高位产生了一个进位或借位，那么，其值为1，否则其值为0。<br>使用该标志位的情况有：多字(字节)数的加减运算，无符号数的大小比较运算，移位操作，字(字节)之间移位，专门改变CF值的指令等。<br>2、奇偶标志&#x3D;&#x3D;PF&#x3D;&#x3D;(Parity Flag)<br>奇偶标志PF用于反映运算结果中“1”的个数的奇偶性。如果“1”的个数为偶数，则PF的值为1，否则其值为0。<br>利用PF可进行奇偶校验检查，或产生奇偶校验位。在数据传送过程中，为了提供传送的可靠性，如果采用奇偶校验的方法，就可使用该标志位。<br>3、辅助进位标志&#x3D;&#x3D;AF&#x3D;&#x3D;(Auxiliary Carry Flag)<br>在发生下列情况时，辅助进位标志AF的值被置为1，否则其值为0：<br>(1)、在字操作时，发生低字节向高字节进位或借位时；<br>(2)、在字节操作时，发生低4位向高4位进位或借位时。<br>对以上6个运算结果标志位，在一般编程情况下，标志位CF、ZF、SF和OF的使用频率较高，而标志位PF和AF的使用频率较低。<br>4、零标志&#x3D;&#x3D;ZF&#x3D;&#x3D;(Zero Flag)<br>零标志ZF用来反映运算结果是否为0。如果运算结果为0，则其值为1，否则其值为0。在判断运算结果是否为0时，可使用此标志位。<br>5、符号标志&#x3D;&#x3D;SF&#x3D;&#x3D;(Sign Flag)<br>符号标志SF用来反映运算结果的符号位，它与运算结果的最高位相同。在微机系统中，有符号数采用码表示法，所以，SF也就反映运算结果的正负号。运算结果为正数时，SF的值为0，否则其值为1。<br>6、溢出标志&#x3D;&#x3D;OF&#x3D;&#x3D;(Overflow Flag)<br>溢出标志OF用于反映有符号数加减运算所得结果是否溢出。如果运算结果超过当前运算位数所能表示的范围，则称为溢出，OF的值被置为1，否则，OF的值被清为0。</p>
+<p><strong>二、状态控制标志位</strong><br>状态控制标志位是用来控制CPU操作的，它们要通过专门的指令才能使之发生改变。<br>1、追踪标志&#x3D;&#x3D;TF&#x3D;&#x3D;(Trap Flag)<br>当追踪标志TF被置为1时，CPU进入单步执行方式，即每执行一条指令，产生一个单步中断请求。这种方式主要用于程序的调试。<br>指令系统中没有专门的指令来改变标志位TF的值，但程序员可用其它办法来改变其值。<br>2、中断允许标志&#x3D;&#x3D;IF&#x3D;&#x3D;(Interrupt-enable Flag)<br>中断允许标志IF是用来决定CPU是否响应CPU外部的可屏蔽中断发出的中断请求。<br>但不管该标志为何值，CPU都必须响应CPU外部的不可屏蔽中断所发出的中断请求，以及CPU内部产生的中断请求。<br>具体规定如下：<br>(1)、当IF&#x3D;1时，CPU可以响应CPU外部的可屏蔽中断发出的中断请求；<br>(2)、当IF&#x3D;0时，CPU不响应CPU外部的可屏蔽中断发出的中断请求。<br>CPU的指令系统中也有专门的指令来改变标志位IF的值。<br>3、方向标志&#x3D;&#x3D;DF&#x3D;&#x3D;(Direction Flag)<br>方向标志DF用来决定在串操作指令执行时有关指针寄存器发生调整的方向。具体规定在第5.2.11节——字符串操作指令——中给出。<br>在微机的指令系统中，还提供了专门的指令来改变标志位DF的值。<br>三、32位标志寄存器增加的标志位<br>1、I&#x2F;O特权标志&#x3D;&#x3D;IOPL&#x3D;&#x3D;(I&#x2F;O Privilege Level)<br>I&#x2F;O特权标志用两位二进制位来表示，也称为I&#x2F;O特权级字段。该字段指定了要求执行I&#x2F;O指令的特权级。<br>如果当前的特权级别在数值上小于等于IOPL的值，那么，该I&#x2F;O指令可执行，否则将发生一个保护异常。<br>2、嵌套任务标志&#x3D;&#x3D;NT&#x3D;&#x3D;(Nested Task)<br>嵌套任务标志NT用来控制中断返回指令IRET的执行。具体规定如下：<br>(1)、当NT&#x3D;0，用堆栈中保存的值恢复EFLAGS、CS和EIP，执行常规的中断返回操作；<br>(2)、当NT&#x3D;1，通过任务转换实现中断返回。<br>3、重启动标志&#x3D;&#x3D;RF&#x3D;&#x3D;(Restart Flag)<br>重启动标志RF用来控制是否接受调试故障。规定：RF&#x3D;0时，表示“接受”调试故障，否则拒绝之。<br>在成功执行完一条指令后，处理机把RF置为0，当接受到一个非调试故障时，处理机就把它置为1。<br>4、虚拟8086方式标志&#x3D;&#x3D;VM&#x3D;&#x3D;(Virtual 8086 Mode)<br>如果该标志的值为1，则表示处理机处于虚拟的8086方式下的工作状态，否则，处理机处于一般保护方式下的工作状态。</p>
+<p><strong>当参数少于7个时， 参数从左到右放入寄存器: rdi, rsi, rdx, rcx, r8, r9</strong></p>
+<p><strong>BYTE PTR 一个字节，8位</strong></p>
+<p><strong>WORF PTR 两个字节，16位</strong></p>
+<h2 id="调用约定"><a href="#调用约定" class="headerlink" title="调用约定"></a>调用约定</h2><ol>
+<li>实现底层规范</li>
+<li>约定函数之间的传参方式</li>
+<li>约定函数之间的返回方式</li>
+</ol>
+<h3 id="常见x86调用约定"><a href="#常见x86调用约定" class="headerlink" title="常见x86调用约定"></a>常见x86调用约定</h3><pre><code>Caller Clean-up              参数压栈
+              |-cdecl	    从右至左
+              |-optlink     从右到左
+Callee Clean-up
+              |-stdcall		从右至左
+              |-fastcall	ecx/edx传送两个剩下的从右至左
+</code></pre>
+<h3 id="cdecl调用约定"><a href="#cdecl调用约定" class="headerlink" title="__cdecl调用约定"></a>__cdecl调用约定</h3><p> C语言默认的函数调用方法</p>
+<h4 id="32bit"><a href="#32bit" class="headerlink" title="32bit"></a>32bit</h4><pre><code class="C">/* cdecl_example.c
+   32BIT
+   part of the source code*/
+int callee(int a,int b,int c)
+&#123;
+   return a + b + c;
+&#125;
+
+int caller(void)
+&#123;
+   int ret;
+   ret = callee(1,2,3);
+   ret += 4;
+   return ret;
+&#125;
+</code></pre>
+<p> <code>gcc -S -m32 -masm=intel cdecl_example.c</code></p>
+<pre><code class="assembly">callee:
+    push	ebp
+    mov	ebp, esp
+    mov	edx, DWORD PTR [ebp+8]
+    mov	eax, DWORD PTR [ebp+12]
+    add	edx, eax
+    mov	eax, DWORD PTR [ebp+16]
+    add	eax, edx
+    pop	ebp        ;恢复ebp
+    ret            ;pop esp
+    
+caller:
+    push	ebp    ;压栈
+    mov	ebp, esp   ;esp存入ebp
+    sub	esp, 16    ;栈顶往上挪开辟栈空间；字节对齐
+    push	3	   ;
+    push	2      ;
+    push	1      ;参数压栈
+    call	callee ;栈顶存入return address
+    add	esp, 12    ;esp下移 清理栈上空间
+    mov	DWORD PTR [ebp-4], eax ;
+    add	DWORD PTR [ebp-4], 4   ;
+    mov	eax, DWORD PTR [ebp-4] ;
+    ret                        ;
+</code></pre>
+<p>结果存入eax</p>
+<h4 id="64bit"><a href="#64bit" class="headerlink" title="64bit"></a>64bit</h4><pre><code class="C">/* cdecl_example.c
+    64BIT
+    part of the source code*/
+int callee(int a1,int a2,int a3, int a4, int a5, int a6, int a7, int a8)
+&#123;
+    return a1 + a2 + a3 + a4 + a5 + a6 +a7 +a8;
+&#125;
+
+int caller(void)
+&#123;
+    int ret;
+    ret = callee(1,2,3,4,5,6,7,8);
+    ret += 9;
+    return ret;
+&#125;
+</code></pre>
+<p><code>gdb cdecl_example.c</code></p>
+<p><code>disassemble caller</code></p>
+<p><code>disassemble callee</code></p>
+<pre><code class="assembly">gdb-peda$ disassemble caller
+Dump of assembler code for function caller:
+   0x0000000000400516 &lt;+0&gt;:	push   rbp
+   0x0000000000400517 &lt;+1&gt;:	mov    rbp,rsp
+   0x000000000040051a &lt;+4&gt;:	sub    rsp,0x10
+   0x000000000040051e &lt;+8&gt;:	push   0x8
+   0x0000000000400520 &lt;+10&gt;:	push   0x7
+   0x0000000000400522 &lt;+12&gt;:	mov    r9d,0x6;r9的低位
+   0x0000000000400528 &lt;+18&gt;:	mov    r8d,0x5
+   0x000000000040052e &lt;+24&gt;:	mov    ecx,0x4
+   0x0000000000400533 &lt;+29&gt;:	mov    edx,0x3
+   0x0000000000400538 &lt;+34&gt;:	mov    esi,0x2
+   0x000000000040053d &lt;+39&gt;:	mov    edi,0x1
+   0x0000000000400542 &lt;+44&gt;:	call   0x4004d6 &lt;callee&gt;
+   0x0000000000400547 &lt;+49&gt;:	add    rsp,0x10
+   0x000000000040054b &lt;+53&gt;:	mov    DWORD PTR [rbp-0x4],eax
+   0x000000000040054e &lt;+56&gt;:	add    DWORD PTR [rbp-0x4],0x9
+   0x0000000000400552 &lt;+60&gt;:	mov    eax,DWORD PTR [rbp-0x4]
+   0x0000000000400555 &lt;+63&gt;:	leave  
+   0x0000000000400556 &lt;+64&gt;:	ret    
+End of assembler dump.
+gdb-peda$ disassemble callee
+Dump of assembler code for function callee:
+   0x00000000004004d6 &lt;+0&gt;:	push   rbp
+   0x00000000004004d7 &lt;+1&gt;:	mov    rbp,rsp
+   0x00000000004004da &lt;+4&gt;:	mov    DWORD PTR [rbp-0x4],edi
+   0x00000000004004dd &lt;+7&gt;:	mov    DWORD PTR [rbp-0x8],esi
+   0x00000000004004e0 &lt;+10&gt;:	mov    DWORD PTR [rbp-0xc],edx
+   0x00000000004004e3 &lt;+13&gt;:	mov    DWORD PTR [rbp-0x10],ecx
+   0x00000000004004e6 &lt;+16&gt;:	mov    DWORD PTR [rbp-0x14],r8d
+   0x00000000004004ea &lt;+20&gt;:	mov    DWORD PTR [rbp-0x18],r9d
+   0x00000000004004ee &lt;+24&gt;:	mov    edx,DWORD PTR [rbp-0x4]
+   0x00000000004004f1 &lt;+27&gt;:	mov    eax,DWORD PTR [rbp-0x8]
+   0x00000000004004f4 &lt;+30&gt;:	add    edx,eax
+   0x00000000004004f6 &lt;+32&gt;:	mov    eax,DWORD PTR [rbp-0xc]
+   0x00000000004004f9 &lt;+35&gt;:	add    edx,eax
+   0x00000000004004fb &lt;+37&gt;:	mov    eax,DWORD PTR [rbp-0x10]
+   0x00000000004004fe &lt;+40&gt;:	add    edx,eax
+   0x0000000000400500 &lt;+42&gt;:	mov    eax,DWORD PTR [rbp-0x14]
+   0x0000000000400503 &lt;+45&gt;:	add    edx,eax
+   0x0000000000400505 &lt;+47&gt;:	mov    eax,DWORD PTR [rbp-0x18]
+   0x0000000000400508 &lt;+50&gt;:	add    edx,eax
+   0x000000000040050a &lt;+52&gt;:	mov    eax,DWORD PTR [rbp+0x10]
+   0x000000000040050d &lt;+55&gt;:	add    edx,eax
+   0x000000000040050f &lt;+57&gt;:	mov    eax,DWORD PTR [rbp+0x18]
+   0x0000000000400512 &lt;+60&gt;:	add    eax,edx
+   0x0000000000400514 &lt;+62&gt;:	pop    rbp
+   0x0000000000400515 &lt;+63&gt;:	ret    
+End of assembler dump.
+</code></pre>
+<h2 id="call-ret-retf-leave指令"><a href="#call-ret-retf-leave指令" class="headerlink" title="call ret retf leave指令"></a>call ret retf leave指令</h2><p><strong>ret指令</strong></p>
+<p>CPU执行ret指令时，进行下面两步操作：</p>
+<p>（1）（IP）&#x3D;（(ss)*16 + (sp)）</p>
+<p>（2）（sp）&#x3D; (sp) + 2</p>
+<p>​           <strong>相当于    pop IP</strong></p>
+<p><strong>retf指令</strong></p>
+<p>CPU执行ret指令时，进行下面两步操作：</p>
+<p>（1）（IP）&#x3D;（(ss)*16 + (sp)）</p>
+<p>（2）（sp）&#x3D; (sp) + 2</p>
+<p>（3）（CS）&#x3D;（(ss)*16 + (sp)）</p>
+<p>（4）（sp）&#x3D; (sp) + 2</p>
+<p>   <strong>相当于pop IP</strong></p>
+<p>​              <strong>pop CS</strong></p>
+<p><strong>call指令</strong></p>
+<p>当执行call指令时，进行两步操作：<br>1）将当前的IP或CS和IP压入栈中<br>2）转移</p>
+<p>call指令不能实现短转移，它的书写格式同jmp指令</p>
+<p>依据标号进行转移的call指令<br>语法格式：call 标号<br>汇编解释：(1) push IP (2) jmp near ptr 标号</p>
+<p>依据目的地址在指令中的call指令<br>语法格式：call far ptr 标号<br>汇编解释：(1) push CS (2) push IP (3) jmp far ptr 标号</p>
+<p>转移地址在寄存器中的call指令<br>语法格式：call 16位reg<br>汇编解释：(1) push IP (2) jmp 16位reg</p>
+<p>转移地址在内存中的call指令<br>语法格式一：call word ptr 内存单元地址<br>汇编解释一：(1) push IP (2) jmp word ptr 内存单元地址</p>
+<p>语法格式二：call dword ptr 内存单元地址<br>汇编解释二：(1) push CS (2) push IP (3) jmp dword ptr 内存单元地址</p>
+<p><strong>leave指令</strong></p>
+<p>在16位汇编下相当于:<br>mov sp,bp<br>pop bp</p>
+<p>在32位汇编下相当于:<br>mov esp,ebp;   &#x2F;&#x2F;将ebp指向（ebp内部应当保存一个地址，所谓指向即这个地址对应的空间）的值赋给esp<br>pop ebp</p>
+<h2 id="JMP指令"><a href="#JMP指令" class="headerlink" title="JMP指令"></a>JMP指令</h2><pre><code class="assembly"> jmp short 标号
+ jmp near ptr 标号
+ jmp far ptr 标号
+ jmp 16位reg
+ jmp word ptr  内存单元地址
+ jmp dword ptr 内存单元地址
+</code></pre>
+<p><strong>jmp short 标号</strong></p>
+<ul>
+<li>段内短转移</li>
+<li>对<strong>IP</strong>的修改范围是**-128~127** </li>
+<li><strong>向前</strong> 移动时可以最多越过128个字节，<strong>向后</strong> 移动可以最多越过127个字节</li>
+<li>依据位移进行转移，转移指令结束后，<strong>CS:IP</strong>指向标号处的指令</li>
+<li>(IP)&#x3D;(IP)+8位位移</li>
+</ul>
+<p>8位位移 &#x3D; 要跳转去的标号地址 - 减去jmp指令后第一条指令的起始地址<br>8位位移的范围是：-128~127<br>8位位移使用 补码 形式表示</p>
+<p> <strong>jmp near ptr 标号</strong></p>
+<ul>
+<li>段内近转移</li>
+<li>(IP)&#x3D;(IP)+16位位移</li>
+</ul>
+<p>16位位移 &#x3D; 要跳转去的标号地址 - 减去jmp指令后第一条指令的起始地址<br>16位位移的范围是：-32768~32767<br>16位位移使用 补码 形式表示</p>
+<p><strong>jmp far ptr 标号</strong></p>
+<ul>
+<li>段间转移，远转移</li>
+<li>用标号所在段地址和偏移地址修改CS和IP</li>
+</ul>
+<p><strong>jmp 16位reg</strong></p>
+<ul>
+<li><code>jmp 某一合法寄存器</code> : 用寄存器中的值修改<strong>IP</strong>寄存器中的值</li>
+</ul>
+<pre><code class="undefined">jmp ax 
+指令执行前 ax=1000H CS=2000H IP=0003H
+指令执行后 ax=1000H CS=2000H IP=1000H
+IP寄存器中的值被修改成和ax一样的了
+</code></pre>
+<p><strong>jmp word ptr  内存单元地址</strong></p>
+<ul>
+<li>段内转移，只修改偏移地址</li>
+</ul>
+<pre><code class="undefined">mov ax,0123H
+mov [bx],ax
+jmp word ptr [bx]
+执行后 (IP)=0123H
+</code></pre>
+<p><strong>jmp dword ptr 内存单元地址</strong></p>
+<ul>
+<li>段间转移</li>
+<li>高地址放目的段地址，低地址放目的偏移地址</li>
+</ul>
+<pre><code class="undefined">mov ax,0123H
+mov [bx],ax
+mov word ptr [bx+2],0
+jmp dword ptr [bx]
+执行后 (CS)=0, (IP)=0123H,
+CS:IP 指向 0000:0123H
+</code></pre>
+<h2 id="J-Condition"><a href="#J-Condition" class="headerlink" title="J[Condition]"></a>J[Condition]</h2><p>ja 跳转指令，条件：CF&#x3D;0 和 ZF&#x3D;0</p>
+<p>jab 跳转指令，条件：CF&#x3D;0</p>
+<p>jb 跳转指令，条件：CF&#x3D;1</p>
+<p>jbe 跳转指令，条件：CF&#x3D;1 或者 ZF&#x3D;1</p>
+<p>jc 跳转指令，条件：CF&#x3D;1</p>
+<p>jcxz 跳转指令，条件：CX&#x3D;0</p>
+<p>je 跳转指令，条件：ZF&#x3D;1</p>
+<p>jecxz 跳转指令，条件：ECX&#x3D;0</p>
+<p>jg 跳转指令，条件：ZF&#x3D;0 和 SF&#x3D;OF</p>
+<p>jge 跳转指令，条件：SF&#x3D;OF</p>
+<p>jl 跳转指令，条件：SF!&#x3D;OF</p>
+<p>jle 跳转指令，条件：ZF&#x3D;1 和 SF!&#x3D;OF</p>
+<p>jmp 跳转指令，条件：无条件跳转</p>
+<p>jna 跳转指令，条件：CF&#x3D;1 或者 ZF&#x3D;1</p>
+<p>jnae 跳转指令，条件：CF&#x3D;1</p>
+<p>jnb 跳转指令，条件：CF&#x3D;0</p>
+<p>jnbe 跳转指令，条件：CF&#x3D;0 和 ZF&#x3D;0</p>
+<p>jnc 跳转指令，条件：CF&#x3D;0</p>
+<p>jne 跳转指令，条件：ZF&#x3D;0</p>
+<p>jng 跳转指令，条件：ZF&#x3D;1 或者 SF!&#x3D;OF</p>
+<p>jnge 跳转指令，条件：SF!&#x3D;OF</p>
+<p>jnl 跳转指令，条件：SF&#x3D;OF</p>
+<p>jnle 跳转指令，条件：ZF&#x3D;0 和 SF&#x3D;OF</p>
+<p>jno 跳转指令，条件：OF&#x3D;0</p>
+<p>jnp 跳转指令，条件：PF&#x3D;0</p>
+<p>jns 跳转指令，条件：SF&#x3D;0</p>
+<p>jnz 跳转指令，条件：ZF&#x3D;0</p>
+<p>jo 跳转指令，条件：OF&#x3D;1</p>
+<p>jp 跳转指令，条件：PF&#x3D;1</p>
+<p>jpe 跳转指令，条件：PF&#x3D;1</p>
+<p>jpo 跳转指令，条件：PF&#x3D;0</p>
+<p>js 跳转指令，条件：SF&#x3D;1</p>
+<p>jz 跳转指令，条件：ZF&#x3D;1</p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -902,16 +492,79 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/29/%E6%B1%87%E7%BC%96%E7%9B%B8%E5%85%B3/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2020/04/29/%E6%B1%87%E7%BC%96%E7%9B%B8%E5%85%B3/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2021/07/14/nmap%E7%9B%B8%E5%85%B3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          nmap相关
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -931,8 +584,14 @@
 
 
 
+  
+  
+  
 
   
+
+  
+
   
 
 
@@ -955,8 +614,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

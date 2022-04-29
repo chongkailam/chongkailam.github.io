@@ -6,19 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>linux应急响应 | 不过是块石头而已</title>
+  <title>Archives: 2022/1 | 不过是块石头而已</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="记录一下Linux应急响应的大致思路和流程。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="linux应急响应">
-<meta property="og:url" content="http://example.com/2022/04/29/linux%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="不过是块石头而已">
+<meta property="og:url" content="http://example.com/archives/2022/01/index.html">
 <meta property="og:site_name" content="不过是块石头而已">
-<meta property="og:description" content="记录一下Linux应急响应的大致思路和流程。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-04-29T06:04:51.000Z">
-<meta property="article:modified_time" content="2022-04-29T06:13:17.892Z">
 <meta property="article:author" content="lam">
-<meta property="article:tag" content="应急响应">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="不过是块石头而已" type="application/atom+xml">
@@ -155,358 +150,98 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-linux应急响应" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      linux应急响应
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2022" class="archive-year">2022</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2022/01/25/Mimikatz%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/" class="archive-article-date">
+  	<time datetime="2022-01-25T06:33:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-25</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2022/01/25/Mimikatz%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/">Mimikatz原理和使用</a>
     </h1>
   
 
-        
-        <a href="/2022/04/29/linux%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/" class="archive-article-date">
-  	<time datetime="2022-04-29T06:04:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>记录一下Linux应急响应的大致思路和流程。</p>
-<span id="more"></span>
-
-<h2 id="总体排查思路"><a href="#总体排查思路" class="headerlink" title="总体排查思路"></a>总体排查思路</h2><p>（1）首先监测用户账号安全，比如新增的账号、可疑账号，重点查看可以远程登录的账号以及高权限账号。</p>
-<p>（2）利用linux的history指令查看历史linux指令，uptime指令查看登录多久、多少用户。</p>
-<p>（3）检查异常端口和进程，netstat检查异常端口，ps检查异常进程，可以观看资源占用的进程id来判断是否有挖矿木马等嫌疑。</p>
-<p>（4）检查linux的启动项和系统的定时任务crontab，crontab -l查看是否有异常的任务编写进来。</p>
-<p>（5）检查linux的日志信息&#x2F;var&#x2F;log&#x2F;一些系统日志信息、安全日志等。</p>
-<p>（6）自动化查杀软件，在线查杀工具，查杀脚本来查杀。</p>
-<h3 id="1-查看主机历史命令"><a href="#1-查看主机历史命令" class="headerlink" title="1. 查看主机历史命令"></a>1. 查看主机历史命令</h3><pre><code>history
-</code></pre>
-<p>当然一般情况下，历史命令都会被删除。</p>
-<h3 id="2-排查用户相关信息"><a href="#2-排查用户相关信息" class="headerlink" title="2. 排查用户相关信息"></a>2. 排查用户相关信息</h3><pre><code>whoami 			#查看当前用户身份
-who 			#查看当前登录系统的所有用户
-w 				#显示已经登陆系统的用户列表，并显示用户正在执行的指令
-users 			#显示当前登录系统的所有用户的用户列表
-id 				#当前用户信息
-less /var/log/secure | grep &#39;Accepted&#39;		#查看ssh登陆记录
-id || (whoami &amp;&amp; groups) 2&gt;/dev/null 		#当前用户信息
-cat /etc/passwd | cut -d: -f1 				#查看所有的用户名
-cat /etc/passwd | grep &quot;sh$&quot; 				#查看拥有bash的用户
-awk &#39;/\$1|\$6/&#123;print $1&#125;&#39; /etc/shadow 		#查看可以远程登录的用户
-cat /etc/shadow 	#查看密码
-cat /etc/group 		#查看组信息
-last 				#查看登录历史
-
-sudo -l 			#列出目前用户可执行与无法执行的指令
-more /etc/sudoers | grep -v &quot;^#\|^$&quot; | grep &quot;ALL=(ALL)&quot; 	#查看拥有sudo权限的用户
-awk -F: &#39;$3==0&#123;print $1&#125;&#39; /etc/passwd 	#查看超级用户(uid=0),有些黑客将普通用户的uid改为0，则该普通用户也拥有了超级权限
-</code></pre>
-<h3 id="3-排查进程和端口的相关信息"><a href="#3-排查进程和端口的相关信息" class="headerlink" title="3. 排查进程和端口的相关信息"></a>3. 排查进程和端口的相关信息</h3><p>根据进程排查</p>
-<pre><code>top 						#动态查看进程
-ls -l /proc/5895/exe 		#查看PID为5895的进程的可执行程序
-lsof -p 5895 				#查看PID为5895的进程打开的文件
-lsof -c sshd 				#查看进程sshd打开的文件
-
-ps -p PID -o lstart 		#查看进程的启动时间点
-netstat -pantu | grep 5895 	#查看端口连接情况，过滤含有5895的行，就可以查看连接的端口
-
-ps -aux | grep 进程名            #筛选进程名，查看进程PID号
-ps -auxef 				#静态查看进程
-pstree 							#查看进程树
-ps -aux --sort -pcpu 			#静态查看进程，根据cpu使用情况排行，从高到低
-ps -aux --sort -pmem 			#静态查看进程，根据内存使用情况排行，从高到低
-</code></pre>
-<p>根据端口排查</p>
-<pre><code>lsof -i:45015 				#查看45015端口对应的一些进程
-fuser -n tcp 45015 			#查看45015端口对应的进程PID
-ps -aux | grep 45015   		#查看45015端口对应进程的详细信息
-</code></pre>
-<h3 id="4-排查敏感文件"><a href="#4-排查敏感文件" class="headerlink" title="4. 排查敏感文件"></a>4. 排查敏感文件</h3><p>在linux系统下一切都是文件，其中&#x2F;tmp是一个特别的临时目录文件。每个用户都可以对它进行读写操作。因此一个普通用户可以对&#x2F;tmp目录执行读写操作。</p>
-<pre><code>ls -alht /tmp/			#查看tmp目录下可疑文件，并按时间排序
-ls -alth /etc/init.d/  	#查看开机启动项
-stat 文件名			  #查看指定文件的时间属性
-</code></pre>
-<p>排查新增文件</p>
-<pre><code>find ./ -mtime 0 -name “*.php”			#查找24h内被修改的php文件
-find ./ -ctime -2 -name “‘*.php”		#查找72h内新增的php文件
-find ./ -iname “*.php” -perm 777		#查找具有777权限的php文件
-</code></pre>
-<h3 id="5-查杀恶意程序"><a href="#5-查杀恶意程序" class="headerlink" title="5. 查杀恶意程序"></a>5. 查杀恶意程序</h3><p>由上面经过排查，可以得知恶意程序的进程名、PID、本地端口。</p>
-<p>查看恶意进程的可执行文件</p>
-<pre><code>ls -l /proc/PID号/exe
-</code></pre>
-<p>查看该进程打开的文件（有时恶意程序会打开一些隐藏的字典库，用于对内网主机进行爆破）</p>
-<pre><code>lsof -p 端口号
-</code></pre>
-<p>跟踪异常进程的运行情况</p>
-<pre><code>strace -tt -T -e trace=all -p 端口号
-</code></pre>
-<p>杀掉恶意进程（大多数情况下，由于存在守护进程，恶意进程杀掉后还会自动重启）</p>
-<pre><code>kill -9 PID值
-</code></pre>
-<p>如果无法直接删除进程文件，并提示Operation not permitted，有可能是恶意程序使用了<code>chatter</code>的命令来锁定文件。</p>
-<pre><code>latter xxx			#查看文件属性
-chatter -a xxx		#去除a属性(只能给文件添加内容,但是删除不了)
-chatter -i xxx		#去除i属性(文件不能删除，不能更改，不能移动)
-...
-</code></pre>
-<h3 id="6-清除守护进程"><a href="#6-清除守护进程" class="headerlink" title="6. 清除守护进程"></a>6. 清除守护进程</h3><p>恶意进程杀掉后又会重新启动，则说明该进程有守护进程。守护进程一般先想到crontab定时任务。</p>
-<p>查看定时任务</p>
-<pre><code>crontab -l
-cat /var/spool/cron/crontabs/root
-</code></pre>
-<p>查看定时任务的日志文件</p>
-<pre><code>cat /var/log/cron
-cat /var/log/cron | grep -v 要排除的关键字
-</code></pre>
-<p>排查恶意脚本</p>
-<pre><code>#查找cron文件中是否存在恶意脚本
-/var/spool/cron/* /etc/crontab /etc/cron.d/* /etc/cron.daily/*
-/etc/cron.hourly/* /etc/cron.monthly/* /etc/cron.weekly/ /etc/anacrontab
-/var/spool/anacron/*
-
-#查看指定目录最近3天内被修改的文件
-find /etc/ /usr/bin/ /usr/sbin/ /bin/ /usr/local/bin/ -type f -mtime -3 | xargs
-ls -la
-
-#按时间排序，确认最近是否有命令被替换，可以结合rpm -Va命令
-ls -alt /usr/bin /usr/sbin /bin /sbin /usr/local/bin | rpm -Va&gt;rpm.log
-
-#查看是否有异常开机启动项
-cat /etc/rc.local | chkconfig --list
-</code></pre>
-<p>检测动态库劫持</p>
-<pre><code>echo $LD_PRELOAD			#查看环境变量动态库劫持
-cat /etc/ld.so.preload		#查看配置文件动态库劫持
-</code></pre>
-<p>（如果不确定动态库是不是恶意的，可以把动态库上传到virustotal检测）</p>
-<p>借助查杀工具来查杀恶意进程</p>
-<pre><code>#查杀rootkit
-chkrootkit (下载地址-http://www.chkrootkit.org)
-rkhunter (下载地址-http://rkhunter.sourceforge.net)
-#查杀病毒
-clamav(下载地址-http://www.clamav.net/download.html)
-#查杀webshell
-cloudwalker(下载地址-http://github.com/chaitin/cloudwalker)
-</code></pre>
-<p>记得查看ssh私钥文件有没有被写入ssh私钥，如果有则删除</p>
-<pre><code>cat /root/.ssh/authorized_keys
-</code></pre>
-<h3 id="7-判断入侵方式，修复漏洞"><a href="#7-判断入侵方式，修复漏洞" class="headerlink" title="7. 判断入侵方式，修复漏洞"></a>7. 判断入侵方式，修复漏洞</h3><p>查杀恶意程序和木马之后，需要判断主机是如何被入侵的，进而修复漏洞，防止再次入侵。</p>
-<p>查看 <code>/var/log/secure</code> 文件</p>
-<pre><code>cat /var/log/secure* | grep Accepted 	#查看登录成功的记录
-cat /var/log/secure* | grep Failed 		#查看登录失败的记录
-
-grep &quot;Accepted &quot; /var/log/secure* | awk &#39;&#123;print $1,$2,$3,$9,$11&#125;&#39; 	#查看登录成功的日期、用户名及ip
-grep &quot;Failed password for root&quot; /var/log/secure | awk &#39;&#123;print $11&#125;&#39; #查看有哪些ip在爆破主机的root账号
-grep &quot;Failed password&quot; /var/log/secure | awk &#123;&#39;print $9&#39;&#125; | sort | uniq -c |sort -nr 	#查看爆破用户名字典
-</code></pre>
-<p>使用 <code>netstat</code> 查看对外开放的服务，确认这些服务（比如mysql，redis，zookeeper，tomcat等）是否有配置认证，认证使用的是否为弱密码或者默认密码。</p>
-<h2 id="Linux入侵情况总结"><a href="#Linux入侵情况总结" class="headerlink" title="Linux入侵情况总结"></a>Linux入侵情况总结</h2><p>一般主要是这几种情况：</p>
-<ul>
-<li>通过redis未授权入侵</li>
-<li>通过ssh弱口令</li>
-<li>Web应用程序漏洞入侵</li>
-</ul>
-<h2 id="Linux安全加固"><a href="#Linux安全加固" class="headerlink" title="Linux安全加固"></a>Linux安全加固</h2><pre><code>（1）禁用或者删除无用的账号，检查特殊账户（可远程登录、用户权限高的账号），必要时禁止远程登录用户登录，只能本地登录，设置多次登录失败锁定账户。
-
-（2）检查重要的目录和文件的权限，chmod增加权限，防止篡改等。
-
-（3）关闭不必要的服务，跟企业无关的服务可以暂时关闭。
-
-（4）关闭不必要的协议，如ftp、ssh、telnet等，可能存在协议漏洞。
-
-（5）关闭不必要的端口，有一些端口可能存在端口漏洞。
-
-（6）时不时检查安全日志，观察日志信息。
-
-（7）可以使用安全厂商的设备来实时检查，或者使用系统杀毒软件查杀。
-
-（8）定期升级系统组件或者服务使用到的中间件
-</code></pre>
-<h2 id="Linux日志分析"><a href="#Linux日志分析" class="headerlink" title="Linux日志分析"></a>Linux日志分析</h2><pre><code>/var/log/cron
-#记录了系统定时任务相关的日志
-
-/var/log/cups
-#记录打印信息的日志
-
-/var/log/dmesg
-#记录了系统在开机时内核自检的信息，也可以使用dmesg命令直接查看内核自检信息
-
-/var/log/mailog
-#记录邮件信息
-
-/var/log/message
-#记录系统重要信息的日志。这个日志文件中会记录Linux系统的绝大多数重要信息，如果系统出现问题时，首先要检查的就应该是这个日志文件
-
-/var/log/btmp
-#记录错误登录日志，这个文件是二进制文件，不能直接vi查看，而要使用lastb命令查看
-
-/var/log/lastlog
-#记录系统中所有用户最后一次登录时间的日志，这个文件是二进制文件，不能直接vi，而要使用lastlog命令查看
-
-/var/log/wtmp
-#永久记录所有用户的登录、注销信息，同时记录系统的启动、重启、关机事件。同样这个文件也是一个二进制文件，不能直接vi，而需要使用last命令来查看
-
-/var/log/utmp
-#记录当前已经登录的用户信息，这个文件会随着用户的登录和注销不断变化，只记录当前登录用户的信息。同样这个文件不能直接vi，而要使用w,who,users等命令来查询
-
-/var/log/secure
-#记录验证和授权方面的信息，只要涉及账号和密码的程序都会记录，比如SSH登录，su切换用户，sudo授权，甚至添加用户和修改用户密码都会记录在这个日志文件中
-</code></pre>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">应急响应</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">工具</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/04/29/linux%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
   
-<nav id="article-nav">
-  
-    <a href="/2022/04/29/MySQL%E6%B8%97%E9%80%8F%E7%9B%B8%E5%85%B3/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          MySQL渗透相关
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2022/04/29/nmap%E7%9B%B8%E5%85%B3/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">nmap相关</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2022/01/10/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" class="archive-article-date">
+  	<time datetime="2022-01-10T05:41:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-10</time>
+</a>
         </div>
-        
-        
-    </div>
-</aside>
-
-
-
+    	 
   
-  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2022/01/10/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>
+    </h1>
   
 
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">内网</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+  
+    </div></section>
   
 
-  
-
-  
+    
 
 
           </div>
@@ -529,8 +264,8 @@ grep &quot;Failed password&quot; /var/log/secure | awk &#123;&#39;print $9&#39;&
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
@@ -620,6 +355,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">渗透</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">逆向</a>
               </li>
             
             <div class="clearfix"></div>

