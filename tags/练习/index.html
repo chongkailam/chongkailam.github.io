@@ -6,19 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>shodan使用及poc批量 | 不过是块石头而已</title>
+  <title>Tag: 练习 | 不过是块石头而已</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="什么是ShodanShodan是互联网上最可怕的搜索引擎。凡是链接到互联网的红绿灯、安全摄像头、家庭设备以及加热系统等等都会被轻易的搜索到。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="shodan使用及poc批量">
-<meta property="og:url" content="http://example.com/2022/05/03/shodan%E4%BD%BF%E7%94%A8%E5%8F%8Apoc%E6%89%B9%E9%87%8F/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="不过是块石头而已">
+<meta property="og:url" content="http://example.com/tags/%E7%BB%83%E4%B9%A0/index.html">
 <meta property="og:site_name" content="不过是块石头而已">
-<meta property="og:description" content="什么是ShodanShodan是互联网上最可怕的搜索引擎。凡是链接到互联网的红绿灯、安全摄像头、家庭设备以及加热系统等等都会被轻易的搜索到。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-05-03T06:21:00.000Z">
-<meta property="article:modified_time" content="2022-05-03T16:04:44.592Z">
 <meta property="article:author" content="lam">
-<meta property="article:tag" content="工具">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="不过是块石头而已" type="application/atom+xml">
@@ -137,283 +132,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-shodan使用及poc批量" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      shodan使用及poc批量
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2021" class="archive-year">2021</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2021/06/09/sqli-labs/" class="archive-article-date">
+  	<time datetime="2021-06-09T12:58:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-09</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2021/06/09/sqli-labs/">sqli-lab学习</a>
     </h1>
   
 
-        
-        <a href="/2022/05/03/shodan%E4%BD%BF%E7%94%A8%E5%8F%8Apoc%E6%89%B9%E9%87%8F/" class="archive-article-date">
-  	<time datetime="2022-05-03T06:21:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="什么是Shodan"><a href="#什么是Shodan" class="headerlink" title="什么是Shodan"></a>什么是Shodan</h3><p><strong>Shodan是互联网上最可怕的搜索引擎</strong>。凡是链接到互联网的红绿灯、安全摄像头、家庭设备以及加热系统等等都会被轻易的搜索到。</p>
-<span id="more"></span>
-
-<h3 id="Shodan的基本语法"><a href="#Shodan的基本语法" class="headerlink" title="Shodan的基本语法"></a>Shodan的基本语法</h3><pre><code>hostname：&quot;主机或域名&quot;
-如 hostname:&quot;google&#39;&#39;
-
-port：&quot;端口或服务&quot;
-如 port:&quot;21&quot;
-
-ip : &quot;ip地址&quot;
-如 ip : &quot;168.200.71.60&quot;
-
-net：&quot;IP地址或子网&quot;
-如 net:&quot;210.45.24.0/24&quot;
-
-vuln :指定漏洞的cve
-如 vuln:CVE-2015-8869
-但是这个命令最好搭配起来使用，如 country:CN vuln:CVE-2014-0160
-
-os :&quot;操作系统&quot;
-​如 os:&quot;centOS&quot;
-
-isp：&quot;ISP供应商&quot;
-如 isp:&quot;China Telecom&quot;
-
-product：&quot;操作系统/软件/平台&quot;
-如 product:&quot;Apache httpd&quot;
-
-version：&quot;软件版本&quot;
-如 version:&quot;3.1.6&quot;
-
-geo：&quot;经纬度&quot;
-如 geo:&quot;39.8779,116.4550&quot;
-
-country：&quot;国家&quot;
-如 country:&quot;China&quot;
-country:&quot;UN&quot;
-
-city：&quot;城市&quot;
-如 city:&quot;Hefei&quot;
-
-org：&quot;组织或公司&quot;
-如 org:&quot;google&quot;
-
-before/after：&quot;日/月/年&quot;
-如 before:&quot;25/03/2018&quot;
-after:&quot;25/03/2018&quot;
-
-asn : &quot;自治系统号码&quot;
-如 asn:&quot;AS2233&quot;
-</code></pre>
-<h3 id="下载Shodan项目"><a href="#下载Shodan项目" class="headerlink" title="下载Shodan项目"></a>下载Shodan项目</h3><pre><code>git clone https://github.com/achillean/shodan-python.git
-
-#下载完成后
-cd shodan-python
-python setup.py install
-</code></pre>
-<h5 id="Key进行初始化"><a href="#Key进行初始化" class="headerlink" title="Key进行初始化"></a>Key进行初始化</h5><p>在Web网站的个人主页可以看到自己的API Key </p>
-<pre><code>shodan init API_Key
-</code></pre>
-<h5 id="用shodan查询"><a href="#用shodan查询" class="headerlink" title="用shodan查询"></a>用shodan查询</h5><p>如 shodan count +”Apache”</p>
-<pre><code>shodan count &quot;Apache&quot;
-xxxxxxx              //一串数字
-</code></pre>
-<p>官方文档:<a target="_blank" rel="noopener" href="https://shodan.readthedocs.io/en/latest/index.html">https://shodan.readthedocs.io/en/latest/index.html</a></p>
-<h3 id="POC自动化"><a href="#POC自动化" class="headerlink" title="POC自动化"></a>POC自动化</h3><p>环境:python 3.7.8</p>
-<pre><code>#初始化API
-import shodan 
-shodan_API_KEY =&#39;&#39;          //可以在WEB端的个人页面获取到
-shodan_api=shodan.Shodan(shodan_API_KEY)
-</code></pre>
-<p>初始化后，就可以使用shodan的库函数了</p>
-<pre><code> shodan_api.count(query, facets=None): 查询结果的数量
-
- shodan_api.host(ip, history=False): 获取一个IP的详细信息
-
- shodan_api.ports(): 获取Shodan可查询的端口号
-
- shodan_api.protocols(): 获取Shodan可查询的协议
-
- shodan_api.services(): 获取Shodan可查询的服务
-
- shodan_api.scan(ips, force=False): 使用Shodan进行扫描，ips 可以为字符或字典类型
-</code></pre>
-<p>官方API文档：<a target="_blank" rel="noopener" href="https://developer.shodan.io/api">https://developer.shodan.io/api</a></p>
-<h4 id="例1"><a href="#例1" class="headerlink" title="例1"></a>例1</h4><p>获取指定IP相关信息</p>
-<pre><code>import shodan
-import json
-
-SHODAN_API_KEY = &#39;7FYm8tOepPnmpGP3iT8GPvjzE4BdgHPu&#39;
-shodan_api = shodan.Shodan(SHODAN_API_KEY)
-ip = shodan_api.host(&#39;127.0.0.1&#39;)
-print(json.dumps(ip))
-
-</code></pre>
-<h4 id="例2"><a href="#例2" class="headerlink" title="例2"></a>例2</h4><pre><code>import shodan
-import json
-
-SHODAN_AIP_KEY = &#39;7FYm8tOepPnmpGP3iT8GPvjzE4BdgHPu&#39;
-shodan_api = shodan.Shodan(SHODAN_AIP_KEY)
-
-results = shodan_api.search(&#39;JAWS/1.0&#39;)
-print(f&#39;Results found:&#123;results[&quot;total&quot;]&#125;&#39;)
-
-for result in results[&#39;matches&#39;]:
-    print(result[&#39;ip_str&#39;] + &quot;:&quot; + str(result[&#39;port&#39;]))
-
-</code></pre>
-<pre><code>Results found:68948
-120.xx.xxx.242:143
-90.xxx.xx.228:60001
-185.xxx.xxx.244:84
-94.73.xx.xxx:8000
-47.91.xx.xxx:8009
-。。。
-</code></pre>
-<p>未完待续..</p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">工具</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">练习</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/05/03/shodan%E4%BD%BF%E7%94%A8%E5%8F%8Apoc%E6%89%B9%E9%87%8F/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
   
   
-    <a href="/2022/05/01/Vs2022%E8%87%AA%E5%B8%A6%E5%85%8D%E6%9D%80dump/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Vs2022自带免杀dump</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -436,9 +208,9 @@ for result in results[&#39;matches&#39;]:
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

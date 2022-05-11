@@ -771,7 +771,7 @@
       
         <h3 id="Mimikatz使用手册"><a href="#Mimikatz使用手册" class="headerlink" title="Mimikatz使用手册"></a>Mimikatz使用手册</h3><pre><code>原理：
 
-    当用户登陆后,会把账号密码保存在 Isass中，Isass是微软 Windows系统的安全机制它主要用于本地安全和登陆策略，通常我们在登陆系统时输入密码之后，密码便会储存在lsass内存中，经过其 Wdigest和 tspg两个模块调用后，对其使用可逆的算法进行加密并存储在内存之中，而mimikatz正是通过对lsass的逆算获取到明文密码
+    当用户登陆后,会把账号密码保存在 lsass中，lsass是微软 Windows系统的安全机制它主要用于本地安全和登陆策略，通常我们在登陆系统时输入密码之后，密码便会储存在lsass内存中，经过其 Wdigest和 tspg两个模块调用后，对其使用可逆的算法进行加密并存储在内存之中，而mimikatz正是通过对lsass的逆算获取到明文密码
 </code></pre>
         
           <a class="article-more-a" href="/2022/01/25/Mimikatz%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/#more">more >></a>
@@ -1026,6 +1026,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">免杀</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">练习</a>
               </li>
             
             <div class="clearfix"></div>

